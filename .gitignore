@@ -7,10 +7,21 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# dependencies
+/node_modules
 node_modules
 dist
 dist-ssr
 *.local
+# package-lock.json
+# dependencies
+
+node_modules/
+/node_modules
+/.pnp
+.pnp.js
+
+node_modules/
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +33,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
