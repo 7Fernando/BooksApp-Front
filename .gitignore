@@ -18,6 +18,9 @@ dist-ssr
 package-lock.json
 /.pnp
 .pnp.js
+.env/
+.env
+/.env
 
 
 # Editor directories and files
