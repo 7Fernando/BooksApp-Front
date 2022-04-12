@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -28,3 +29,23 @@ export const test = createSlice({
 export const { increment, decrement, incrementByAmount } = test.actions
 
 export default test.reducer
+=======
+
+import {typesBooks} from "../actions/books";
+
+export const initialState = {
+  allBooks: [],
+};
+
+const cases = {};
+
+cases[typesBooks.GET_ALL_BOOKS] = (initialState, payload) => (
+     {
+  ...initialState,
+  allBooks: [...payload],
+});
+
+export default function booksReducer(state = initialState, { type, payload }) {
+  return cases[type] ? cases[type](state, payload) : state;
+}
+>>>>>>> dev

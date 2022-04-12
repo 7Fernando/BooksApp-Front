@@ -1,12 +1,8 @@
-import { useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import BooksCard from "./components/books/books";
 import react, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getBooks } from "./redux/actions/books";
+import { getBooks } from "../../redux/actions/books";
 
-function App() {
+const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
   const dispatch = useDispatch();
 
@@ -14,10 +10,9 @@ function App() {
     dispatch(getBooks());
   }, []);
   return (
-    <div className="App">
-      <BooksCard />
+    <div>
+      <h2>hola</h2>
     </div>
   );
-}
-
-export default App;
+};
+export default BooksCard;
