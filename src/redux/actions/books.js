@@ -1,6 +1,7 @@
 import axios from "axios";
 
-let URL_BASE = import.meta.env.VITE__BASE_URL
+const url = import.meta.env.VITE_BASE_URL
+
 
 export const typesBooks = {
   GET_ALL_BOOKS: "GET_ALL_BOOKS",
@@ -9,7 +10,7 @@ export const typesBooks = {
 export const getBooks = () => {
   try {
     return async (dispatch) => {
-      const { data } = await axios.get(`${URL_BASE}/books`);
+      const { data } = await axios.get(`${url}/books`);
       return dispatch({
         type: typesBooks.GET_ALL_BOOKS,
         payload: data,
