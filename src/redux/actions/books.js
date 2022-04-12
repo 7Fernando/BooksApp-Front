@@ -1,6 +1,7 @@
 import axios from "axios";
 
-let BASE_URL = process.env.REACT_APP_BASE_URL;
+let BASE_URL = import.meta.env.BASE_URL
+
 export const typesBooks = {
   GET_ALL_BOOKS: "GET_ALL_BOOKS",
 };
@@ -8,9 +9,10 @@ export const typesBooks = {
 export const getBooks = () => {
   try {
     return async (dispatch) => {
-      const { data } = await axios.get(`${URL_BASE}/books`);
-      dispatch({
-        type: GET_ALL_BOOKS,
+      const { data } = await axios.get(`http://localhost:3001/api/books`);
+      console.log(data)
+      return dispatch({
+        type: typesBooks.GET_ALL_BOOKS,
         payload: data,
       });
     };

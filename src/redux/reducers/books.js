@@ -7,7 +7,8 @@ export const initialState = {
 
 const cases = {};
 
-cases[typesBooks.GET_ALL_BOOKS] = (initialState, payload) => ({
+cases[typesBooks.GET_ALL_BOOKS] = (initialState, payload) => (
+     {
   ...initialState,
   allBooks: [...payload],
 });
