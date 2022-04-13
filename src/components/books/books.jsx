@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBooks } from "../../redux/actions/books";
 import { Box, Center, Stack, Image, Button, Spinner } from "@chakra-ui/react";
 import Filter_athors from "../../components/filter/filter_athors";
+import Filter_topic from "../../components/filter/Filter_topic";
 
 import { ChevronUpIcon, ArrowDownIcon, StarIcon } from "@chakra-ui/icons";
 
@@ -29,6 +30,7 @@ const BooksCard = () => {
   return (
     <>
       <Filter_athors />
+      <Filter_topic />
       <Center py={12} flexWrap={"wrap"}>
         {books?.map((e) => (
           <Box
