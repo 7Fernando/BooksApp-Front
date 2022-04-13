@@ -16,12 +16,12 @@ dist-ssr
 # package-lock.json
 # dependencies
 package-lock.json
-node_modules/
-/node_modules
 /.pnp
 .pnp.js
+.env/
+.env
+/.env
 
-node_modules/
 
 # Editor directories and files
 .vscode/*
