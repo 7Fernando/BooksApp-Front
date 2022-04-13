@@ -19,3 +19,4 @@ cases[typesBooks.GET_BOOK_DETAILS] = (initialState, payload) => ({
 export default function booksReducer(state = initialState, { type, payload }) {
   return cases[type] ? cases[type](state, payload) : state;
 }
+
