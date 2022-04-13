@@ -1,36 +1,3 @@
-<<<<<<< HEAD
-import { createSlice } from '@reduxjs/toolkit'
-
-const initialState = {
-  value: 0,
-}
-
-export const test = createSlice({
-  name: 'test',
-  initialState,
-  reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
-    },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
-    },
-  },
-})
-
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = test.actions
-
-export default test.reducer
-=======
-
 import {typesBooks} from "../actions/books";
 
 export const initialState = {
@@ -48,4 +15,4 @@ cases[typesBooks.GET_ALL_BOOKS] = (initialState, payload) => (
 export default function booksReducer(state = initialState, { type, payload }) {
   return cases[type] ? cases[type](state, payload) : state;
 }
->>>>>>> dev
+
