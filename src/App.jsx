@@ -1,10 +1,16 @@
 import "./App.css";
-import BooksCard from "./components/books/books";
+import BooksCard from "./components/booksCard/BooksCard";
+import BookDetails from "./components/bookDetails/BookDetails";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <BooksCard />
+      <Routes>
+        <Route path="/" element={<BooksCard />} />
+        <Route path="/details" element={<BookDetails />} />
+      </Routes>
+     
     </div>
   );
 }

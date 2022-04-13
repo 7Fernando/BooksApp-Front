@@ -1,10 +1,10 @@
-import react, { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getBooks } from "../../redux/actions/books";
+import { getBooks, getBookDetails } from "../../redux/actions/books";
 import { Box, Center, Stack, Image, Button, Spinner } from "@chakra-ui/react";
-
-import { ChevronUpIcon, ArrowDownIcon, StarIcon } from "@chakra-ui/icons";
-
+import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
+import icon from "../../assets/images/favorite-icon.svg";
+import { Link } from "react-router-dom";
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
   const dispatch = useDispatch();
@@ -12,6 +12,10 @@ const BooksCard = () => {
   useEffect(() => {
     dispatch(getBooks());
   }, []);
+
+  const getDetails =(id)=>{
+    dispatch(getBookDetails(id))
+  }
   if (books.length === 0) {
     return (
       <Center py={12}>
@@ -48,11 +52,16 @@ const BooksCard = () => {
               transform: "translateY(-1%)",
             }}
           >
-            <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
-              <Center>
-                <Image height={300} src={e.cover} />
-              </Center>
-            </Box>
+            <Link to="/details" onClick={()=>getDetails(e.id)}>
+              <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
+                <Center>
+                  <Image
+                    height={300}
+                    src={e.cover}
+                  />
+                </Center>
+              </Box>
+            </Link>
             <Center>
               <Stack direction="row" spacing={2} m={5}>
                 <Button
