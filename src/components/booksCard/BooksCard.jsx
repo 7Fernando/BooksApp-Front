@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBooks, getBookDetails } from "../../redux/actions/books";
 import { Box, Center, Stack, Image, Button, Spinner } from "@chakra-ui/react";
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
-import icon from "../../assets/images/favorite-icon.svg";
 import { Link } from "react-router-dom";
+
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
   const dispatch = useDispatch();

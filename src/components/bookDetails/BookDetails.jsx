@@ -41,12 +41,12 @@ const BookDetails = () => {
   }
   return (
     <>
-      <Center flexDir={"column"}>
+      <Center flexDir={"column"} flexWrap={"wrap"}>
         <Center py={6} >
           <Image src={bookDetails.cover} mb={2}></Image>
         </Center>
         <Center boxShadow='2xl' p='6' rounded='md' bg='white'>
-        <TableContainer>
+        <TableContainer >
           <Table
             variant="striped"
             colorScheme="green"
