@@ -1,5 +1,5 @@
-import { useState } from "react";
 
+import { useState } from "react";
 import "./App.css";
 import BooksCard from "./components/books/books";
 import react, { useEffect } from "react";
@@ -10,12 +10,6 @@ import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home"
 
 function App() {
-  const books = useSelector((state) => state.books.allBooks);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getBooks());
-  }, []);
   return (
     <BrowserRouter>
     <div className="App">
