@@ -25,7 +25,6 @@ export const getAuthorsBook = (name) => {
   try {
     return async (dispatch) => {
       const { data } = await axios.get(`${url}/author/S?name=${name}`);
-      console.log(data.book);
       return dispatch({
         type: typesAuthors.GET_AUTHORS_BOOK,
         payload: data.book,
