@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBooks } from "../../redux/actions/books";
 import { Box, Center, Stack, Image, Button, Spinner } from "@chakra-ui/react";
 import Filter_athors from "../../components/filter/filter_athors";
-
 import { ChevronUpIcon, ArrowDownIcon, StarIcon } from "@chakra-ui/icons";
 
 const BooksCard = () => {
