@@ -1,25 +1,33 @@
 
-import { useState } from "react";
+import react, { useState, useEffect } from "react";
 import "./App.css";
-import BooksCard from "./components/books/books";
-import react, { useEffect } from "react";
+import BooksCard from "./components/booksCard/BooksCard";
+import BookDetails from "./components/bookDetails/BookDetails";
+import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getBooks } from "./redux/actions/books";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home"
 
+
 function App() {
   return (
-    <BrowserRouter>
+    
     <div className="App">
       <Routes>
+
+        <Route path="/home" element={<BooksCard />} />
+        <Route path="/details" element={<BookDetails />} />
+
+     
+
       <Route exact path="/" element={<Landing />} />
-      <Route exact path="/home" element={<Home />} />
-      {/* <BooksCard /> */}
+ 
+ 
       </Routes>
+
     </div>
-    </BrowserRouter>
+    
   );
 }
 
