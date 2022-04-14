@@ -1,16 +1,6 @@
 import { Stack,Heading, Spacer, Center, Image,  Text, Grid,GridItem, Flex, Box, Container,Square, Button, Wrap} from "@chakra-ui/react";
-<<<<<<< HEAD
-// import { useEffect } from "react";
  import { Link } from "react-router-dom";
-// import { Formik, Form } from "formik";
-=======
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
->>>>>>> d4628cc5bfb415041d059fa2a93ed794b245f3c5
-
-
-
-
 
 const Landing = () => {
 

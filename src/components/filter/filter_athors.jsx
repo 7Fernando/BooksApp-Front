@@ -8,10 +8,7 @@ import { Input } from "@chakra-ui/react";
 export default function Filter_athors() {
   const dispatch = useDispatch();
   const allAthors = useSelector((state) => state.authors.allAthors);
-<<<<<<< HEAD
 
-=======
->>>>>>> d4628cc5bfb415041d059fa2a93ed794b245f3c5
   useEffect(() => {
     dispatch(getAuthors());
   }, []);
@@ -39,9 +36,7 @@ export default function Filter_athors() {
         <datalist id="author" className={s.dataList}>
           {allAthors &&
             allAthors.map((author) => {
-<<<<<<< HEAD
-              return <option value={author.name} key={author.id}></option>;
-=======
+
               return (
                 <option
                   className={s.option}
@@ -49,7 +44,7 @@ export default function Filter_athors() {
                   key={author.id}
                 ></option>
               );
->>>>>>> d4628cc5bfb415041d059fa2a93ed794b245f3c5
+
             })}
         </datalist>
       </label>

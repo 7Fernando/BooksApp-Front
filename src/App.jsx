@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home";
 
-export const App = () => {
+ const App = () => {
   return (
     <div className="App">
       <Routes>
