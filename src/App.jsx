@@ -1,5 +1,4 @@
 import "./App.css";
-import BooksCard from "./components/booksCard/BooksCard";
 import BookDetails from "./components/bookDetails/BookDetails";
 import { Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing/Landing";
