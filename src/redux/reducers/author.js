@@ -1,4 +1,6 @@
-import {typesAuthors} from "../actions/authors"
+import { typesAuthors } from "../actions/authors";
+import {useSelector } from "react-redux";
+
 
 export const initialState = {
   allAthors: [],
@@ -6,12 +8,18 @@ export const initialState = {
 
 const cases = {};
 
-cases[typesAuthors.GET_ALL_AUTHORS] = (initialState, payload) => (
-     {
+cases[typesAuthors.GET_ALL_AUTHORS] = (initialState, payload) => ({
   ...initialState,
   allAthors: [...payload],
 });
 
-export default function authorsReducer(state = initialState, { type, payload }) {
+
+
+
+
+export default function authorsReducer(
+  state = initialState,
+  { type, payload }
+) {
   return cases[type] ? cases[type](state, payload) : state;
 }
