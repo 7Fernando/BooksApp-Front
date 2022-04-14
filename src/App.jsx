@@ -7,7 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getBooks } from "./redux/actions/books";
 import Landing from "./pages/Landing/Landing";
-import Home from "./pages/Home"
+import Home from "./pages/Home/index"
 
 
 function App() {
@@ -15,8 +15,8 @@ function App() {
     
     <div className="App">
       <Routes>
-
-        <Route path="/home" element={<BooksCard />} />
+         <Route path='/' element={<Landing/>}/>
+        <Route path="/home" element={<Home />} />
         <Route path="/details" element={<BookDetails />} />
 
      

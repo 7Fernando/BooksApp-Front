@@ -5,14 +5,9 @@ import { Box, Center, Stack, Image, Button, Spinner } from "@chakra-ui/react";
 
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
-
 import Filter_athors from "../../components/filter/filter_athors";
-<<<<<<< HEAD:src/components/books/books.jsx
-=======
 import Filter_topic from "../../components/filter/Filter_topic";
 
->>>>>>> 9c3425dd58f3d11e4b4d072e0094451ebac22a05:src/components/booksCard/BooksCard.jsx
-import { ChevronUpIcon, ArrowDownIcon, StarIcon } from "@chakra-ui/icons";
 
 
 const BooksCard = () => {
