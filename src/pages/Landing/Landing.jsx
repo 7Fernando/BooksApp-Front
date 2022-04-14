@@ -1,17 +1,15 @@
 import { Stack,Heading, Spacer, Center, Image,  Text, Grid,GridItem, Flex, Box, Container,Square, Button, Wrap} from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Formik, Form } from "formik";
+
 
 
 
 
 const Landing = () => {
 
-
 	return (
 		
-	
 		<Grid
 		h='100vh'
 		templateRows='repeat(2)'
