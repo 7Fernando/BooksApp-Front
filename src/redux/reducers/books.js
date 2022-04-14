@@ -2,7 +2,8 @@ import { typesBooks } from "../actions/books";
 
 export const initialState = {
   allBooks: [],
-  bkBooks:[]
+  bkBooks: [],
+  bookDetails: {},
 };
 
 const cases = {};
@@ -15,8 +16,12 @@ cases[typesBooks.GET_ALL_BOOKS] = (initialState, payload) => ({
 
 cases[typesBooks.GET_AUTHORS_BOOK] = (initialState, payload) => ({
   ...initialState,
-  
+
   allBooks: [...payload],
+});
+cases[typesBooks.GET_BOOK_DETAILS] = (initialState, payload) => ({
+  ...initialState,
+  bookDetails: { ...payload },
 });
 
 export default function booksReducer(state = initialState, { type, payload }) {
