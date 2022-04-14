@@ -6,7 +6,6 @@ export default function Filter_athors() {
   const dispatch = useDispatch();
   const allAthors = useSelector((state) => state.authors.allAthors);
 
-  console.log(allAthors);
   useEffect(() => {
     dispatch(getAuthors());
   }, []);
@@ -18,7 +17,7 @@ export default function Filter_athors() {
         <datalist id="author">
           {allAthors &&
             allAthors.map((author) => {
-              return <option value={author.name}></option>;
+              return <option value={author.name} key={author.id}></option>;
             })}
         </datalist>
       </label>

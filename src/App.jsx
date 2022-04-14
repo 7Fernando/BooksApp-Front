@@ -6,27 +6,17 @@ import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getBooks } from "./redux/actions/books";
 import Landing from "./pages/Landing/Landing";
-import Home from "./pages/Home"
-
+import Home from "./pages/Home";
 
 function App() {
   return (
-    
     <div className="App">
       <Routes>
-
+        <Route exact path="/" element={<Landing />} />
         <Route path="/home" element={<BooksCard />} />
         <Route path="/details" element={<BookDetails />} />
-
-     
-
-      <Route exact path="/" element={<Landing />} />
- 
- 
       </Routes>
-
     </div>
-    
   );
 }
 
