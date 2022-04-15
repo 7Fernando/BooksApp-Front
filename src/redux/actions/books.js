@@ -5,8 +5,9 @@ const url = import.meta.env.VITE_BASE_URL;
 export const typesBooks = {
   GET_ALL_BOOKS: "GET_ALL_BOOKS",
   GET_AUTHORS_BOOK:"GET_AUTHORS_BOOK",
-  GET_BOOK_DETAILS: "GET_BOOK_DETAILS"
-
+  GET_BOOK_DETAILS: "GET_BOOK_DETAILS",
+  SORT_BOOKS: "SORT_BOOKS",
+  SORT_SCORE: "SORT_SCORE",
 };
 
 export const getBooks = () => {
@@ -36,3 +37,31 @@ export const getBookDetails = (id) => {
     console.error(error);
   }
 };
+
+export const sortBooksByName = (sort) => {
+  try {
+
+    return (dispatch) => {
+    return dispatch( {
+      type: typesBooks.SORT_BOOKS,
+      payload: sort,
+    });
+  };
+  } catch (error) {
+    console.error(error);
+  }
+}
+//score todavia en desarrollo
+export const sortBooksByScore = (sort) => {
+  try {
+
+    return (dispatch) => {
+    return dispatch( {
+      type: typesBooks.SORT_SCORE,
+      payload: sort,
+    });
+  };
+  } catch (error) {
+    console.error(error);
+  }
+}

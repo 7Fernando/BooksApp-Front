@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getBooks, getBookDetails } from "../../redux/actions/books";
-import { Box, Center, Stack, Image, Button, Spinner } from "@chakra-ui/react";
+import { getBooks, getBookDetails, sortBooksByName, sortBooksByScore } from "../../redux/actions/books";
+import { Box, Center, Stack, Image, Button, Spinner, Select } from "@chakra-ui/react";
 
-import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
+
 import { Link } from "react-router-dom";
 
 import Filter_athors from "../../components/filter/filter_athors";
-<<<<<<< HEAD:src/components/books/books.jsx
-=======
+
 import Filter_topic from "../../components/filter/Filter_topic";
 
->>>>>>> 9c3425dd58f3d11e4b4d072e0094451ebac22a05:src/components/booksCard/BooksCard.jsx
 import { ChevronUpIcon, ArrowDownIcon, StarIcon } from "@chakra-ui/icons";
+import { green } from "@mui/material/colors";
 
 
 const BooksCard = () => {
@@ -23,9 +22,19 @@ const BooksCard = () => {
     dispatch(getBooks());
   }, []);
 
-  const getDetails =(id)=>{
+  const getDetails = (id) => {
     dispatch(getBookDetails(id))
   }
+
+  function handleSortByName(e) {
+    e.preventDefault();
+    dispatch(sortBooksByName(e.target.value));
+  }
+  function handleSortByScore(e) {
+    e.preventDefault();
+    dispatch(sortBooksByScore(e.target.value));
+  }
+
   if (books.length === 0) {
     return (
       <Center py={12}>
@@ -41,6 +50,18 @@ const BooksCard = () => {
   }
   return (
     <>
+    <li>
+        <Select onChange={e => handleSortByName(e)} bg={"green.200"} size='sm' placeholder="small size" width={"10rem"} marginLeft='45%'>
+          <option value="selected" hidden >Alphabetic</option>
+          <option value="Asc">A - Z</option>
+          <option value="Desc">Z - A</option>
+        </Select>
+        <Select onChange={e => handleSortByScore(e)}bg={"green.200"} size='sm' placeholder="small size" width={"10rem"} marginLeft='45%'>
+          <option value="selected" hidden>Popularity</option>
+          <option value="Asc">Most popular</option>
+          <option value="Desc">Less popular</option>
+        </Select>
+    </li>
       <Filter_athors />
       <Filter_topic />
       <Center py={12} flexWrap={"wrap"}>
@@ -64,7 +85,7 @@ const BooksCard = () => {
               transform: "translateY(-1%)",
             }}
           >
-            <Link to="/details" onClick={()=>getDetails(e.id)}>
+            <Link to="/details" onClick={() => getDetails(e.id)}>
               <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
                 <Center>
                   <Image
