@@ -1,0 +1,12 @@
+.conteiner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.label {
+  color: #1a202c;
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+}
+

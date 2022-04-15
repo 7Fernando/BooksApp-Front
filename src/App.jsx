@@ -1,12 +1,21 @@
 import "./App.css";
-import BooksCard from "./components/books/books";
+import BookDetails from "./components/bookDetails/BookDetails";
+import { Routes, Route } from "react-router-dom";
+import Landing from "./pages/Landing/Landing";
+import Home from "./pages/Home/index"
 
-function App() {
+
+ const App = () => {
+
   return (
     <div className="App">
-      <BooksCard />
+      <Routes>
+        <Route path='/' element={<Landing/>}/>
+        <Route path="/home" element={<Home />} />
+        <Route path="/details/:id" element={<BookDetails />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
