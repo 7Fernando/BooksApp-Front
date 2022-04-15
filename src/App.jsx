@@ -6,6 +6,7 @@ import Home from "./pages/Home/index"
 
 
  const App = () => {
+
   return (
     <div className="App">
       <Routes>
