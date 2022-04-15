@@ -1,21 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Text } from "@chakra-ui/react";
+import Filter_athors from "../../components/filter/filter_athors";
 import { getBooks, getBookDetails, sortBooksByName, sortBooksByScore } from "../../redux/actions/books";
 import { Box, Center, Stack, Image, Button, Spinner, Select } from "@chakra-ui/react";
-
-
 import { Link } from "react-router-dom";
-
-import Filter_athors from "../../components/filter/filter_athors";
-
 import Filter_topic from "../../components/filter/Filter_topic";
-
-import { ChevronUpIcon, ArrowDownIcon, StarIcon } from "@chakra-ui/icons";
-import { green } from "@mui/material/colors";
-
+import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
+import Search from "../../components/searchbar/search";
 
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
+  const searchBooks = useSelector((state) => state.books.searchBook);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,10 +58,13 @@ const BooksCard = () => {
           <option value="Desc">Less popular</option>
         </Select>
     </li>
+
+      <Search />
       <Filter_athors />
       <Filter_topic />
+            
       <Center py={12} flexWrap={"wrap"}>
-        {books?.map((e) => (
+        {searchBooks?.[0] === "No books found"? <Text fontSize='5xl' fontWeight="bold" >Error 404! No books found :(</Text>: books?.length && books?.map((e) =>  ( 
           <Box
             key={e.id}
             role={"group"}

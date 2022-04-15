@@ -1,10 +1,6 @@
 import { Stack,Heading, Spacer, Center, Image,  Text, Grid,GridItem, Flex, Box, Container,Square, Button, Wrap} from "@chakra-ui/react";
+ import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-
-
-
-
 
 const Landing = () => {
 
