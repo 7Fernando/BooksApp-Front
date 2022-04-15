@@ -11,7 +11,7 @@ import Home from "./pages/Home/index"
       <Routes>
         <Route path='/' element={<Landing/>}/>
         <Route path="/home" element={<Home />} />
-        <Route path="/details" element={<BookDetails />} />
+        <Route path="/details/:id" element={<BookDetails />} />
       </Routes>
     </div>
   );
