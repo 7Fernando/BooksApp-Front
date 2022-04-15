@@ -1,10 +1,10 @@
 import { React } from 'react';
 import userSin from '../../assets/images/userSin.png'
+import {Link} from 'react-router-dom';
 import {
   Box,
   Flex,
   Avatar,
-  Link,
   Button,
   Menu,
   MenuButton,
@@ -27,8 +27,9 @@ export default function NavBar() {
     <>
       <Box bg='black' px={3} height='150px' >
         <Flex h={40} alignItems={'center'} justifyContent={'space-between'}>
-          <Box color='green.300'size={'lg'} fontSize='30px'>BOOKFLIX</Box>
-
+          <Link to='/home'>
+            <Box color='green.300'size={'lg'} fontSize='30px'>BOOKFLIX</Box>
+          </Link>
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={20} >
               <Button onClick={toggleColorMode} size={'lg'} color='green.300'>
