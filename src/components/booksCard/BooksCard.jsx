@@ -43,7 +43,7 @@ const BooksCard = () => {
       <Filter_topic />
 
       <Center py={12} flexWrap={"wrap"}>
-        {searchBooks?.[0] === "No books found"? <Text fontSize='5xl' fontWeight="bold" >Error 404! No books found :(</Text>: books.length && books?.map((e) =>  ( 
+        {searchBooks?.[0] === "No books found"? <Text fontSize='5xl' fontWeight="bold" >Error 404! No books found :(</Text>: books?.length && books?.map((e) =>  ( 
           <Box
             key={e.id}
             role={"group"}
