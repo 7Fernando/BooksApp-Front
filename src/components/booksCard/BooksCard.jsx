@@ -4,7 +4,6 @@ import { Text } from "@chakra-ui/react";
 import Filter_athors from "../../components/filter/filter_athors";
 import {
   getBooks,
-  getBookDetails,
   sortBooksByName,
   sortBooksByScore,
 } from "../../redux/actions/books";
