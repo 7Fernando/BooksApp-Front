@@ -5,7 +5,10 @@ import Filter_athors from "../../components/filter/filter_athors";
 import { getBooks, getBookDetails, sortBooksByName, sortBooksByScore } from "../../redux/actions/books";
 import { Box, Center, Stack, Image, Button, Spinner, Select } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+
+import Filter_athors from "../../components/filter/filter_athors";
 import Filter_topic from "../../components/filter/Filter_topic";
+
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import Search from "../../components/searchbar/search";
 

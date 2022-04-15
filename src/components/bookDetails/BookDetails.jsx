@@ -23,12 +23,15 @@ import englandFlag from "../../assets/images/england.svg";
 import spainFlag from "../../assets/images/spain.svg";
 import like from "../../assets/images/like.png";
 import dislike from "../../assets/images/dislike2.png";
+import NavBar from "../NavBar/NavBar";
 const BookDetails = () => {
   const bookDetails = useSelector((state) => state.books.bookDetails);
   console.log(11, bookDetails);
   if (Object.keys(bookDetails).length === 0) {
     return (
+      
       <Center py={12}>
+        
         <Spinner
           thickness="4px"
           speed="0.65s"
@@ -41,6 +44,7 @@ const BookDetails = () => {
   }
   return (
     <>
+      <NavBar />
       <Center flexDir={"column"} flexWrap={"wrap"}>
         <Center py={6} >
           <Image src={bookDetails.cover} mb={2}></Image>
