@@ -5,9 +5,8 @@ import BooksCard from  '../../components/booksCard/BooksCard'
 export default function Home() {
   return (
     <div>
-      
-      <NavBar/>
-      <BooksCard  />
+      <NavBar />
+      <BooksCard />
     </div>
-  )
+  );
 }
