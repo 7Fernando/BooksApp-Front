@@ -67,6 +67,12 @@ cases[typesBooks.SEARCH_BOOKS] = (initialState, payload) => (
     allBooks: [...payload],
   }
 );
+cases[typesBooks.CLEAR_BOOK_DETAILS] = (initialState, payload) => (
+  {
+    ...initialState,
+    bookDetails:{},
+  }
+);
 
 
 export default function booksReducer(state = initialState, { type, payload }) {
