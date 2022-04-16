@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import Filter_topic from "../../components/filter/Filter_topic";
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import Search from "../../components/searchbar/search";
+import SortByName from "../sorts/sortByName";
+import SortByScore from "../sorts/sortByScore";
 
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
@@ -20,15 +22,6 @@ const BooksCard = () => {
 
   const getDetails = (id) => {
     dispatch(getBookDetails(id))
-  }
-
-  function handleSortByName(e) {
-    e.preventDefault();
-    dispatch(sortBooksByName(e.target.value));
-  }
-  function handleSortByScore(e) {
-    e.preventDefault();
-    dispatch(sortBooksByScore(e.target.value));
   }
 
   if (books.length === 0) {
@@ -46,19 +39,8 @@ const BooksCard = () => {
   }
   return (
     <>
-    <li>
-        <Select onChange={e => handleSortByName(e)} bg={"green.200"} size='sm' placeholder="small size" width={"10rem"} marginLeft='45%'>
-          <option value="selected" hidden >Alphabetic</option>
-          <option value="Asc">A - Z</option>
-          <option value="Desc">Z - A</option>
-        </Select>
-        <Select onChange={e => handleSortByScore(e)}bg={"green.200"} size='sm' placeholder="small size" width={"10rem"} marginLeft='45%'>
-          <option value="selected" hidden>Popularity</option>
-          <option value="Asc">Most popular</option>
-          <option value="Desc">Less popular</option>
-        </Select>
-    </li>
-
+      <SortByName />
+      <SortByScore />
       <Search />
       <Filter_athors />
       <Filter_topic />

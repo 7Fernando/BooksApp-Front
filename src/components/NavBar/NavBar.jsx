@@ -18,9 +18,10 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function NavBar() {
+  const { logout, user } = useAuth0();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -45,7 +46,7 @@ export default function NavBar() {
                   minW={0}>
                   <Avatar
                     size={'lg'}
-                    src={userSin}
+                    src={user? user.picture : userSin}
                   />
                 </MenuButton>
                 <MenuList alignItems={'center'} position="relative"  zIndex={3}>
@@ -53,18 +54,18 @@ export default function NavBar() {
                   <Center>
                     <Avatar
                       size={'2xl'}
-                      src={userSin}
+                      src={user? user.picture : userSin}
                     />
                   </Center>
                   <br />
                   <Center>
-                    <p>Bienvenido : Username</p> 
+                    <p>Bienvenido : {user? user.nickname : " "}</p> 
                   </Center>
                   <br />
                   <MenuDivider />
                   <MenuItem>My Profile</MenuItem>
                   <MenuItem>Favorites</MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem onClick={()=>logout()}>Logout</MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
