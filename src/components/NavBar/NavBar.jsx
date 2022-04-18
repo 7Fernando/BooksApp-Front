@@ -59,7 +59,7 @@ export default function NavBar() {
                   </Center>
                   <br />
                   <Center>
-                    <p>Bienvenido : {user? user.nickname : " "}</p> 
+                    <p>Welcome : {user? user.nickname : " "}</p> 
                   </Center>
                   <br />
                   <MenuDivider />
