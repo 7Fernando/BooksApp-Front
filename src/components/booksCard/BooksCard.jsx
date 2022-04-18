@@ -17,7 +17,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import Filter_topic from "../../components/filter/Filter_topic";
+import Filter_topic from "../../components/filter/Filter_topic";   
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import Search from "../../components/searchbar/search";
 import SortByName from "../sorts/sortByName";
