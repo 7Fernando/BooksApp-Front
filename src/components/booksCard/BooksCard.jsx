@@ -43,9 +43,6 @@ const BooksCard = () => {
     }
   }, [isLoading]);
 
-  const getDetails = (id) => {
-    dispatch(getBookDetails(id))
-  }
   if (books.length === 0 || undefined) {
     return (
       <Center py={12}>
@@ -61,14 +58,8 @@ const BooksCard = () => {
   }
   return (
     <>
-      <SortByName />
-      <SortByScore />
-      <Search />
-      <Filter_athors />
-      <Filter_topic />
-      <Filter_language />
-
       <Center py={12} flexWrap={"wrap"}>
+      
         {searchBooks?.[0] === "No books found" ? (
           <Text fontSize="5xl" fontWeight="bold">
            No books found :(

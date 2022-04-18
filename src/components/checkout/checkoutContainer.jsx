@@ -1,7 +1,7 @@
 import React from "react";
-import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import CheckoutForm from "../CheckoutForm/CheckoutForm";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./checkoutForm";
 
 const PUBLIC_KEY =
   "pk_test_51KbWGnKtLAVaA2OOASlQxw9JtlCly3EiI1iEsBzJ53sjgoLoCMpCAwm6Hg6NbNo7BQzjal5Fp75exOsDqBOM66ES000f5v0HgQ";

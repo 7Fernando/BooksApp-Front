@@ -17,7 +17,7 @@ const SortByName = () => {
 
   return (
     <Box>
-        <Select onChange={e => handleSortByName(e)} bg={"green.200"} size='sm' width={"10rem"} marginLeft='45%'>
+        <Select onChange={e => handleSortByName(e)} bg={"green.200"} size='sm' width={"10rem"}>
           <option value="selected" hidden >Alphabetic</option>
           <option value="Asc">A - Z</option>
           <option value="Desc">Z - A</option>
