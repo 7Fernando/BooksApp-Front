@@ -4,9 +4,13 @@ import { getBooks } from "../../redux/actions/books";
 import { getTopic, getTopicBook } from "../../redux/actions/topic";
 import { Input } from "@chakra-ui/react";
 import s from "./Filter_athors.module.css";
+
+
+
 export default function Filter_topic() {
   const dispatch = useDispatch();
   const allTopic = useSelector((state) => state.topic.allTopics);
+  
   useEffect(() => {
     dispatch(getTopic());
   }, []);
