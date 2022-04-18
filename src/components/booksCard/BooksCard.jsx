@@ -13,7 +13,7 @@ import {
   Stack,
   Image,
   Button,
-  Spinner,
+  Spinner,   
   Select,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
