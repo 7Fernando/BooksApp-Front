@@ -7,15 +7,15 @@ import {
 } from "../../redux/actions/books";
 import {
   Box,
-  Center,
+  Center,   
   Stack,
   Image,
   Button,
-  Spinner,
+  Spinner,   
   Select,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import Filter_topic from "../../components/filter/Filter_topic";
+import Filter_topic from "../filter/Filter_topic";   
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import Search from "../../components/searchbar/search";
 import SortByName from "../sorts/sortByName";
@@ -23,13 +23,13 @@ import SortByScore from "../sorts/sortByScore";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
 import { ReportGmailerrorred } from "@mui/icons-material";
+import Filter_language from "../filter/Filter_language";
 
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user);
   const newUser = {
     mail: user?.email ,
     name: user?.nickname,
@@ -39,10 +39,8 @@ const BooksCard = () => {
   useEffect(() => {
     dispatch(getBooks());
     if (isLoading === false) {
-      console.log(newUser)
     dispatch(postUser(newUser));
     }
-    // dispatch(postUser({mail: "chanchito@ReportGmailerrorred.com", name: "mate", picture: "esto es una foto de mate"}));
   }, [isLoading]);
 
   const getDetails = (id) => {
@@ -68,6 +66,7 @@ const BooksCard = () => {
       <Search />
       <Filter_athors />
       <Filter_topic />
+      <Filter_language />
 
       <Center py={12} flexWrap={"wrap"}>
         {searchBooks?.[0] === "No books found" ? (
