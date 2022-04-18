@@ -9,20 +9,20 @@ import {
 } from "../../redux/actions/books";
 import {
   Box,
-  Center,
+  Center,   
   Stack,
   Image,
   Button,
-  Spinner,
+  Spinner,   
   Select,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import Filter_topic from "../../components/filter/Filter_topic";   
+import Filter_topic from "../filter/Filter_topic";   
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import Search from "../../components/searchbar/search";
 import SortByName from "../sorts/sortByName";
 import SortByScore from "../sorts/sortByScore";
-import Filter_language from "../filter/filter_language";
+import Filter_language from "../filter/Filter_language";
 
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
