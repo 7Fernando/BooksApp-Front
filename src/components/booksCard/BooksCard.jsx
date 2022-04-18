@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Text } from "@chakra-ui/react";
-import Filter_athors from "../../components/filter/Filter_language";
+import Filter_athors from "../../components/filter/filter_authors";
 import {
   getBooks,
   sortBooksByName,
