@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Text } from "@chakra-ui/react";
-import Filter_athors from "../../components/filter/Filter_language";
+import Filter_athors from "../../components/filter/filter_language";
 import {
   getBooks,
   sortBooksByName,
@@ -22,7 +22,7 @@ import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import Search from "../../components/searchbar/search";
 import SortByName from "../sorts/sortByName";
 import SortByScore from "../sorts/sortByScore";
-import Filter_language from "../filter/filter_language";
+import Filter_language from "../filter/Filter_language";
 
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
