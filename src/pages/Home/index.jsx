@@ -1,13 +1,21 @@
 import React from "react";
-import NavBar from "../../components/NavBar/NavBar";
+import { Box, Flex } from "@chakra-ui/react";
+import NavBar from "../../components/navBar/NavBar";
+import SideBar from "../../components/sideBar/sideBar";
 import BooksCard from "../../components/booksCard/BooksCard";
 
 export default function Home() {
-
   return (
-    <div>
+    <>
       <NavBar />
-      <BooksCard/>
-    </div>
+      <Flex>
+        <Box width={"20%"} boxShadow="dark-lg">
+          <SideBar />
+        </Box>
+        <Box width={"80%"}>
+          <BooksCard />
+        </Box>
+      </Flex>
+    </>
   );
 }
