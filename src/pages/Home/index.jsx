@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
-import NavBar from "../../components/navBar/navBar";
+import NavBar from "../../components/navBar3333333/navBar";
 import SideBar from "../../components/sideBar/sideBar";
 import BooksCard from "../../components/booksCard/BooksCard";
 
