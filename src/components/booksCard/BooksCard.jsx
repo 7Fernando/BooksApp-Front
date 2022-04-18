@@ -22,7 +22,7 @@ import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import Search from "../../components/searchbar/search";
 import SortByName from "../sorts/sortByName";
 import SortByScore from "../sorts/sortByScore";
-import Filter_language from "../filter/filter_language";
+import Filter_language from "../filter/Filter_language";
 
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
