@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Text } from "@chakra-ui/react";
 import Filter_athors from "../../components/filter/filter_language";
+import Filter_athors from "../../components/filter/filter_athors";
 import {
   getBooks,
   sortBooksByName,
@@ -34,8 +35,8 @@ const BooksCard = () => {
   }, []);
 
   const getDetails = (id) => {
-    dispatch(getBookDetails(id))
-  }
+    dispatch(getBookDetails(id));
+  };
   if (books.length === 0 || undefined) {
     return (
       <Center py={12}>
@@ -61,7 +62,7 @@ const BooksCard = () => {
       <Center py={12} flexWrap={"wrap"}>
         {searchBooks?.[0] === "No books found" ? (
           <Text fontSize="5xl" fontWeight="bold">
-           No books found :(
+            No books found :(
           </Text>
         ) : (
           books?.length &&
