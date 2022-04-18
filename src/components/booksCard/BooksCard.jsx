@@ -22,6 +22,7 @@ import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import Search from "../../components/searchbar/search";
 import SortByName from "../sorts/sortByName";
 import SortByScore from "../sorts/sortByScore";
+import Filter_language from "../filter/filter_language";
 
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
@@ -55,6 +56,7 @@ const BooksCard = () => {
       <Search />
       <Filter_athors />
       <Filter_topic />
+      <Filter_language />
 
       <Center py={12} flexWrap={"wrap"}>
         {searchBooks?.[0] === "No books found" ? (

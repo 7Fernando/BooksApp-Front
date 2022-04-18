@@ -12,6 +12,7 @@ export default function Filter_athors() {
   useEffect(() => {
     dispatch(getAuthors());
   }, []);
+  
   const handleFilterAhutors = (e) => {
     if (e.target.value !== " ") {
       dispatch(getBooks());
