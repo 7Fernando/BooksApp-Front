@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 
 import NavBar from "../navBar/navBar";
+import Footer from "../footer/Footer";
 import { ViewIcon } from "@chakra-ui/icons";
 import { useParams } from "react-router-dom";
 import like from "../../assets/images/like.png";
@@ -208,6 +209,7 @@ const BookDetails = () => {
           </TableContainer>
         </Center>
       </Center>
+      <Footer />
     </>
   );
 };
