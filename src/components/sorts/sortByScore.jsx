@@ -17,7 +17,7 @@ const SortByScore = () => {
 
   return (
     <Box>
-        <Select onChange={e => handleSortByScore(e)}bg={"green.200"} size='sm' width={"10rem"} marginLeft='45%'>
+        <Select onChange={e => handleSortByScore(e)}bg={"green.200"} size='sm' width={"10rem"} >
           <option value="selected" hidden>Popularity</option>
           <option value="Asc">Most popular</option>
           <option value="Desc">Less popular</option>

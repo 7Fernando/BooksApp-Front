@@ -17,16 +17,18 @@ import {
   Tbody,
   Tfoot,
 } from "@chakra-ui/react";
-import iconProfile from "../../assets/images/Circle-icons-profile.svg";
-import { ViewIcon } from "@chakra-ui/icons";
-import englandFlag from "../../assets/images/england.svg";
-import spainFlag from "../../assets/images/spain.svg";
-import like from "../../assets/images/like.png";
-import dislike from "../../assets/images/dislike2.png";
-import NavBar from "../NavBar/NavBar";
-import { useParams } from "react-router-dom";
-import { getBookDetails, clearState } from "../../redux/actions/books";
+
+import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
+import { ViewIcon } from "@chakra-ui/icons";
+import { useParams } from "react-router-dom";
+import like from "../../assets/images/like.png";
+import spainFlag from "../../assets/images/spain.svg";
+import dislike from "../../assets/images/dislike2.png";
+import englandFlag from "../../assets/images/england.svg";
+import iconProfile from "../../assets/images/Circle-icons-profile.svg";
+import { getBookDetails, clearState } from "../../redux/actions/books";
+
 const BookDetails = () => {
   let bookDetails = useSelector((state) => state.books.bookDetails);
   const dispatch = useDispatch();
