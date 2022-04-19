@@ -18,7 +18,7 @@ import {
   Tfoot,
 } from "@chakra-ui/react";
 
-import NavBar from "../navBar/NavBar";
+import NavBar from "../navBar/navBar";
 import { ViewIcon } from "@chakra-ui/icons";
 import { useParams } from "react-router-dom";
 import like from "../../assets/images/like.png";
