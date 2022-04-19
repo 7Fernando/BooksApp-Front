@@ -26,6 +26,7 @@ import dislike from "../../assets/images/dislike2.png";
 import NavBar from "../NavBar/NavBar";
 import { useParams } from "react-router-dom";
 import { getBookDetails, clearState } from "../../redux/actions/books";
+import Footer from "../footer/Footer";
 const BookDetails = () => {
   let bookDetails = useSelector((state) => state.books.bookDetails);
   const dispatch = useDispatch();
@@ -206,6 +207,7 @@ const BookDetails = () => {
           </TableContainer>
         </Center>
       </Center>
+      <Footer />
     </>
   );
 };
