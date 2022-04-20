@@ -14,7 +14,8 @@ import {
 import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 
-function PriceWrapper({ children }) {
+
+const PriceWrapper = ({ children }) => {
   return (
     <Box
       mb={4}
@@ -27,7 +28,7 @@ function PriceWrapper({ children }) {
       {children}
     </Box>
   );
-}
+};
 
 const Plans = () => {
   return (
@@ -156,8 +157,8 @@ const Plans = () => {
             </VStack>
           </Box>
         </PriceWrapper>
-        <PriceWrapper >
-          <Box py={4} px={12}   >
+        <PriceWrapper>
+          <Box py={4} px={12}>
             <Text fontWeight="500" fontSize="2xl">
               Lover
             </Text>
@@ -205,7 +206,6 @@ const Plans = () => {
             </Box>
           </VStack>
         </PriceWrapper>
-
       </Stack>
     </Box>
   );
