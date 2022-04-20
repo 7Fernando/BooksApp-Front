@@ -27,7 +27,7 @@ export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Box bg="black" px={3} height="150px">
+      <Box bg="black" px={3} height="150px" >
         <Flex h={40} alignItems={"center"} justifyContent={"space-between"}>
           <Link to="/home">
             <Box color="green.300" size={"lg"} fontSize="30px">
@@ -41,7 +41,7 @@ export default function NavBar() {
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
 
-              <Menu>
+              <Menu >
                 <MenuButton
                   as={Button}
                   rounded={"full"}
@@ -62,8 +62,10 @@ export default function NavBar() {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>My Profile</MenuItem>
-                  <MenuItem>Favorites</MenuItem>
+                  <MenuItem>My Profile Panel</MenuItem>
+                  <Link to='/favorites'>
+                  <MenuItem>My Favorites</MenuItem>
+                  </Link>
                   <MenuItem onClick={() => logout()}>Logout</MenuItem>
                 </MenuList>
               </Menu>

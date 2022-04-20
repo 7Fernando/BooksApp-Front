@@ -3,7 +3,8 @@ import books from "./books";
 import authors from "./author";
 import topic from "./topic";
 import user from "./user";
-import languages from './languages'
+import languages from './languages';
+import favorites from './favorites'
 
 
 export default combineReducers({
@@ -11,5 +12,6 @@ export default combineReducers({
   authors,
   topic,
   user,
-  languages
+  languages, 
+  favorites
 });

@@ -16,10 +16,11 @@ import {
   Td,
   Tbody,
   Tfoot,
+  Button
 } from "@chakra-ui/react";
 
 import NavBar from "../navBar/NavBar";
-import { ViewIcon } from "@chakra-ui/icons";
+import { ViewIcon ,SmallAddIcon} from "@chakra-ui/icons";
 import { useParams } from "react-router-dom";
 import like from "../../assets/images/like.png";
 import spainFlag from "../../assets/images/spain.svg";
@@ -27,6 +28,7 @@ import dislike from "../../assets/images/dislike2.png";
 import englandFlag from "../../assets/images/england.svg";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
 import { getBookDetails, clearState } from "../../redux/actions/books";
+import {addFavorites, getAllFavorites } from '../../redux/actions/favorites'
 
 import Footer from "../footer/Footer";
 
@@ -34,6 +36,7 @@ import Footer from "../footer/Footer";
 const BookDetails = () => {
   let bookDetails = useSelector((state) => state.books.bookDetails);
   const dispatch = useDispatch();
+  const allFavorite = useSelector ((state)=> state.favorites.addFavorites)
   const { id } = useParams();
 
   useEffect(() => {
@@ -64,6 +67,7 @@ const BookDetails = () => {
         <Center py={6}>
           <Image src={bookDetails?.cover} mb={2}></Image>
         </Center>
+      
         <Center boxShadow="2xl" p="6" rounded="md" bg="white">
           <TableContainer>
             <Table
@@ -146,6 +150,7 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
+                      
                       <TagLabel>{bookDetails?.like} </TagLabel>
                     </Tag>
                   </Td>
@@ -189,6 +194,7 @@ const BookDetails = () => {
               <Thead>
                 <Tr>
                   <Th>Topics</Th>
+                  
                 </Tr>
               </Thead>
               <Tbody>
@@ -210,8 +216,11 @@ const BookDetails = () => {
             </Table>
           </TableContainer>
         </Center>
+      
       </Center>
+  
       <Footer />
+    
     </>
   );
 };

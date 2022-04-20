@@ -16,9 +16,10 @@ export default function Home() {
         <Box width={"80%"}>
           <BooksCard />
         </Box>
+        
       </Flex>
       <Footer />
     </>
-
+   
   );
 }

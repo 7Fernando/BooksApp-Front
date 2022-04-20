@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Text } from "@chakra-ui/react";
-import Filter_athors from "../../components/filter/filter_athors";
 import {
   getBooks
 } from "../../redux/actions/books";
@@ -14,16 +13,12 @@ import {
   Spinner,   
   Select,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import Filter_topic from "../filter/Filter_topic";   
-import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
-import Search from "../../components/searchbar/search";
-import SortByName from "../sorts/sortByName";
-import SortByScore from "../sorts/sortByScore";
+import { Link } from "react-router-dom"; 
+import { ChevronUpIcon, ArrowDownIcon ,SmallAddIcon} from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
-import { ReportGmailerrorred } from "@mui/icons-material";
-import Filter_language from "../filter/Filter_language";
+
+
 
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
@@ -85,16 +80,23 @@ const BooksCard = () => {
               _hover={{
                 transform: "translateY(-1%)",
               }}
-            >
+            > 
+          
               <Link to={`/details/${e.id}`}>
+             
                 <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
                   <Center>
+               
+					
+				
                     <Image height={300} src={e.cover} />
                   </Center>
                 </Box>
               </Link>
+              
               <Center>
                 <Stack direction="row" spacing={2} m={5}>
+               
                   <Button
                     colorScheme="red"
                     bg={"green.500"}
@@ -106,7 +108,7 @@ const BooksCard = () => {
                   >
                     Read Online
                   </Button>
-
+                  
                   <Button
                     rightIcon={<ArrowDownIcon size="sm" />}
                     colorScheme="red"
@@ -119,12 +121,18 @@ const BooksCard = () => {
                   >
                     Download
                   </Button>
+
+                  <SmallAddIcon color={"yellow.400"}/>
+                  
+              
                 </Stack>
+                
               </Center>
             </Box>
           ))
         )}
       </Center>
+   
     </>
   );
 };
