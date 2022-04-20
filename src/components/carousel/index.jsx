@@ -120,7 +120,7 @@ export default function Carousel() {
               >
                 Read Online
               </Button>
-
+         
               <Button
                 rightIcon={<ArrowDownIcon size="sm" />}
                 colorScheme="red"

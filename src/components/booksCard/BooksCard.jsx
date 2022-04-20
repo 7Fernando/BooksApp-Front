@@ -56,35 +56,36 @@ const BooksCard = () => {
       </Center>
     );
   }
+
   return (
     <>
       <Center py={12} flexWrap={"wrap"}>
-      
         {searchBooks?.[0] === "No books found" ? (
           <Text fontSize="5xl" fontWeight="bold">
            No books found :(
           </Text>
-        ) : (
+        ) : ( 
+      
           books?.length &&
           books?.map((e) => (
             <Box
-              key={e.id}
-              role={"group"}
-              pb={6}
-              pt={6}
-              maxW={"300px"}
-              w={"full"}
-              bg={"gray.800"}
-              boxShadow="md"
-              rounded={"lg"}
-              pos={"relative"}
-              zIndex={1}
-              m={"5"}
-              transitionProperty={"transform"}
-              transitionDuration={"0.8s"}
-              _hover={{
-                transform: "translateY(-1%)",
-              }}
+            key={e.id}
+            role={"group"}
+            pb={6}
+            pt={6}
+            maxW={"300px"}
+            w={"full"}
+            bg={"gray.800"}
+            boxShadow="md"
+            rounded={"lg"}
+            pos={"relative"}
+            zIndex={1}
+            m={"5"}
+            transitionProperty={"transform"}
+            transitionDuration={"0.8s"}
+            _hover={{
+              transform: "translateY(-1%)",
+            }}
             >
               <Link to={`/details/${e.id}`}>
                 <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
@@ -106,7 +107,7 @@ const BooksCard = () => {
                   >
                     Read Online
                   </Button>
-
+            
                   <Button
                     rightIcon={<ArrowDownIcon size="sm" />}
                     colorScheme="red"
@@ -119,6 +120,7 @@ const BooksCard = () => {
                   >
                     Download
                   </Button>
+        
                 </Stack>
               </Center>
             </Box>
