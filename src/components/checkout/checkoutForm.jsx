@@ -11,13 +11,13 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaCheckCircle, FaStripe } from "react-icons/fa";
 import { Center, Flex } from "@chakra-ui/react";
-import { AiFillCloseCircle } from "react-icons/ai";
 import {
   CardElement,
   Elements,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+
 
 const CheckoutForm = () => {
   const stripe = useStripe();
