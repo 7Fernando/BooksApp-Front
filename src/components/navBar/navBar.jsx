@@ -1,6 +1,3 @@
-import { React } from "react";
-import userSin from "../../assets/images/userSin.png";
-import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -12,14 +9,16 @@ import {
   MenuItem,
   MenuDivider,
   useDisclosure,
-  useColorModeValue,
   Stack,
   useColorMode,
   Center,
 } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 import Search from "../searchbar/search";
+import { useAuth0 } from "@auth0/auth0-react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import userSin from "../../assets/images/userSin.png";
+
 
 export default function NavBar() {
   const { logout, user } = useAuth0();

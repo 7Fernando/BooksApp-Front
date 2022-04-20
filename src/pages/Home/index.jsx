@@ -8,8 +8,11 @@ import Footer from '../../components/footer/Footer'
 export default function Home() {
   return (
     <>
+
       <NavBar />
-      <Flex>
+
+       <Flex>
+
         <Box width={"20%"} boxShadow="dark-lg">
           <SideBar />
         </Box>
@@ -21,5 +24,9 @@ export default function Home() {
       <Footer />
     </>
    
+
+       
+  
+
   );
 }

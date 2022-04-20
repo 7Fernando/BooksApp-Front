@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+import { Box, Select } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBooks, sortBooksByScore } from "../../redux/actions/books";
-import { Box, Select } from "@chakra-ui/react";
+
 
 const SortByScore = () => {
   const dispatch = useDispatch();

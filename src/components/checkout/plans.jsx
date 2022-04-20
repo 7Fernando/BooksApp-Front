@@ -16,7 +16,8 @@ import { FaCheckCircle } from "react-icons/fa";
 import NavBar from "../NavBar/NavBar";
 import Footer from '../footer/Footer'
 
-function PriceWrapper({ children }) {
+
+const PriceWrapper = ({ children }) => {
   return (
  
    
@@ -35,7 +36,7 @@ function PriceWrapper({ children }) {
     
     
   );
-}
+};
 
 const Plans = () => {
   return (
@@ -167,8 +168,8 @@ const Plans = () => {
             </VStack>
           </Box>
         </PriceWrapper>
-        <PriceWrapper >
-          <Box py={4} px={12}   >
+        <PriceWrapper>
+          <Box py={4} px={12}>
             <Text fontWeight="500" fontSize="2xl">
               Lover
             </Text>
@@ -216,7 +217,6 @@ const Plans = () => {
             </Box>
           </VStack>
         </PriceWrapper>
-
       </Stack>
      
     </Box>
