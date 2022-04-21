@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Box, Stack, Image, Button, Center, Spinner } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
 import { getBooks } from "../../redux/actions/books";
@@ -40,6 +40,7 @@ const BooksCard = () => {
       </Center>
     );
   }
+
   return (
     <>
       <Center py={12} flexWrap={"wrap"}>
@@ -47,10 +48,12 @@ const BooksCard = () => {
           <Text fontSize="5xl" fontWeight="bold">
             No books found :(
           </Text>
-        ) : (
+        ) : ( 
+      
           books?.length &&
           books?.map((book) => (
             <Box
+
               key={book.id}
               role={"group"}
               pb={6}
@@ -68,6 +71,7 @@ const BooksCard = () => {
               _hover={{
                 transform: "translateY(-1%)",
               }}
+
             >
               <Link to={`/details/${book.id}`}>
                 <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
@@ -78,6 +82,7 @@ const BooksCard = () => {
               </Link>
               <Center>
                 <Stack direction="row" spacing={2} m={5}>
+
                   <Link to="/read">
                     <Button
                       colorScheme="red"
@@ -92,6 +97,7 @@ const BooksCard = () => {
                     </Button>
                   </Link>
                   <a href={book.epub} download={book.title}>
+
                     <Button
                       rightIcon={<ArrowDownIcon size="sm" />}
                       colorScheme="red"
@@ -105,6 +111,7 @@ const BooksCard = () => {
                       Download
                     </Button>
                   </a>
+
                 </Stack>
               </Center>
             </Box>

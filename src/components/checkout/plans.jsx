@@ -13,10 +13,14 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
+import NavBar from "../NavBar/NavBar";
+import Footer from '../footer/Footer'
 
 
 const PriceWrapper = ({ children }) => {
   return (
+ 
+   
     <Box
       mb={4}
       shadow="base"
@@ -25,14 +29,21 @@ const PriceWrapper = ({ children }) => {
       borderColor={useColorModeValue("gray.200", "gray.500")}
       borderRadius={"xl"}
     >
+     
       {children}
+     
     </Box>
+    
+    
   );
 };
 
 const Plans = () => {
   return (
+    <>
+   <NavBar />
     <Box py={12}>
+    
       <VStack spacing={2} textAlign="center">
         <Heading as="h1" fontSize="4xl">
           Plans that fit your need
@@ -207,7 +218,10 @@ const Plans = () => {
           </VStack>
         </PriceWrapper>
       </Stack>
+     
     </Box>
+    <Footer />
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ReactReader } from "react-reader";
-import { Box, Stack, Image, Button, Center, Spinner } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 const EpubReader = () => {
   const [location, setLocation] = useState(null);
