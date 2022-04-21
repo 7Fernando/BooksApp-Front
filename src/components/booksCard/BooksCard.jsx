@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Stack, Image, Button, Center, Spinner } from "@chakra-ui/react";
+
 import { Text } from "@chakra-ui/react";
 
 import Filter_athors from "../../components/filter/filter_athors";
@@ -19,7 +19,6 @@ import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
 import { Link, useNavigate } from "react-router-dom"
-import { getBooks } from "../../redux/actions/books";
 import { useSelector, useDispatch } from "react-redux";
 const BooksCard = () => {
   const dispatch = useDispatch();
