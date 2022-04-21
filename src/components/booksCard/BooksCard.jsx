@@ -15,28 +15,23 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import Filter_topic from "../filter/Filter_topic";   
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
-import Search from "../../components/searchbar/search";
-import SortByName from "../sorts/sortByName";
-import SortByScore from "../sorts/sortByScore";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
-import { ReportGmailerrorred } from "@mui/icons-material";
-import Filter_language from "../filter/Filter_language";
 
 const BooksCard = () => {
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
   const dispatch = useDispatch();
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, getAccessTokenSilently, isLoading } = useAuth0();
   const newUser = {
     mail: user?.email ,
     name: user?.nickname,
     picture: user?.picture 
   }
-
+ 
   useEffect(() => {
+    getAccessTokenSilently().then(r=>window.localStorage.setItem("token",r));
     dispatch(getBooks());
     if (isLoading === false) {
     dispatch(postUser(newUser));
