@@ -7,6 +7,7 @@ import { postUser } from "../../redux/actions/user";
 import { getBooks } from "../../redux/actions/books";
 import { useSelector, useDispatch } from "react-redux";
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
+import {addFavorites , getAllFavorites} from '../../redux/actions/favorites'
 
 const BooksCard = () => {
   const dispatch = useDispatch();
@@ -14,12 +15,14 @@ const BooksCard = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
+  
 
   const newUser = {
     mail: user?.email,
     name: user?.nickname,
     picture: user?.picture,
   };
+
 
   useEffect(() => {
     dispatch(getBooks());
@@ -41,6 +44,9 @@ const BooksCard = () => {
       </Center>
     );
   }
+
+
+
   return (
     <>
       <Center py={12} flexWrap={"wrap"}>
@@ -105,6 +111,21 @@ const BooksCard = () => {
                       Download
                     </Button>
                   </a>
+
+                  <Button
+                      rightIcon={<ArrowDownIcon size="sm" />}
+                      colorScheme="red"
+                      color={"green.400"}
+                      _hover={{
+                        color: "green.200",
+                      }}
+                      variant="outline"
+                      size="sm"
+                      onClick={()=>{dispatch(addFavorites({userId:user.email, bookId: book.id}))}}
+                      
+                    >
+                      ADD
+                    </Button>
                 </Stack>
               </Center>
             </Box>

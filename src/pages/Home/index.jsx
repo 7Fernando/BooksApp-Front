@@ -8,8 +8,10 @@ import Footer from '../../components/footer/Footer'
 export default function Home() {
   return (
     <>
+    <NavBar />
+    <>
 
-      <NavBar />
+      
 
        <Flex>
 
@@ -21,11 +23,11 @@ export default function Home() {
         </Box>
         
       </Flex>
-      <Footer />
+     
     </>
-   
+    <Footer />
 
-       
+    </> 
   
 
   );
