@@ -1,6 +1,3 @@
-import { React } from "react";
-import userSin from "../../assets/images/userSin.png";
-import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -12,14 +9,16 @@ import {
   MenuItem,
   MenuDivider,
   useDisclosure,
-  useColorModeValue,
   Stack,
   useColorMode,
   Center,
 } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 import Search from "../searchbar/search";
+import { useAuth0 } from "@auth0/auth0-react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import userSin from "../../assets/images/userSin.png";
+
 
 export default function NavBar() {
   const { logout, user } = useAuth0();
@@ -27,7 +26,7 @@ export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Box bg="black" px={3} height="150px">
+      <Box bg="black" px={3} height="150px" >
         <Flex h={40} alignItems={"center"} justifyContent={"space-between"}>
           <Link to="/home">
             <Box color="green.300" size={"lg"} fontSize="30px">
@@ -41,7 +40,7 @@ export default function NavBar() {
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
 
-              <Menu>
+              <Menu >
                 <MenuButton
                   as={Button}
                   rounded={"full"}
@@ -62,8 +61,10 @@ export default function NavBar() {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>My Profile</MenuItem>
-                  <MenuItem>Favorites</MenuItem>
+                  <MenuItem>My Profile Panel</MenuItem>
+                  <Link to='/favorites'>
+                  <MenuItem>My Favorites</MenuItem>
+                  </Link>
                   <MenuItem onClick={() => logout()}>Logout</MenuItem>
                 </MenuList>
               </Menu>

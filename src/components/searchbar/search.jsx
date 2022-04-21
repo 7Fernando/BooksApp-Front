@@ -1,10 +1,10 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { searchBooks } from "../../redux/actions/books";
 import { useState } from "react";
-import { Input, InputGroup} from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { searchBooks } from "../../redux/actions/books";
+import { Button, Input, InputGroup} from "@chakra-ui/react";
+
+
 const Search = () => {
   const [search, setSearch] = useState("");
 
@@ -46,12 +46,6 @@ const Search = () => {
           Submit
         </Button>
       </InputGroup>
-      {/* <datalist id="books">
-        {allBooks.map((book) => (
-          <option key={book.id} value={book.title} />
-        ))}
-      </datalist>
-       */}
        </Flex>
     </div>
   );
