@@ -10,7 +10,6 @@ import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 
 const BooksCard = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
@@ -79,19 +78,20 @@ const BooksCard = () => {
               </Link>
               <Center>
                 <Stack direction="row" spacing={2} m={5}>
-                  <Button
-                    colorScheme="red"
-                    bg={"green.500"}
-                    size="sm"
-                    leftIcon={<ChevronUpIcon size="sm" />}
-                    _hover={{
-                      background: "green.400",
-                    }}
-                  >
-                    Read Online
-                  </Button>
-
-                  <a href={book.epub} download>
+                  <Link to="/read">
+                    <Button
+                      colorScheme="red"
+                      bg={"green.500"}
+                      size="sm"
+                      leftIcon={<ChevronUpIcon size="sm" />}
+                      _hover={{
+                        background: "green.400",
+                      }}
+                    >
+                      Read Online
+                    </Button>
+                  </Link>
+                  <a href={book.epub} download={book.title}>
                     <Button
                       rightIcon={<ArrowDownIcon size="sm" />}
                       colorScheme="red"
