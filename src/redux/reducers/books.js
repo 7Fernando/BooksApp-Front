@@ -45,20 +45,42 @@ cases[typesBooks.SORT_BOOKS] = (initialState, payload) => {
   allBooks: [...sortedBooks],
       }
 };
-//score todavia en desarrollo
+
 cases[typesBooks.SORT_SCORE] = (initialState, payload) => {
-  console.log(payload);
-  const sortedScore = 
-  payload = "Asc"?
-  initialState.allBooks.sort((a, b) => a.score - b.score)
-  : payload = "Desc"?
-  initialState.allBooks.sort((a, b) => b.score - a.score)
-  : allBooks
-  return {
-  ...initialState,
-  allBooks: [...sortedScore],
+  let copiaallBooks = initialState.allBooks;
+
+  let order;
+
+  if (payload === "Asc") {
+    order = copiaallBooks.sort(function (a, b) {
+      if (a.views < b.views) {
+        return 1;
+      }
+      if (a.views > b.views) {
+        return -1;
+      }
+      return 0;
+    });
   }
-}
+  if (payload === "Desc") {
+    order = copiaallBooks.sort(function (a, b) {
+      if (a.views > b.views) {
+        return 1;
+      }
+      if (a.views < b.views) {
+        return -1;
+      }
+      return 0;
+    });
+  } else {
+    order = initialState.allBooks;
+  }
+
+  return {
+    ...initialState,
+    allBooks: [...order],
+  };
+};
 
 cases[typesBooks.SEARCH_BOOKS] = (initialState, payload) => (
   {
