@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Box, Stack, Image, Button, Center, Spinner } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-
 import Filter_athors from "../../components/filter/filter_athors";
 import {
   getBooks
@@ -18,13 +17,16 @@ import {
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { getBooks } from "../../redux/actions/books";
 import { useSelector, useDispatch } from "react-redux";
+
+
 const BooksCard = () => {
   const dispatch = useDispatch();
+
   const { user, getAccessTokenSilently, isLoading } = useAuth0();
-  const navigate = useNavigate();
+
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
 
@@ -98,20 +100,22 @@ const BooksCard = () => {
               </Link>
               <Center>
                 <Stack direction="row" spacing={2} m={5}>
-                  <Button
-                    colorScheme="red"
-                    bg={"green.500"}
-                    size="sm"
-                    leftIcon={<ChevronUpIcon size="sm" />}
-                    _hover={{
-                      background: "green.400",
-                    }}
-                  >
-                    Read Online
-                  </Button>
 
+                  <Link to="/read">
+                    <Button
+                      colorScheme="red"
+                      bg={"green.500"}
+                      size="sm"
+                      leftIcon={<ChevronUpIcon size="sm" />}
+                      _hover={{
+                        background: "green.400",
+                      }}
+                    >
+                      Read Online
+                    </Button>
+                  </Link>
+                  <a href={book.epub} download={book.title}>
 
-                  <a href={book.epub} download>
                     <Button
                       rightIcon={<ArrowDownIcon size="sm" />}
                       colorScheme="red"
