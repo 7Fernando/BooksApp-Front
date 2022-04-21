@@ -7,23 +7,21 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import axios from "axios";
-import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { FaCheckCircle, FaStripe } from "react-icons/fa";
-import { Center, Flex } from "@chakra-ui/react";
 import {
   CardElement,
   Elements,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-
+import { useParams } from "react-router-dom";
 const CheckoutForm = () => {
+  
   const stripe = useStripe();
+  const { id } = useParams();
   const elements = useElements();
+  
   const [email, setEmail] = useState("");
+  
 
   const handleSubmitSub = async (event) => {
     if (!stripe || !elements) {
@@ -39,42 +37,39 @@ const CheckoutForm = () => {
         email: email,
       },
     });
-
+    console.log(115, result.paymentMethod.id);
     if (result.error) {
-      console.log(result.error.message);
-      // Swal.fire({
-      //   title: result.error.message,
-      //   icon: "info",
-      //   timer: 4000,
-      //   timerProgressBar: true,
-      // });
-    
+      console.error(result.error.message);
     } else {
-      console.log(result);
-      const res = await axios.post("http://localhost:3000/sub", {
+      //console.log(result);
+      const res = await axios.post("http://localhost:3001/api/sub", {
         payment_method: result.paymentMethod.id,
         email: email,
+        idPlan: id,
       });
-      // eslint-disable-next-line camelcase
-      const { client_secret, status } = res.data;
 
-      if (status === "requires_action") {
-        stripe.confirmCardPayment(client_secret).then(function (result) {
-          if (result.error) {
-            console.log("There was an issue!");
-            console.log(result.error);
-            // Display error message in your UI.
-            // The card was declined (i.e. insufficient funds, card has expired, etc)
-          } else {
-            console.log("You got the money!");
-            // Show a success message to your customer
-          }
-        });
-      } else {
-        console.log("You got the money!");
-        // No additional information was needed
-        // Show a success message to your customer
-      }
+      console.log(111, res);
+      // eslint-disable-next-line camelcase
+
+      // const { client_secret, status } = res.data;
+
+      // if (status === "requires_action") {
+      //   stripe.confirmCardPayment(client_secret).then(function (result) {
+      //     if (result.error) {
+      //       console.log("There was an issue!");
+      //       console.log(result.error);
+      //       // Display error message in your UI.
+      //       // The card was declined (i.e. insufficient funds, card has expired, etc)
+      //     } else {
+      //       console.log("You got the money!");
+      //       // Show a success message to your customer
+      //     }
+      //   });
+      // } else {
+      //   console.log("You got the money!");
+      //   // No additional information was needed
+      //   // Show a success message to your customer
+      // }
     }
   };
 

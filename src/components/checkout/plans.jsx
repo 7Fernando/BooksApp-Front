@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
-import NavBar from "../NavBar/NavBar";
+// import NavBar from "../navBar/navBar";
 import Footer from '../footer/Footer'
 
 
@@ -41,7 +41,7 @@ const PriceWrapper = ({ children }) => {
 const Plans = () => {
   return (
     <>
-   <NavBar />
+   {/* <NavBar /> */}
     <Box py={12}>
     
       <VStack spacing={2} textAlign="center">
@@ -93,7 +93,7 @@ const Plans = () => {
               </ListItem>
             </List>
             <Box w="80%" pt={7}>
-              <Link to="/checkout">
+              <Link to="/checkout/1">
                 <Button w="full" colorScheme="green" variant="outline">
                   Start trial
                 </Button>
@@ -159,7 +159,7 @@ const Plans = () => {
                 </ListItem>
               </List>
               <Box w="80%" pt={7}>
-                <Link to="/checkout">
+                <Link to="/checkout/2">
                   <Button w="full" colorScheme="green">
                     Start trial
                   </Button>
@@ -209,7 +209,7 @@ const Plans = () => {
               </ListItem>
             </List>
             <Box w="80%" pt={7}>
-              <Link to="/checkout">
+              <Link to="/checkout/3">
                 <Button w="full" colorScheme="green" variant="outline">
                   Start trial
                 </Button>

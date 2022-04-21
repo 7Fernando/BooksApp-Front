@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/read" element={<EpubReader />} />
         <Route path="/favorites" element={<Favorite />} />
         <Route path="/details/:id" element={<BookDetails />} />
-        <Route path="/checkout" element={<CheckoutContainer />} />
+        <Route path="/checkout/:id" element={<CheckoutContainer />} />
       </Routes>
     </div>
   );
