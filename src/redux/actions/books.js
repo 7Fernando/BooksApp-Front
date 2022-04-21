@@ -59,12 +59,10 @@ export const getBookDetails = (id) => {
 
 export const sortBooksByName = (sort) => {
   try {
-    return (dispatch) => {
-      return dispatch({
+    return {
         type: typesBooks.SORT_BOOKS,
         payload: sort,
-      });
-    };
+      };
   } catch (error) {
     console.error(error);
   }
@@ -72,12 +70,10 @@ export const sortBooksByName = (sort) => {
 //score todavia en desarrollo
 export const sortBooksByScore = (sort) => {
   try {
-    return (dispatch) => {
-      return dispatch({
+    return{
         type: typesBooks.SORT_SCORE,
         payload: sort,
-      });
-    };
+      };
   } catch (error) {
     console.error(error);
   }

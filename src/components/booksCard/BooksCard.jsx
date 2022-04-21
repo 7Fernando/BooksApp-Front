@@ -1,26 +1,44 @@
 import React, { useEffect } from "react";
 import { Box, Stack, Image, Button, Center, Spinner } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import Filter_athors from "../../components/filter/filter_athors";
+import {
+  getBooks
+} from "../../redux/actions/books";
+import {
+  Box,
+  Center,   
+  Stack,
+  Image,
+  Button,
+  Spinner,   
+  Select,
+} from "@chakra-ui/react";
+import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
+import { Link } from "react-router-dom"
 import { getBooks } from "../../redux/actions/books";
 import { useSelector, useDispatch } from "react-redux";
-import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
+
 
 const BooksCard = () => {
   const dispatch = useDispatch();
-  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const { user, getAccessTokenSilently, isLoading } = useAuth0();
+
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
 
   const newUser = {
     mail: user?.email,
     name: user?.nickname,
-    picture: user?.picture,
-  };
+    picture: user?.picture 
+  }
+
 
   useEffect(() => {
+    getAccessTokenSilently().then(r=>window.localStorage.setItem("token",r));
     dispatch(getBooks());
     if (isLoading === false) {
       dispatch(postUser(newUser));
