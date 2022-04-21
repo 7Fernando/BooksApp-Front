@@ -45,8 +45,6 @@ const BooksCard = () => {
     );
   }
 
-
-
   return (
     <>
       <Center py={12} flexWrap={"wrap"}>
@@ -54,10 +52,12 @@ const BooksCard = () => {
           <Text fontSize="5xl" fontWeight="bold">
             No books found :(
           </Text>
-        ) : (
+        ) : ( 
+      
           books?.length &&
           books?.map((book) => (
             <Box
+
               key={book.id}
               role={"group"}
               pb={6}
@@ -75,6 +75,7 @@ const BooksCard = () => {
               _hover={{
                 transform: "translateY(-1%)",
               }}
+
             >
               <Link to={`/details/${book.id}`}>
                 <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
@@ -96,6 +97,7 @@ const BooksCard = () => {
                   >
                     Read Online
                   </Button>
+
 
                   <a href={book.epub} download>
                     <Button
@@ -126,6 +128,7 @@ const BooksCard = () => {
                     >
                       ADD
                     </Button>
+
                 </Stack>
               </Center>
             </Box>

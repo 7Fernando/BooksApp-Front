@@ -1,17 +1,17 @@
 import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
+import Carousel from "../../components/carousel";
 import NavBar from "../../components/navBar/navBar";
+import Footer from '../../components/footer/Footer';
 import SideBar from "../../components/sideBar/sideBar";
 import BooksCard from "../../components/booksCard/BooksCard";
-import Footer from '../../components/footer/Footer'
+
 
 export default function Home() {
   return (
     <>
-    <NavBar />
-    <>
 
-      
+      <NavBar />
 
        <Flex>
 
@@ -19,16 +19,15 @@ export default function Home() {
           <SideBar />
         </Box>
         <Box width={"80%"}>
+          <Carousel />
           <BooksCard />
         </Box>
         
       </Flex>
      
-    </>
-    <Footer />
+
 
     </> 
   
-
   );
 }
