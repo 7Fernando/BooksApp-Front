@@ -1,28 +1,24 @@
 import React, { useEffect } from "react";
 
+import { Box, Stack, Image, Button, Center, Spinner} from "@chakra-ui/react";
+
 import { Text } from "@chakra-ui/react";
-import Filter_athors from "../../components/filter/filter_athors";
-import {
-  getBooks
-} from "../../redux/actions/books";
-import {
-  Box,
-  Center,   
-  Stack,
-  Image,
-  Button,
-  Spinner,   
-  Select,
-} from "@chakra-ui/react";
+import { getBooks } from "../../redux/actions/books";
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
 
+
 import { Link, useNavigate } from "react-router-dom"
+
 
 
 import { useSelector, useDispatch } from "react-redux";
 import { addFavorites } from "../../redux/actions/favorites";
+
+import {addFavorites , getAllFavorites} from '../../redux/actions/favorites'
+
+
 
 
 const BooksCard = () => {
@@ -32,6 +28,8 @@ const BooksCard = () => {
 
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
+  const mailUser =  window.localStorage.getItem('user');
+
 
   const newUser = {
     mail: user?.email,
@@ -40,13 +38,23 @@ const BooksCard = () => {
   }
 
 
+
   useEffect(() => {
+
+    window.localStorage.setItem("user",newUser.mail)
     getAccessTokenSilently().then(r=>window.localStorage.setItem("token",r));
     dispatch(getBooks());
     if (isLoading === false) {
       dispatch(postUser(newUser));
     }
   }, [isLoading]);
+
+  const addFavorite = (bookId) => {
+
+   dispatch(addFavorites({userId:mailUser,bookId: bookId }))
+      
+  };
+
 
   if (books.length === 0 || undefined) {
     return (
@@ -61,6 +69,7 @@ const BooksCard = () => {
       </Center>
     );
   }
+
 
   return (
     <>
@@ -104,7 +113,7 @@ const BooksCard = () => {
               <Center>
                 <Stack direction="row" spacing={2} m={5}>
 
-                  <Link to="/read">
+                  <Link to={`/read/${book.id}`}>
                     <Button
                       colorScheme="red"
                       bg={"green.500"}
@@ -117,9 +126,7 @@ const BooksCard = () => {
                       Read Online
                     </Button>
                   </Link>
-                  <Button onClick={()=> dispatch(addFavorites({userId: user.email,bookId: book.id}))}>
-                    Add
-                  </Button>
+             
                   <a href={book.epub} download={book.title}>
 
                     <Button
@@ -135,6 +142,21 @@ const BooksCard = () => {
                       Download
                     </Button>
                   </a>
+
+                  <Button
+                      rightIcon={<ArrowDownIcon size="sm" />}
+                      colorScheme="red"
+                      color={"green.400"}
+                      _hover={{
+                        color: "green.200",
+                      }}
+                      variant="outline"
+                      size="sm"
+                      onClick={()=> addFavorite(book.id)}
+
+                    >
+                      ADD
+                    </Button>
 
                 </Stack>
               </Center>

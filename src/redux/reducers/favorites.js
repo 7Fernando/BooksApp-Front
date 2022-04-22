@@ -2,7 +2,8 @@ import { typesFavorites } from "../actions/favorites";
 
 export const initialState = {
   allfavorites: [],
-  bookDetails: {},
+  deleteFav: []
+ 
 
 };
 
@@ -14,6 +15,18 @@ cases[typesFavorites.GET_ALL_FAVORITES] = (initialState, payload) => ({
 
   
 });
+cases[typesFavorites.POST_FAVORITES] = (initialState) => ({
+  ...initialState,
+  
+});
+
+cases[typesFavorites.DELETE_FAVORITES] = (initialState, payload) => ({
+  ...initialState,
+
+ 
+  
+});
+
 
 cases[typesFavorites.POST_FAVORITES]= (initialState, payload) => ({
   ...initialState,

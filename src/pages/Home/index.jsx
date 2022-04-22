@@ -10,7 +10,9 @@ import BooksCard from "../../components/booksCard/BooksCard";
 export default function Home() {
   return (
     <>
+
       <NavBar />
+
        <Flex>
 
         <Box width={"20%"} boxShadow="dark-lg">
@@ -22,8 +24,10 @@ export default function Home() {
         </Box>
         
       </Flex>
-      <Footer />
-    </>
-   
+     
+
+
+    </> 
+  
   );
 }

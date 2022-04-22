@@ -4,26 +4,29 @@ const url = import.meta.env.VITE_BASE_URL;
 
 export const typesFavorites = {
   GET_ALL_FAVORITES: "GET_ALL_FAVORITES",
-  POST_FAVORITES: "POST_FAVORITES",
-  DELETE_FAVORITES: "DELETE_FAVORITES",
+  POST_FAVORITES : "POST_FAVORITES",
+  DELETE_FAVORITES:"DELETE_FAVORITES"
+
 };
 
 export const getAllFavorites = (id) => {
-    return async (dispatch) => {
-      try{     
-      const { data } = await axios.get(`${url}/favorites/?id=${id}`);
-      return dispatch({
-        type: typesFavorites.GET_ALL_FAVORITES,
-        payload: data,
-      });
+  return async (dispatch) => {
+    try{     
+    const { data } = await axios.get(`${url}/favorites/?mail=${id}`);
     
-     } catch (error) {
-      return dispatch({
-        type: typesFavorites.GET_ALL_FAVORITES,
-        payload: [],
-      });
-  }
+    return dispatch({
+      type: typesFavorites.GET_ALL_FAVORITES,
+      payload: data,
+    });
+  
+   } catch (error) {
+    return dispatch({
+      type: typesFavorites.GET_ALL_FAVORITES,
+      payload: [],
+    });
+}
 }};
+
 
 export const addFavorites = (body) =>  {
    return async (dispatch)=>{ try {
@@ -46,4 +49,5 @@ export const addFavorites = (body) =>  {
       console.log(error);
     }
   };  
+
 

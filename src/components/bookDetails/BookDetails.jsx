@@ -1,4 +1,5 @@
 import {
+  Flex,
   Spinner,
   Avatar,
   Tag,
@@ -14,6 +15,9 @@ import {
   Td,
   Tbody,
   Tfoot,
+  Wrap,
+  WrapItem,
+  Button
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import NavBar from "../navBar/navBar";
@@ -27,11 +31,14 @@ import { useDispatch, useSelector } from "react-redux";
 import englandFlag from "../../assets/images/england.svg";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
 import { getBookDetails, clearState } from "../../redux/actions/books";
+import { IconButton } from '@chakra-ui/react'
+import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
 
 const BookDetails = () => {
   let bookDetails = useSelector((state) => state.books.bookDetails);
   const dispatch = useDispatch();
   const { id } = useParams();
+
 
   useEffect(() => {
     return ()=>dispatch(clearState());
@@ -57,10 +64,14 @@ const BookDetails = () => {
   return (
     <>
       <NavBar />
+     
       <Center flexDir={"column"} flexWrap={"wrap"}>
         <Center py={6}>
-          <Image src={bookDetails?.cover} mb={2}></Image>
+          <Image src={bookDetails?.cover}  mb={2}>
+          </Image>
         </Center>
+        
+       
         <Center boxShadow="2xl" p="6" rounded="md" bg="white">
           <TableContainer>
             <Table
@@ -206,7 +217,9 @@ const BookDetails = () => {
               </Tbody>
             </Table>
           </TableContainer>
+       
         </Center>
+        
       </Center>
       <Footer />
     </>
