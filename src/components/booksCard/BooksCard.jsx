@@ -15,7 +15,8 @@ const BooksCard = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
-  
+  const mailUser =  window.localStorage.getItem('user');
+
 
   const newUser = {
     mail: user?.email,
@@ -25,11 +26,19 @@ const BooksCard = () => {
 
 
   useEffect(() => {
+    window.localStorage.setItem("user",newUser.mail)
     dispatch(getBooks());
     if (isLoading === false) {
       dispatch(postUser(newUser));
     }
   }, [isLoading]);
+
+  const addFavorite = (bookId) => {
+
+   dispatch(addFavorites({userId:mailUser,bookId: bookId }))
+      
+  };
+
 
   if (books.length === 0 || undefined) {
     return (
@@ -44,6 +53,7 @@ const BooksCard = () => {
       </Center>
     );
   }
+
 
   return (
     <>
@@ -123,8 +133,8 @@ const BooksCard = () => {
                       }}
                       variant="outline"
                       size="sm"
-                      onClick={()=>{dispatch(addFavorites({userId:user.email, bookId: book.id}))}}
-                      
+                      onClick={()=> addFavorite(book.id)}
+
                     >
                       ADD
                     </Button>

@@ -1,10 +1,9 @@
 import React from 'react';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar"
 import Footer from '../footer/Footer';
-//import CardFavorite from "./CardFavorite";
 import { getAllFavorites, removeFavorites} from "../../redux/actions/favorites";
 import { Box, Heading,  Button,Center,Flex,Image,Stack,Text,useColorModeValue,Wrap, WrapItem} from '@chakra-ui/react';
 import { WarningTwoIcon} from '@chakra-ui/icons';
@@ -13,21 +12,27 @@ import { WarningTwoIcon} from '@chakra-ui/icons';
 export default function Favorite() {
   const dispatch = useDispatch();
   const all = useSelector((state) => state.favorites.allfavorites);
-  const borrar = useSelector((state)=> state.favorites.deleteFav)
+  const [prueba, setPrueba] = useState(0);
+  const usuario = window.localStorage.getItem('user')
 
 
 
-useEffect(() => {
- dispatch(getAllFavorites(3));
-  }, []);
+  useEffect(() => {
+   // window.localStorage.getItem('user')
+   dispatch(getAllFavorites(usuario));
+  }, [prueba]);
 
+ 
+
+  const removeFavorite = (id,bookId) => {
+    dispatch(removeFavorites(id,bookId));
+    setPrueba(prueba + 1)
+  };
  
   return (
     
         <>
           <NavBar />
-
-         
           {all.length ? all.map((book) => (
             <Wrap>
             <WrapItem >
@@ -64,18 +69,7 @@ useEffect(() => {
                   padding={2}
                   justifyContent={'space-between'}
                   alignItems={'center'}>
-                  <Link to={`/details/${book.id}`}  >
-                  <Button
-                    flex={1}
-                    bg={'green.400'}
-                    fontSize={'sm'}
-                    rounded={'full'}
-                    _focus={{
-                      bg: 'gray.200',
-                    }}>
-                    Detail
-                  </Button>
-                  </Link>
+                  
                   <Button
                     flex={1}
                     fontSize={'sm'}
@@ -92,7 +86,7 @@ useEffect(() => {
                     _focus={{
                       bg: 'orange.500',
                     }}
-                    onClick={()=>dispatch(removeFavorites(3,book["book"].id))}>
+                    onClick={()=>removeFavorite(usuario, book["book"].id)}>
                     Remove Favorite
                   </Button>
                 </Stack>

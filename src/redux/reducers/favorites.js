@@ -15,7 +15,7 @@ cases[typesFavorites.GET_ALL_FAVORITES] = (initialState, payload) => ({
 
   
 });
-cases[typesFavorites.PUT_FAVORITES] = (initialState) => ({
+cases[typesFavorites.POST_FAVORITES] = (initialState) => ({
   ...initialState,
   
 });
