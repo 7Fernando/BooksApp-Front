@@ -19,14 +19,18 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import userSin from "../../assets/images/userSin.png";
 
-
 export default function NavBar() {
   const { logout, user } = useAuth0();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const handleLogout = () => {
+    logout();
+    window.localStorage.removeItem("token");
+  };
+
   return (
     <>
-      <Box bg="black" px={3} height="150px" >
+      <Box bg="black" px={3} height="150px">
         <Flex h={40} alignItems={"center"} justifyContent={"space-between"}>
           <Link to="/home">
             <Box color="green.300" size={"lg"} fontSize="30px">
@@ -40,7 +44,7 @@ export default function NavBar() {
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
 
-              <Menu >
+              <Menu>
                 <MenuButton
                   as={Button}
                   rounded={"full"}
@@ -57,15 +61,15 @@ export default function NavBar() {
                   </Center>
                   <br />
                   <Center>
-                    <p>Welcome : {user? user.nickname : " "}</p> 
+                    <p>Welcome : {user ? user.nickname : " "}</p>
                   </Center>
                   <br />
                   <MenuDivider />
                   <MenuItem>My Profile Panel</MenuItem>
-                  <Link to='/favorites'>
-                  <MenuItem>My Favorites</MenuItem>
+                  <Link to="/favorites">
+                    <MenuItem>My Favorites</MenuItem>
                   </Link>
-                  <MenuItem onClick={() => logout()}>Logout</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
