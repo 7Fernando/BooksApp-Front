@@ -25,7 +25,7 @@ export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleLogout = () => {
     logout();
-    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("token")
   };
 
   return (
