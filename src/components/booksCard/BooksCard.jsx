@@ -34,8 +34,9 @@ const BooksCard = () => {
   useEffect(() => {
 
     window.localStorage.setItem("user",newUser.mail)
-    getAccessTokenSilently().then(r=>window.localStorage.setItem("token",r));
-    dispatch(getBooks());
+
+    getAccessTokenSilently().then(r=>dispatch(getBooks(r)));
+   // dispatch(getBooks());
     if (isLoading === false) {
       dispatch(postUser(newUser));
     }
@@ -47,7 +48,7 @@ const BooksCard = () => {
       
   };
 
-
+ 1
   if (books.length === 0 || undefined) {
     return (
       <Center py={12}>

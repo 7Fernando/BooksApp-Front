@@ -1,10 +1,11 @@
 import axios from "axios";
-const token = window.localStorage.getItem("token");
-const config = {
-  headers: {
-    authorization: token,
-  },
-};
+// const token = window.localStorage.getItem("token");
+
+// const config = {
+//   headers: {
+//     Authorization: token,
+//   },
+// };
 
 const url = import.meta.env.VITE_BASE_URL;
 
@@ -18,10 +19,14 @@ export const typesBooks = {
   CLEAR_BOOK_DETAILS: "CLEAR_BOOK_DETAILS",
 };
 
-export const getBooks = () => {
+export const getBooks = (token) => {
   try {
     return async (dispatch) => {
-      const { data } = await axios.get(`${url}/books`,config);
+      const { data } = await axios.get(`http://localhost:3001/api/books`,{
+        headers: {
+          Authorization: token,
+        },
+      });
       return dispatch({
         type: typesBooks.GET_ALL_BOOKS,
         payload: data,
