@@ -22,6 +22,8 @@ ReactDOM.render(
         domain={domain}
         clientId={clientId}
         redirectUri={redirect}
+        audience="this is a unique indentifier "
+        scope="openid profile mail"
         >
         <App />
       </Auth0Provider>
