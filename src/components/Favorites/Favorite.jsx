@@ -33,17 +33,18 @@ export default function Favorite() {
     
         <>
           <NavBar />
+          <>
           {all.length ? all.map((book) => (
-            <Wrap>
+            <Wrap height='650px' justify='center' >
             <WrapItem >
-            <Center py={4} key={book["book"].id} >
+            <Center py={20} key={book["book"].id}  >
             <Stack
               borderWidth="1px"
               borderRadius="lg"
-              w={{ sm: '100%', md: '540px' }}
-              height={{ sm: '476px', md: '18rem' }}
+              w={{ sm: '100%', md: '600px' }}
+              height={{ sm: '476px', md: '19rem' }}
               direction={{ base: 'column', md: 'row' }}
-              bg={useColorModeValue('white', 'gray.900')}
+              bg={useColorModeValue('green.400', 'green.400')}
               boxShadow={'2xl'}
               padding={4}>
               <Flex flex={1} bg="blue.200">
@@ -62,6 +63,8 @@ export default function Favorite() {
                 <Heading fontSize={'1x2'} fontFamily={'body'}>
                 {book["book"].title}
                 </Heading>
+                
+                
                 <Stack
                   width={'100%'}
                   mt={'2rem'}
@@ -69,7 +72,18 @@ export default function Favorite() {
                   padding={2}
                   justifyContent={'space-between'}
                   alignItems={'center'}>
-                  
+          <Link to={`/details/${book.id}`} >          
+          <Button
+            flex={1}
+            fontSize={'sm'}
+            rounded={'full'}
+            color={'black'}
+            _focus={{
+              bg: 'grey.500',
+            }}>
+            Detail
+          </Button>  
+          </Link>          
                   <Button
                     flex={1}
                     fontSize={'sm'}
@@ -113,6 +127,7 @@ export default function Favorite() {
               
             
           )}
+          </>
         <Footer />
        </>
   );

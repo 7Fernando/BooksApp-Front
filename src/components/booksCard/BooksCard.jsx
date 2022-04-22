@@ -9,7 +9,6 @@ import { postUser } from "../../redux/actions/user";
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
 
-import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import {addFavorites , getAllFavorites} from '../../redux/actions/favorites'
 
 
