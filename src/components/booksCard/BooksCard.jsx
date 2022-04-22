@@ -1,18 +1,25 @@
 import React, { useEffect } from "react";
-import { Box, Stack, Image, Button, Center, Spinner } from "@chakra-ui/react";
+import { Box, Stack, Image, Button, Center, Spinner} from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import Filter_athors from "../../components/filter/filter_athors";
+import { getBooks } from "../../redux/actions/books";
+import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
-import { getBooks } from "../../redux/actions/books";
+import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
+
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import {addFavorites , getAllFavorites} from '../../redux/actions/favorites'
 
+
+
+
 const BooksCard = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const { user, getAccessTokenSilently, isLoading } = useAuth0();
+
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
   const mailUser =  window.localStorage.getItem('user');
@@ -21,12 +28,15 @@ const BooksCard = () => {
   const newUser = {
     mail: user?.email,
     name: user?.nickname,
-    picture: user?.picture,
-  };
+    picture: user?.picture 
+  }
+
 
 
   useEffect(() => {
+
     window.localStorage.setItem("user",newUser.mail)
+    getAccessTokenSilently().then(r=>window.localStorage.setItem("token",r));
     dispatch(getBooks());
     if (isLoading === false) {
       dispatch(postUser(newUser));
@@ -96,20 +106,22 @@ const BooksCard = () => {
               </Link>
               <Center>
                 <Stack direction="row" spacing={2} m={5}>
-                  <Button
-                    colorScheme="red"
-                    bg={"green.500"}
-                    size="sm"
-                    leftIcon={<ChevronUpIcon size="sm" />}
-                    _hover={{
-                      background: "green.400",
-                    }}
-                  >
-                    Read Online
-                  </Button>
 
+                  <Link to={`/read/${book.id}`}>
+                    <Button
+                      colorScheme="red"
+                      bg={"green.500"}
+                      size="sm"
+                      leftIcon={<ChevronUpIcon size="sm" />}
+                      _hover={{
+                        background: "green.400",
+                      }}
+                    >
+                      Read Online
+                    </Button>
+                  </Link>
+                  <a href={book.epub} download={book.title}>
 
-                  <a href={book.epub} download>
                     <Button
                       rightIcon={<ArrowDownIcon size="sm" />}
                       colorScheme="red"

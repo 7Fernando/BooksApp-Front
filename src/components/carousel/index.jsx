@@ -37,24 +37,23 @@ var settings = {
         slidesToScroll: 3,
         infinite: true,
         dots: true,
-     
-      }
+      },
     },
     {
       breakpoint: 600,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
-      }
+      },
     },
     {
       breakpoint: 480,
       settings: {
         slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-  ]
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
 export default function Carousel() {
   // As we have used custom buttons, we need a reference variable to
@@ -68,80 +67,92 @@ export default function Carousel() {
 
   return (
     <>
-    {searching.length < 63 ? null : ( 
-    <Box
-    position={"relative"}
-    height={"450px"}
-    width={"full"}
-    overflow={"hidden"}
-    >
-  
-      <Text m={5} colorScheme={"gray.800"}  fontWeight={"semibold"} color={"green.400"} fontSize='2xl'>Popular in BookFlix:</Text>
-   
-      
-      {/* Slider */}
-      <Slider  {...settings} ref={(slider) => setSlider(slider)}>
-        {books.slice(0, 8).map((e) => (
+      {searching.length < 63 ? null : (
         <Box
-        key={e.id}
-        pb={6}
-        pt={6}
-        maxW={"250px"}
-        w={"full"}
-        bg={"gray.800"}
-        boxShadow="md"
-        rounded={"lg"}
-        pos={"relative"}
-        zIndex={1}
-        m={"5"}
-        transitionProperty={"transform"}
-        transitionDuration={"0.8s"}
-        _hover={{
-          transform: "translateY(-1%)",
-        }}
+          position={"relative"}
+          height={"450px"}
+          width={"full"}
+          overflow={"hidden"}
         >
-          <Link to={`/details/${e.id}`}>
-            <Box rounded={"lg"} mt={-12} pos={"relative"} height={"250px"}>
-              <Center>
-                <Image height={250} src={e.cover} />
-              </Center>
-            </Box>
-          </Link>
-          <Center>
-            <Stack direction="row" spacing={1} marginTop={5}>
-              <Button
-                colorScheme="red"
-                bg={"green.500"}
-                size="sm"
-                leftIcon={<ChevronUpIcon size="sm" />}
+          <Text
+            m={5}
+            colorScheme={"gray.800"}
+            fontWeight={"semibold"}
+            color={"green.400"}
+            fontSize="2xl"
+          >
+            Popular in BookFlix:
+          </Text>
+
+          {/* Slider */}
+          <Slider {...settings} ref={(slider) => setSlider(slider)}>
+            {books.slice(0, 8).map((e) => (
+              <Box
+                key={e.id}
+                pb={6}
+                pt={6}
+                maxW={"250px"}
+                w={"full"}
+                bg={"gray.800"}
+                boxShadow="md"
+                rounded={"lg"}
+                pos={"relative"}
+                zIndex={1}
+                m={"5"}
+                transitionProperty={"transform"}
+                transitionDuration={"0.8s"}
                 _hover={{
-                  background: "green.400",
+                  transform: "translateY(-1%)",
                 }}
               >
-                Read Online
-              </Button>
-         
-              <Button
-                rightIcon={<ArrowDownIcon size="sm" />}
-                colorScheme="red"
-                color={"green.400"}
-                _hover={{
-                  color: "green.200",
-                }}
-                variant="outline"
-                size="sm"
-              >
-                Download
-              </Button>
-            </Stack>
-          </Center>
+                <Link to={`/details/${e.id}`}>
+                  <Box
+                    rounded={"lg"}
+                    mt={-12}
+                    pos={"relative"}
+                    height={"250px"}
+                  >
+                    <Center>
+                      <Image height={250} src={e.cover} />
+                    </Center>
+                  </Box>
+                </Link>
+                <Center>
+                  <Stack direction="row" spacing={1} marginTop={5}>
+                    <Link to="/read">
+                      <Button
+                        colorScheme="red"
+                        bg={"green.500"}
+                        size="sm"
+                        leftIcon={<ChevronUpIcon size="sm" />}
+                        _hover={{
+                          background: "green.400",
+                        }}
+                      >
+                        Read Online
+                      </Button>
+                    </Link>
+                    <a href={e.epub} download={e.title}>
+                      <Button
+                        rightIcon={<ArrowDownIcon size="sm" />}
+                        colorScheme="red"
+                        color={"green.400"}
+                        _hover={{
+                          color: "green.200",
+                        }}
+                        variant="outline"
+                        size="sm"
+                      >
+                        Download
+                      </Button>
+                    </a>
+                  </Stack>
+                </Center>
+              </Box>
+            ))}
+          </Slider>
         </Box>
-          
-          
-        ))}
-     
-      </Slider>
-    </Box> )}
+      )}
     </>
   );
 }
