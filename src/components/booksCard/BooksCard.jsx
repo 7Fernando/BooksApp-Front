@@ -8,6 +8,10 @@ import { postUser } from "../../redux/actions/user";
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
 
+import {addFavorites , getAllFavorites} from '../../redux/actions/favorites'
+
+
+
 
 const BooksCard = () => {
   const dispatch = useDispatch();
@@ -16,6 +20,8 @@ const BooksCard = () => {
 
   const books = useSelector((state) => state.books.allBooks);
   const searchBooks = useSelector((state) => state.books.searchBook);
+  const mailUser =  window.localStorage.getItem('user');
+
 
   const newUser = {
     mail: user?.email,
@@ -24,13 +30,23 @@ const BooksCard = () => {
   }
 
 
+
   useEffect(() => {
+
+    window.localStorage.setItem("user",newUser.mail)
     getAccessTokenSilently().then(r=>window.localStorage.setItem("token",r));
     dispatch(getBooks());
     if (isLoading === false) {
       dispatch(postUser(newUser));
     }
   }, [isLoading]);
+
+  const addFavorite = (bookId) => {
+
+   dispatch(addFavorites({userId:mailUser,bookId: bookId }))
+      
+  };
+
 
   if (books.length === 0 || undefined) {
     return (
@@ -45,6 +61,7 @@ const BooksCard = () => {
       </Center>
     );
   }
+
 
   return (
     <>
@@ -116,6 +133,21 @@ const BooksCard = () => {
                       Download
                     </Button>
                   </a>
+
+                  <Button
+                      rightIcon={<ArrowDownIcon size="sm" />}
+                      colorScheme="red"
+                      color={"green.400"}
+                      _hover={{
+                        color: "green.200",
+                      }}
+                      variant="outline"
+                      size="sm"
+                      onClick={()=> addFavorite(book.id)}
+
+                    >
+                      ADD
+                    </Button>
 
                 </Stack>
               </Center>
