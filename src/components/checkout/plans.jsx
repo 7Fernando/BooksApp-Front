@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
-// import NavBar from "../navBar/navBar";
+import NavBar from "../navBar/navBar";
 import Footer from '../footer/Footer'
 
 
