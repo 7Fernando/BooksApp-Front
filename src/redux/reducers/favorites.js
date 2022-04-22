@@ -15,6 +15,13 @@ cases[typesFavorites.GET_ALL_FAVORITES] = (initialState, payload) => ({
   
 });
 
+cases[typesFavorites.POST_FAVORITES]= (initialState, payload) => ({
+  ...initialState,
+});
+
+cases[typesFavorites.DELETE_FAVORITES] = (initialState, payload) => ({
+  ...initialState,
+});
 
 
 export default function favoriteReducer(state = initialState, { type, payload }) {

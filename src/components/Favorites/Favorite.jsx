@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar"
 import Footer from '../footer/Footer';
 //import CardFavorites from "./CardFavorites";
-import { getAllFavorites} from "../../redux/actions/favorites";
+import { getAllFavorites, removeFavorites} from "../../redux/actions/favorites";
 import { Box, Heading, Text } from '@chakra-ui/react';
 import { WarningTwoIcon} from '@chakra-ui/icons';
+import { getUser } from '../../redux/actions/user';
 
 
 export default function Favorite() {
+  // get user id from local storage
+ 
+
   const dispatch = useDispatch();
-  const all = useSelector((state) => state.favorites. allfavorites);
+  var all = useSelector((state) => state.favorites. allfavorites);
+  const [prueba, setPrueba] = useState(0);
+  
+  useEffect(() => {
+      dispatch(getAllFavorites(21));
+      console.log(window.localStorage);
+    }, [prueba]);
 
-  // useEffect(() => {
-  //     dispatch(getAllFavorites());
-  // }, []);
+  const removeFavorite = (id,bookId) => {
+    dispatch(removeFavorites(id,bookId));
+    console.log(prueba)
+    setPrueba(prueba + 1)
+  };
 
+  
   return (
     
         <>
@@ -26,9 +39,10 @@ export default function Favorite() {
           {all.length ? (
             
              <Box textAlign="center" py={10} px={6} >
-              {all.map(( index) => (
-                <div key={index} >
-                  {/* <CardFavorites shop={p} /> */}
+              {all.map((book) => (
+                <div key={book["book"].id} >
+                  <p>{book["book"].title}</p>
+                  <button onClick={()=>removeFavorite(21, book["book"].id)}>X</button>
                 </div>
               ))}
             </Box>

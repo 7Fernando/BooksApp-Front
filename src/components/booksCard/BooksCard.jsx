@@ -22,6 +22,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 
 import { useSelector, useDispatch } from "react-redux";
+import { addFavorites } from "../../redux/actions/favorites";
 
 
 const BooksCard = () => {
@@ -116,6 +117,9 @@ const BooksCard = () => {
                       Read Online
                     </Button>
                   </Link>
+                  <Button onClick={()=> dispatch(addFavorites({userId: user.email,bookId: book.id}))}>
+                    Add
+                  </Button>
                   <a href={book.epub} download={book.title}>
 
                     <Button
