@@ -65,6 +65,15 @@ export default function Carousel() {
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
 
+    books.sort(function (a, b) {
+      if (a.views < b.views) {
+        return 1;
+      }
+      if (a.views > b.views) {
+        return -1;
+      }
+      return 0;
+    });
   return (
     <>
       {searching.length < 63 ? null : (
