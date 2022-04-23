@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
 import { addFavorites } from "../../redux/actions/favorites";
 
-import {addFavorites , getAllFavorites} from '../../redux/actions/favorites'
+
 
 
 
