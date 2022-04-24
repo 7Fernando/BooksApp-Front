@@ -23,7 +23,7 @@ ReactDOM.render(
         domain={domain}
         clientId={clientId}
         redirectUri={redirect}
-        audience={audience}
+        audience="secreto"
         >
         <App />
       </Auth0Provider>
