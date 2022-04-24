@@ -20,12 +20,15 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import userSin from "../../assets/images/userSin.png";
 
 export default function NavBar() {
-  const { logout, user } = useAuth0();
+  const { logout, user, getAccessTokenSilently } = useAuth0();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleLogout = () => {
     logout();
     window.localStorage.removeItem("token");
+    getAccessTokenSilently().then((r) =>
+      window.localStorage.setItem("token", r)
+    );
   };
 
   return (
