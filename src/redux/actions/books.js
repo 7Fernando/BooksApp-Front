@@ -1,6 +1,12 @@
 import axios from "axios";
 
+let token = localStorage.getItem("token")
+
 const url = import.meta.env.VITE_BASE_URL;
+
+const options = { 
+  headers: { "authorization": `Bearer ${token}` },
+}
 
 export const typesBooks = {
   GET_ALL_BOOKS: "GET_ALL_BOOKS",
@@ -15,7 +21,7 @@ export const typesBooks = {
 export const getBooks = () => {
   try {
     return async (dispatch) => {
-      const { data } = await axios.get(`${url}/books`);
+      const { data } = await axios.get(`${url}/books`,options);
       return dispatch({
         type: typesBooks.GET_ALL_BOOKS,
         payload: data,
