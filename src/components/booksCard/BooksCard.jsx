@@ -41,9 +41,12 @@ const BooksCard = () => {
     }
   }, [isLoading]);
 
+  
+
   const addFavorite = (bookId) => {
 
    dispatch(addFavorites({userId:mailUser,bookId: bookId }))
+   alert('Book added successfully')
       
   };
 
