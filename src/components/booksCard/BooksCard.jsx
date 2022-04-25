@@ -40,7 +40,7 @@ const BooksCard = () => {
 
   useEffect(() => {
 
-
+    getAccessTokenSilently().then(r=> window.localStorage.setItem('token',r))
 
     window.localStorage.setItem("user",newUser.mail)
     getAccessTokenSilently().then(r=>dispatch(getBooks(r)));
@@ -50,9 +50,12 @@ const BooksCard = () => {
     }
   }, [isLoading]);
 
+  
+
   const addFavorite = (bookId) => {
 
    dispatch(addFavorites({userId:mailUser,bookId: bookId }))
+   alert('Book added successfully')
       
   };
 

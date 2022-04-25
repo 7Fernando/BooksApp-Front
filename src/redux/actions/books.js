@@ -14,6 +14,15 @@ export const typesBooks = {
   CLEAR_BOOK_DETAILS: "CLEAR_BOOK_DETAILS",
 };
 
+const local = localStorage.getItem('token')
+
+
+
+ 
+  const autorizacion =  {headers: { authorization: `Bearer ${local}` }}
+  
+
+
 export const getBooks = (r) => {
   try {
     return async (dispatch) => {
@@ -36,7 +45,7 @@ export const getBooks = (r) => {
 export const searchBooks = (search) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`${url}/books?name=${search}`);
+      const { data } = await axios.get(`${url}/books?name=${search}`, autorizacion);
       return dispatch({
         type: typesBooks.SEARCH_BOOKS,
         payload: data,
