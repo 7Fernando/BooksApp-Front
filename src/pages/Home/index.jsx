@@ -25,7 +25,7 @@ export default function Home() {
         
       </Flex>
      
-
+    <Footer />
 
     </> 
   
