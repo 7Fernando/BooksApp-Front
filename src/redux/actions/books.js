@@ -1,5 +1,7 @@
 import axios from "axios";
 
+let token = localStorage.getItem("token");
+
 const url = import.meta.env.VITE_BASE_URL;
 
 export const typesBooks = {
@@ -12,10 +14,19 @@ export const typesBooks = {
   CLEAR_BOOK_DETAILS: "CLEAR_BOOK_DETAILS",
 };
 
-export const getBooks = () => {
+export const getBooks = (r) => {
   try {
     return async (dispatch) => {
+<<<<<<< HEAD
       const { data } = await axios.get(`http://localhost:3001/api/books`);
+=======
+      const { data } = await axios.get(
+        `${url}/books`,
+        ({
+          headers: { authorization: `Bearer ${r}` },
+        })
+      );
+>>>>>>> 1eba65797b487237429238372076d911aaa0e46e
       return dispatch({
         type: typesBooks.GET_ALL_BOOKS,
         payload: data,
@@ -59,11 +70,9 @@ export const getBookDetails = (id) => {
 
 export const sortBooksByName = (sort) => {
   try {
-    return (dispatch) => {
-      return dispatch({
-        type: typesBooks.SORT_BOOKS,
-        payload: sort,
-      });
+    return {
+      type: typesBooks.SORT_BOOKS,
+      payload: sort,
     };
   } catch (error) {
     console.error(error);
@@ -72,11 +81,9 @@ export const sortBooksByName = (sort) => {
 //score todavia en desarrollo
 export const sortBooksByScore = (sort) => {
   try {
-    return (dispatch) => {
-      return dispatch({
-        type: typesBooks.SORT_SCORE,
-        payload: sort,
-      });
+    return {
+      type: typesBooks.SORT_SCORE,
+      payload: sort,
     };
   } catch (error) {
     console.error(error);

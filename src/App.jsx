@@ -1,18 +1,25 @@
-import "./App.css";
-import BookDetails from "./components/bookDetails/BookDetails";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
+import Home from "./pages/Home/index";
 import Landing from "./pages/Landing/Landing";
-import Home from "./pages/Home/index"
+import Plans from "./components/checkout/plans";
+import { Routes, Route } from "react-router-dom";
+import Favorite from "./components/Favorites/Favorite";
+import EpubReader from "./components/epubReader/epubReader";
+import BookDetails from "./components/bookDetails/BookDetails";
+import CheckoutContainer from "./components/checkout/checkoutContainer";
 
-
- const App = () => {
-
+const App = () => {
+  
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<Landing/>}/>
+        <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/plans" element={<Plans />} />
+        <Route path="/read/:id" element={<EpubReader />} />
+        <Route path="/favorites" element={<Favorite />} />
         <Route path="/details/:id" element={<BookDetails />} />
+        <Route path="/checkout/:id" element={<CheckoutContainer />} />
       </Routes>
     </div>
   );

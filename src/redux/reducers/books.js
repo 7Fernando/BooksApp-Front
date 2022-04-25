@@ -45,8 +45,9 @@ cases[typesBooks.SORT_BOOKS] = (initialState, payload) => {
   allBooks: [...sortedBooks],
       }
 };
-//score todavia en desarrollo
+
 cases[typesBooks.SORT_SCORE] = (initialState, payload) => {
+<<<<<<< HEAD
   console.log(payload);
   const sortedScore = 
   payload = "Asc"?
@@ -57,8 +58,42 @@ cases[typesBooks.SORT_SCORE] = (initialState, payload) => {
   return {
   ...initialState,
   allBooks: [...sortedScore],
+=======
+  let copiaallBooks = initialState.allBooks;
+
+  let order;
+
+  if (payload === "Asc") {
+    order = copiaallBooks.sort(function (a, b) {
+      if (a.views < b.views) {
+        return 1;
+      }
+      if (a.views > b.views) {
+        return -1;
+      }
+      return 0;
+    });
+>>>>>>> 1eba65797b487237429238372076d911aaa0e46e
   }
-}
+  if (payload === "Desc") {
+    order = copiaallBooks.sort(function (a, b) {
+      if (a.views > b.views) {
+        return 1;
+      }
+      if (a.views < b.views) {
+        return -1;
+      }
+      return 0;
+    });
+  } else {
+    order = initialState.allBooks;
+  }
+
+  return {
+    ...initialState,
+    allBooks: [...order],
+  };
+};
 
 cases[typesBooks.SEARCH_BOOKS] = (initialState, payload) => (
   {
