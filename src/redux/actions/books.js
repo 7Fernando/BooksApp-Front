@@ -17,16 +17,12 @@ export const typesBooks = {
 export const getBooks = (r) => {
   try {
     return async (dispatch) => {
-<<<<<<< HEAD
-      const { data } = await axios.get(`http://localhost:3001/api/books`);
-=======
       const { data } = await axios.get(
         `${url}/books`,
         ({
           headers: { authorization: `Bearer ${r}` },
         })
       );
->>>>>>> 1eba65797b487237429238372076d911aaa0e46e
       return dispatch({
         type: typesBooks.GET_ALL_BOOKS,
         payload: data,
