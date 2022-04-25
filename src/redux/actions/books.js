@@ -15,7 +15,7 @@ export const typesBooks = {
 export const getBooks = () => {
   try {
     return async (dispatch) => {
-      const { data } = await axios.get(`${url}/books`);
+      const { data } = await axios.get(`http://localhost:3001/api/books`);
       return dispatch({
         type: typesBooks.GET_ALL_BOOKS,
         payload: data,

@@ -38,7 +38,7 @@ cases[typesBooks.SORT_BOOKS] = (initialState, payload) => {
       ? initialState.allBooks.sort((a, b) => a.title.localeCompare(b.title))
       : payload === "Desc"
       ? initialState.allBooks.sort((a, b) => b.title.localeCompare(a.title))
-      : allBooks
+      : initialState.allBooks
       
       return {
   ...initialState,
@@ -53,7 +53,7 @@ cases[typesBooks.SORT_SCORE] = (initialState, payload) => {
   initialState.allBooks.sort((a, b) => a.score - b.score)
   : payload = "Desc"?
   initialState.allBooks.sort((a, b) => b.score - a.score)
-  : allBooks
+  : initialState.allBooks
   return {
   ...initialState,
   allBooks: [...sortedScore],
