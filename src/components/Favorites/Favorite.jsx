@@ -6,7 +6,7 @@ import NavBar from "../NavBar/NavBar"
 import Footer from '../footer/Footer';
 import { getAllFavorites, removeFavorites} from "../../redux/actions/favorites";
 import { Box, Heading,  Button,Center,Flex,Image,Stack,Text,useColorModeValue,Wrap, WrapItem} from '@chakra-ui/react';
-import { WarningTwoIcon} from '@chakra-ui/icons';
+import { WarningTwoIcon, DeleteIcon} from '@chakra-ui/icons';
 
 
 export default function Favorite() {
@@ -66,16 +66,16 @@ export default function Favorite() {
                 
                 
                 <Stack
-                  width={'100%'}
+                  width={'70%'}
                   mt={'2rem'}
                   direction={'row'}
                   padding={2}
                   justifyContent={'space-between'}
                   alignItems={'center'}>
-          <Link to={`/details/${book.id}`} >          
+          <Link to={`/details/${book["book"].id} `} >          
           <Button
             flex={1}
-            fontSize={'sm'}
+            fontSize={'lg'}
             rounded={'full'}
             color={'black'}
             _focus={{
@@ -86,22 +86,22 @@ export default function Favorite() {
           </Link>          
                   <Button
                     flex={1}
-                    fontSize={'sm'}
+                    fontSize={'lg'}
                     rounded={'full'}
-                    bg={'red.400'}
-                    color={'white'}
+                    bg={'grey.400'}
+                    color={'black'}
               
                     boxShadow={
                       '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
                     }
                     _hover={{
-                      bg: 'orange.500',
+                      bg: 'red.500',
                     }}
                     _focus={{
-                      bg: 'orange.500',
+                      bg: 'red.500',
                     }}
                     onClick={()=>removeFavorite(usuario, book["book"].id)}>
-                    Remove Favorite
+                  <DeleteIcon/>
                   </Button>
                 </Stack>
               </Stack>
