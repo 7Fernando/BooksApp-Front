@@ -83,11 +83,10 @@ export default function Favorite() {
                   padding={2}
                   justifyContent={'space-between'}
                   alignItems={'center'}>
-<<<<<<< HEAD
-          <Link to={`/details/${book["book"].id}`} >          
-=======
+     
+
           <Link to={`/details/${book["book"].id} `} >          
->>>>>>> a3b223cdbf64ed4f73262e77181d416d0096a81f
+
           <Button
             flex={1}
             fontSize={'lg'}
