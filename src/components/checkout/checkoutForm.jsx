@@ -18,6 +18,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { update } from "lodash";
 
 const CheckoutForm = () => {
   const { id } = useParams();
@@ -60,6 +61,7 @@ const CheckoutForm = () => {
       // eslint-disable-next-line camelcase
       setMessage(res.data?.hola?.latest_invoice?.payment_intent?.status);
       // const { client_secret, status } = res.data;
+     
       setErrorMessage(res.data);
       setLoading(false);
       elements.getElement(CardElement).clear();
@@ -81,6 +83,14 @@ const CheckoutForm = () => {
       //   // No additional information was needed
       //   // Show a success message to your customer
       // }
+    }
+    
+    if(message === "succeeded"){
+      const update = await axios.put("http://localhost:3001/api/sub", {
+        email: email,
+        idPlan: id,
+      });
+      console.log(update)
     }
   };
 
