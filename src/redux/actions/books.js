@@ -13,19 +13,33 @@ export const typesBooks = {
   CLEAR_BOOK_DETAILS: "CLEAR_BOOK_DETAILS",
 };
 
-const autorizacion = {
-  headers: { authorization: `Bearer ${token}` },
-};
+
+const local = localStorage.getItem('token')
+
+
+
+ 
+  const autorizacion =  {headers: { authorization: `Bearer ${local}`}}
+  
+
+
 const authorizationAdmin = {
   headers: { authorization: `Bearer ${token}`, user: user },
 };
 
-export const getBooks = (r) => {
+
+export const getBooks = (token, email) => {
   try {
+    
     return async (dispatch) => {
-      const { data } = await axios.get(`${url}/books`, {
-        headers: { authorization: `Bearer ${r}`, user: user },
-      });
+
+      const { data } = await axios.get(
+        `${url}/books`,
+        ({
+          headers: { authorization: `Bearer ${token}`, userMail: email },
+        })
+      );
+
       return dispatch({
         type: typesBooks.GET_ALL_BOOKS,
         payload: data,
