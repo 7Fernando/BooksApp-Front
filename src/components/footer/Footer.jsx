@@ -2,13 +2,12 @@ import {
     Box,
     chakra,
     Container,
-    Link,
     Stack,
     Text,
     useColorModeValue,
     VisuallyHidden,
   } from '@chakra-ui/react';
-  import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+ import {Link} from "react-router-dom"
   import { ReactNode } from 'react';
   
   const Logo = (props) => {
@@ -65,9 +64,8 @@ import {
           align={'center'}>
           <Logo />
           <Stack direction={'row'} spacing={6}>
-            <Link href={'#'}>Home</Link>
-            <Link href={'#'}>About</Link>
-            <Link href={'#'}>Contact</Link>
+          <Link to={"/about"}>About us</Link>
+            <Link to={"/contact"}>Contact</Link>
           </Stack>
         </Container>
   
@@ -77,21 +75,14 @@ import {
           borderColor={useColorModeValue('green.200', 'green.700')}>
           <Container
             as={Stack}
-            maxW={'6xl'}
+            maxW={'9xl'}
             py={4}
-            direction={{ base: 'column', md: 'row' }}
+            direction={{ base: 'center', md: 'row' }}
             spacing={4}
             justify={{ base: 'center', md: 'space-between' }}
             align={{ base: 'center', md: 'center' }}>
             <Text>© 2022 Bookflix. All rights reserved</Text>
-            <Stack direction={'row'} spacing={6}>
-              <SocialButton label={'Twitter'} href={'#'}>
-                <FaTwitter />
-              </SocialButton>
-              <SocialButton label={'Instagram'} href={'#'}>
-                <FaInstagram />
-              </SocialButton>
-            </Stack>
+
           </Container>
         </Box>
       </Box>
