@@ -19,17 +19,18 @@ const local = localStorage.getItem('token')
 
 
  
-  const autorizacion =  {headers: { authorization: `Bearer ${local}` }}
+  const autorizacion =  {headers: { authorization: `Bearer ${local}`}}
   
 
 
-export const getBooks = (r) => {
+export const getBooks = (token, email) => {
   try {
+    
     return async (dispatch) => {
       const { data } = await axios.get(
         `${url}/books`,
         ({
-          headers: { authorization: `Bearer ${r}` },
+          headers: { authorization: `Bearer ${token}`, userMail: email },
         })
       );
       return dispatch({

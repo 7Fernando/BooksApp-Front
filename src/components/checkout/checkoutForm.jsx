@@ -20,12 +20,14 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const CheckoutForm = () => {
+
   const { id } = useParams();
   const stripe = useStripe();
   const elements = useElements();
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const emailLc= localStorage.getItem('user');
   const [loading, setLoading] = useState(false);
   const [display, setDisplay] = useState("none");
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,9 +46,11 @@ const CheckoutForm = () => {
         email: email,
       },
     });
-    console.log(115, result.paymentMethod.id);
+    //console.log(115, result.paymentMethod.id);
     if (result.error) {
+      setErrorMessage(result.error.message)
       console.error(result.error.message);
+      
     } else {
       //console.log(result);
       const res = await axios.post("http://localhost:3001/api/sub", {
@@ -54,9 +58,14 @@ const CheckoutForm = () => {
         email: email,
         idPlan: id,
       });
+      const res2 = await axios.put("http://localhost:3001/api/users/updateSub", {
+        idSub: res.data.hola.id,
+        userMail: emailLc,
+      });
 
       console.log(111, res);
       console.log(112, message);
+      // console.log(120,res2)
       // eslint-disable-next-line camelcase
       setMessage(res.data?.hola?.latest_invoice?.payment_intent?.status);
       // const { client_secret, status } = res.data;
@@ -106,7 +115,7 @@ const CheckoutForm = () => {
               type="email"
               boxShadow="base"
               border="none"
-              value={email}
+              value={emailLc}
               onChange={(e) => setEmail(e.target.value)}
             />
             <FormHelperText>We'll never share your email.</FormHelperText>
