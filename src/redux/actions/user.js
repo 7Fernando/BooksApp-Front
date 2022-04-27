@@ -7,6 +7,7 @@ const options = {
 export const typesUser = {
     POST_USER: "POST_USER",
     GET_ALL_USER: "GET_ALL_USER",
+    GET_USER: "GET_USER",
   };
 
   export const postUser = (user) => {
@@ -29,6 +30,20 @@ export const typesUser = {
         .then(response => {
           dispatch({
             type: typesUser.GET_ALL_USER,
+            payload: response.data
+          });
+        })
+        .catch(error => {
+          throw error;
+        });
+    };
+  }
+  export const getUserByMail = (email) => {
+    return (dispatch) => {
+      return axios.get(`${url}/users/profile/${email}`)
+        .then(response => {
+          dispatch({
+            type: typesUser.GET_USER,
             payload: response.data
           });
         })

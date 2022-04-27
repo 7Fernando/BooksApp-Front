@@ -84,7 +84,7 @@ const CheckoutForm = () => {
       //   // Show a success message to your customer
       // }
     }
-    
+    /*
     if(message === "succeeded"){
       const update = await axios.put("http://localhost:3001/api/sub", {
         email: email,
@@ -92,8 +92,8 @@ const CheckoutForm = () => {
       });
       console.log(update)
     }
+    */
   };
-
   return (
     <>
       <Box

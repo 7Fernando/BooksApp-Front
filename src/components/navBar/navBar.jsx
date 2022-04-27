@@ -68,7 +68,9 @@ export default function NavBar() {
                   </Center>
                   <br />
                   <MenuDivider />
+                  <Link to="/profile">
                   <MenuItem>My Profile Panel</MenuItem>
+                  </Link>
                   <Link to="/favorites">
                     <MenuItem>My Favorites</MenuItem>
                   </Link>
