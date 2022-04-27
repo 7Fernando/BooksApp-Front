@@ -24,6 +24,7 @@ export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleLogout = () => {
+    window.localStorage.removeItem("user");
     logout();
     window.localStorage.removeItem("token");
     getAccessTokenSilently().then((r) =>

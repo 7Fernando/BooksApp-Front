@@ -37,14 +37,24 @@ const BooksCard = () => {
     picture: user?.picture 
   }
 
-
   useEffect(() => {
 
-    getAccessTokenSilently().then(r=> window.localStorage.setItem('token',r))
+    
 
-    window.localStorage.setItem("user",newUser.mail)
-    getAccessTokenSilently().then(r=>dispatch(getBooks(r)));
-    ;
+    
+    const f  = async () =>{
+      window.localStorage.setItem("user",newUser.mail)
+      
+
+      const token = await getAccessTokenSilently()
+      window.localStorage.setItem('token', token)
+      const email2 = localStorage.getItem('user')
+      dispatch(getBooks(token,email2))
+    }
+    f()
+    
+   
+    
     if (isLoading === false) {
       dispatch(postUser(newUser));
     }

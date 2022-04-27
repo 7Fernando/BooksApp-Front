@@ -1,4 +1,5 @@
 import axios from "axios";
+const token = localStorage.getItem("token");
 
 const url = import.meta.env.VITE_BASE_URL;
 
@@ -9,10 +10,14 @@ export const typesFavorites = {
 
 };
 
+const autorizacion = {
+  headers: { authorization: `Bearer ${token}` },
+};
+
 export const getAllFavorites = (id) => {
   return async (dispatch) => {
     try{     
-    const { data } = await axios.get(`${url}/favorites/?mail=${id}`);
+    const { data } = await axios.get(`${url}/favorites/?mail=${id}`, autorizacion);
     
     return dispatch({
       type: typesFavorites.GET_ALL_FAVORITES,
@@ -29,25 +34,26 @@ export const getAllFavorites = (id) => {
 
 
 export const addFavorites = (body) =>  {
-   return async (dispatch)=>{ try {
-      const {data} = await axios.post(`${url}/favorites`, body);
-      return dispatch({
-        type: typesFavorites.POST_FAVORITES,
-        payload: data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  return async (dispatch)=>{ try {
+     const {data} = await axios.post(`${url}/favorites`, body, autorizacion);
+     
+     return dispatch({
+       type: typesFavorites.POST_FAVORITES,
+       payload: data,
+     });
+   } catch (error) {
+     console.log(error);
+   }
+ };
 };
 
 
-  export const removeFavorites = (id, bookId) => async () => {
-    try {
-      await axios.delete(`${url}/favorites/?userId=${id}&bookId=${bookId}`);
-    } catch (error) {
-      console.log(error);
-    }
-  };  
+export const removeFavorites = (id, bookId) => async () => {
+  try {
+    await axios.delete(`${url}/favorites/?userId=${id}&bookId=${bookId}`, autorizacion);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 

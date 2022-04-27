@@ -7,7 +7,10 @@ import Favorite from "./components/Favorites/Favorite";
 import EpubReader from "./components/epubReader/epubReader";
 import BookDetails from "./components/bookDetails/BookDetails";
 import CheckoutContainer from "./components/checkout/checkoutContainer";
+
 import UserPanel from "./components/userPanel/UserPanel";
+
+import Contact from './pages/Contact/Contact'
 
 const App = () => {
   
@@ -22,6 +25,9 @@ const App = () => {
         <Route path="/details/:id" element={<BookDetails />} />
         <Route path="/checkout/:id" element={<CheckoutContainer />} />
         <Route path="/profile" element={<UserPanel/>} />
+
+        <Route path="/contact" element={<Contact />} />
+
       </Routes>
     </div>
   );
