@@ -2,7 +2,7 @@ import { Box,Button,Flex,FormControl,FormLabel,Heading,IconButton,Input,InputGro
   import React , { useRef } from 'react';
   import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from 'react-icons/bs';
   import { MdEmail, MdOutlineEmail } from 'react-icons/md';
-  import emailjs from 'emailjs-com'
+ // import emailjs from 'emailjs-com'
   import styles from "./styles.module.css";
   import NavBar from "../../components/navBar/navBar";
   import Footer from "../../components/footer/Footer"
