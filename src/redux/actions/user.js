@@ -4,6 +4,7 @@ export const typesUser = {
     POST_USER: "POST_USER",
     GET_ALL_USER: "GET_ALL_USER",
     GET_USER: "GET_USER",
+  UPDATE_USER: "UPDATE_USER",
   };
 
 const token = localStorage.getItem("token");
@@ -49,7 +50,7 @@ export const postUser = (user) => {
   }
   export const getUserByMail = (email) => {
     return (dispatch) => {
-      return axios.get(`${url}/users/profile/${email}`)
+      return axios.get(`${url}/users/profile/${email}`, autorizacion)
         .then(response => {
           dispatch({
             type: typesUser.GET_USER,
@@ -60,4 +61,18 @@ export const postUser = (user) => {
           throw error;
         });
     };
+  }
+
+  export const modifyUser = (user) => {
+    return async (dispatch) => {
+      try {
+        const response = await axios.put(`${url}/users`, user, authorizationAdmin);
+        dispatch({
+          type: typesUser.UPDATE_USER,
+          payload: response.data,
+        });
+      } catch (error) {
+        throw error;
+      }
+    }
   }

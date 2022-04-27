@@ -25,7 +25,7 @@ import {MdCheckCircle} from "react-icons/md";
 
 import { EditIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserByMail } from "../../redux/actions/user";
+import { getUserByMail, modifyUser } from "../../redux/actions/user";
 import { useEffect } from "react";
 import { useState } from "react";
 import { getAllFavorites } from "../../redux/actions/favorites";
@@ -39,20 +39,71 @@ export default function SocialProfileSimple() {
   const [img, setImg] = useState("");
   const [name, setName] = useState("");
   const [isShow, setIsShow] = useState(false);
+
+  const [errors, setErrors] = useState({
+    name: "",
+    img: "",
+  });
+
   useEffect(() => {
-    dispatch(getUserByMail(usuario));
     dispatch(getAllFavorites(usuario));
+    dispatch(getUserByMail(usuario));
   
   }, []);
 
-  function editProfile() {
+  function editProfile(e) {
+    e.preventDefault();
     setIsShow(true);
   }
-  function updateProfile() {
-    console.log(img);
-    console.log(name);
-    setIsShow(false);
+
+  function validate() {
+    let errors = {};
+    if (!name) errors.name = "El nombre es requerido";
+    if (name.length < 3) {
+      errors.name = "El nombre debe tener al menos 3 caracteres";
+    }
+  
+    if (/\d/.test(name)) {
+      errors.name = "El nombre no puede incluir numeros";
+    }
+    if (name.split(" ").length > 2) {
+      errors.name = "El nombre no puede tener mas de 1 espacio en blanco";
+    }
+    if (!img) errors.img = "La imagen es requerida";
+    
+    let url= /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/g;
+    
+    if (!url.test(img)) {
+      errors.img = "La imagen debe ser una url valida";
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
   }
+
+  function updateProfile(e) {
+    e.preventDefault();
+    if (validate()) {
+      dispatch(modifyUser({id: user.id, name: name, picture: img}));
+      setIsShow(false);
+      setImg("");
+      setName("");
+      
+    } 
+  }
+
+  function cancelButton(e) {
+    e.preventDefault();
+    setIsShow(false);
+    setErrors({
+      name: "",
+      img: "",
+    });
+    setImg("");
+    setName("");
+
+  }
+
   return (
     <>
       <NavBar />
@@ -103,13 +154,13 @@ export default function SocialProfileSimple() {
                 }}
                 >
               
-               Go Home and Add Books
+              Explore Books
               </Button>
                   </Link>
               </Stack>
           )}
         </Box>
-        <Center py={8}>
+        <Center py={8} m={4}>
           <Box
             maxW={"380px"}
             w={"full"}
@@ -149,16 +200,9 @@ export default function SocialProfileSimple() {
               color={useColorModeValue("gray.700", "gray.400")}
               px={3}
             >
-              Suscription: {user.suscribe}
+              Suscription: {user.plan}
             </Text>
-            <Text
-              textAlign={"center"}
-              fontSize={"lg"}
-              color={useColorModeValue("gray.700", "gray.400")}
-              px={3}
-            >
-              Expiration: Aca iria el vencimiento
-            </Text>
+            
 
             <Stack mt={8} direction={"row"} spacing={4}>
               <Link to={'/plans'}>
@@ -179,7 +223,7 @@ export default function SocialProfileSimple() {
                 rounded={"full"}
                 bg={"blue.400"}
                 color={"white"}
-                onClick={() => editProfile()}
+                onClick={(e) => editProfile(e)}
                 boxShadow={
                   "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
                 }
@@ -225,7 +269,7 @@ export default function SocialProfileSimple() {
               onChange={(e) => setImg(e.target.value)}
               placeholder="Enter the new url of the image"
             />
-           
+            {errors.img && <Text color="red.500">{errors.img}</Text>}
            <FormLabel m={2} textAlign={'center'} htmlFor="name">Change your Name</FormLabel>
             <Input
               id="name"
@@ -236,12 +280,13 @@ export default function SocialProfileSimple() {
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your new Name"
             />
+            {errors.name && <Text color="red.500">{errors.name}</Text>}
                 <Stack mt={8} direction={"row"} spacing={4}>
                 <Button
                 flex={1}
                 fontSize={"sm"}
                 rounded={"full"}
-                onClick={() => setIsShow(false)}
+                onClick={(e) => cancelButton(e)}
                 _focus={{
                   bg: "gray.200",
                 }}
@@ -255,7 +300,7 @@ export default function SocialProfileSimple() {
                 rounded={"full"}
                 bg={"blue.400"}
                 color={"white"}
-                onClick={() => updateProfile()}
+                onClick={(e) => updateProfile(e)}
                 boxShadow={
                   "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
                 }
@@ -277,7 +322,7 @@ export default function SocialProfileSimple() {
         ) : <Box  maxW={"380px"}
         w={"full"}></Box>}
       </Flex>
-      <Footer />
+      <Footer  />
     </>
   );
 }
