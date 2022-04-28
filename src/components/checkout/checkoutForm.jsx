@@ -16,8 +16,13 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { useParams } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from "react-redux";
+import { postUser } from "../../redux/actions/user";
+import { getBooks } from "../../redux/actions/books";
+
 
 const CheckoutForm = () => {
 
@@ -25,13 +30,46 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const emailLc= localStorage.getItem('user');
+  const emailLc = localStorage.getItem("user");
   const [loading, setLoading] = useState(false);
   const [display, setDisplay] = useState("none");
   const [errorMessage, setErrorMessage] = useState("");
+  const { user, getAccessTokenSilently, isLoading } = useAuth0();
 
+  const newUser = {
+    mail: user?.email,
+    name: user?.nickname,
+    picture: user?.picture 
+  }
+  
+  useEffect(() => {
+    const f  = async () =>{
+      window.localStorage.setItem("user",newUser.mail)
+      const token = await getAccessTokenSilently()
+      window.localStorage.setItem('token', token)
+      const email2 = localStorage.getItem('user')
+      dispatch(getBooks(token,email2))
+    }
+    f()
+    
+    if (isLoading === false) {
+      dispatch(postUser(newUser));
+    }
+  }, [isLoading]);
+  
+  
+  const token = localStorage.getItem("token");
+
+
+
+
+
+  const autorizacion = {
+    headers: { authorization: `Bearer ${token}`,userMail: emailLc, },
+  };
   const handleSubmitSub = async (event) => {
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
@@ -48,31 +86,39 @@ const CheckoutForm = () => {
     });
     //console.log(115, result.paymentMethod.id);
     if (result.error) {
-      setErrorMessage(result.error.message)
+      setErrorMessage(result.error.message);
       console.error(result.error.message);
-      
     } else {
       //console.log(result);
-      const res = await axios.post("http://localhost:3001/api/sub", {
-        payment_method: result.paymentMethod.id,
-        email: email,
-        idPlan: id,
-      });
-      const res2 = await axios.put("http://localhost:3001/api/users/updateSub", {
-        idSub: res.data.hola.id,
-        userMail: emailLc,
-      });
+      const res = await axios.post(
+        "http://localhost:3001/api/sub",
+        {
+          payment_method: result.paymentMethod.id,
+          email: email,
+          idPlan: id,
+        },
+        autorizacion
+      );
+      console.log(150,res)
+      const res2 = 
+      
+      await axios.put(
+        "http://localhost:3001/api/users/updateSub",
+        {
+          idSub: res?.data?.hola?.id,
+          userMail: emailLc,
+        },
+        autorizacion
+      );
 
-      console.log(111, res);
-      console.log(112, message);
-      // console.log(120,res2)
+     
       // eslint-disable-next-line camelcase
       setMessage(res.data?.hola?.latest_invoice?.payment_intent?.status);
       // const { client_secret, status } = res.data;
       setErrorMessage(res.data);
       setLoading(false);
       elements.getElement(CardElement).clear();
-      setEmail("")
+      setEmail("");
       // if (status === "requires_action") {
       //   stripe.confirmCardPayment(client_secret).then(function (result) {
       //     if (result.error) {
