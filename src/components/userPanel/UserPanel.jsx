@@ -21,14 +21,14 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import {MdCheckCircle} from "react-icons/md";
+import {MdCheckCircle,} from "react-icons/md";
 
-import { EditIcon } from "@chakra-ui/icons";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserByMail, modifyUser } from "../../redux/actions/user";
 import { useEffect } from "react";
 import { useState } from "react";
-import { getAllFavorites } from "../../redux/actions/favorites";
+import { getAllFavorites, removeFavorites } from "../../redux/actions/favorites";
 
 
 export default function SocialProfileSimple() {
@@ -39,7 +39,7 @@ export default function SocialProfileSimple() {
   const [img, setImg] = useState("");
   const [name, setName] = useState("");
   const [isShow, setIsShow] = useState(false);
-
+  const [prueba, setPrueba] = useState(0)
   const [errors, setErrors] = useState({
     name: "",
     img: "",
@@ -49,7 +49,7 @@ export default function SocialProfileSimple() {
     dispatch(getAllFavorites(usuario));
     dispatch(getUserByMail(usuario));
   
-  }, []);
+  }, [prueba]);
 
   function editProfile(e) {
     e.preventDefault();
@@ -74,7 +74,7 @@ export default function SocialProfileSimple() {
     let url= /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/g;
     
     if (!url.test(img)) {
-      errors.img = "La imagen debe ser una url valida";
+      errors.img = "La imagen debe ser una url valida (jpg,png,jpeg,gif)";
     }
 
     setErrors(errors);
@@ -129,6 +129,11 @@ export default function SocialProfileSimple() {
                   <Link to={`/details/${b["book"].id}`}>
                   {b["book"].title}
                   </Link>
+                  <Button m={1} size={"xs"} onClick={()=> {dispatch(removeFavorites(usuario,b["book"].id ))
+                setPrueba(prueba+1)}}>
+                    <DeleteIcon color="red.700"  /> 
+                  </Button>
+
               </ListItem> )})}
             </List>
           ) : (

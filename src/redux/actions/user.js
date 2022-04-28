@@ -66,7 +66,7 @@ export const postUser = (user) => {
   export const modifyUser = (user) => {
     return async (dispatch) => {
       try {
-        const response = await axios.put(`${url}/users`, user, authorizationAdmin);
+        const response = await axios.put(`${url}/users/modify`, user, autorizacion);
         dispatch({
           type: typesUser.UPDATE_USER,
           payload: response.data,
