@@ -16,9 +16,15 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { useParams } from "react-router-dom";
-import { update } from "lodash";
+
+
+
+import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from "react-redux";
+import { postUser } from "../../redux/actions/user";
+import { getBooks } from "../../redux/actions/books";
 
 
 
@@ -28,13 +34,43 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const emailLc = localStorage.getItem("user");
   const [loading, setLoading] = useState(false);
   const [display, setDisplay] = useState("none");
   const [errorMessage, setErrorMessage] = useState("");
+  const { user, getAccessTokenSilently, isLoading } = useAuth0();
+
+  const newUser = {
+    mail: user?.email,
+    name: user?.nickname,
+    picture: user?.picture 
+  }
+  
+  useEffect(() => {
+    const f  = async () =>{
+      window.localStorage.setItem("user",newUser.mail)
+      const token = await getAccessTokenSilently()
+      window.localStorage.setItem('token', token)
+      const email2 = localStorage.getItem('user')
+      dispatch(getBooks(token,email2))
+    }
+    f()
+    
+    if (isLoading === false) {
+      dispatch(postUser(newUser));
+    }
+  }, [isLoading]);
+  
+  
   const token = localStorage.getItem("token");
+
+
+
+
+
   const autorizacion = {
     headers: { authorization: `Bearer ${token}`,userMail: emailLc, },
   };
