@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Search2Icon } from "@chakra-ui/icons";
 import { searchBooks } from "../../redux/actions/books";
-import { Button, Input, InputGroup} from "@chakra-ui/react";
+import { Flex, IconButton, Button, Input, InputGroup } from "@chakra-ui/react";
 import s from "../filter/filter_athors.module.css"
 
 
@@ -22,42 +23,42 @@ const Search = () => {
 
   return (
     <div>
-    
-      <div className={s.conteiner}>
-      <label className={s.label}>
-        <Input
-           bg={"green.200"}
-           _hover={{
-             background: "green.300",
-           }}
-          
-          variant="filled"
-          size="md"
-          list="books"
-          type="text"
-          value={search}
-          onChange={handleChange}
-          placeholder="Search Books..."
-          _placeholder={{ opacity: 1, color: 'black' }}
-          
-        />
-           </label>
+
+      <Flex p="2">
+        <InputGroup justifyContent="center">
+          <Input
+         borderRightRadius="0"
+            color="green.200"
+            bg="gray.700"
+            variant="filled"
+            size="md"
+            width="md"
+            list="books"
+            type="text"
+            value={search}
+            onChange={handleChange}
+            placeholder="Search Books..."
+          />
+
+          <IconButton
+            bg="green.500"
+            color="white"
+            borderLeftRadius="0"
+            ml="-md"
+            _hover={{
+              color: "gray.800",
+            }}
+            size="md"
+            onClick={onSubmit}
+            icon={<Search2Icon/>}
+          />
+
+        </InputGroup>
+      </Flex>
     </div>
-    <div className={s.conteiner}>
-        <Button
-          bg="green.500"
-          color="white"
-          _hover={{
-            color: "gray.800",
-          }}
-          size="md"
-          onClick={onSubmit}
-        >
-          Search
-        </Button>
-        </div>
-     
-        </div>
+
+    
+    
   );
 };
 

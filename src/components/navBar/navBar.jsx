@@ -4,6 +4,7 @@ import {
   Avatar,
   Button,
   Menu,
+  Text,
   MenuButton,
   MenuList,
   MenuItem,
@@ -41,22 +42,40 @@ import { getUserByMail } from "../../redux/actions/user";
   const userMail = window.localStorage.getItem("user");
   useEffect(() => {
     dispatch(getUserByMail(userMail));
-    
   }, []);
 
   return (
     <>
-      <Box bg="black" px={3} height="150px">
-        <Flex h={40} alignItems={"center"} justifyContent={"space-between"}>
-          <Link to="/home" >
-            <Box color="green.300" size={"lg"} fontSize="30px" onClick={(e)=>dispatch(getBooks())}>
+
+      <Box bg="black" px={10} height="95px">
+        <Flex h={"95px"} alignItems={"center"} justifyContent={"space-between"}>
+          <Link to="/home">
+            <Text
+              color="green.300"
+              size={"lg"}
+              fontSize="30px"
+              fontWeight={"bold"}
+            >
+
               BOOKFLIX
-            </Box>
+            </Text>
           </Link>
-        
+
+
+          <Search/>
+
+
           <Flex alignItems={"center"}>
-            <Stack direction={"row"} spacing={20}>
-              <Button onClick={toggleColorMode} size={"lg"} color="green.300">
+            <Stack direction={"row"} spacing={2} >
+              <Button
+                onClick={toggleColorMode}
+                size={"lg"}
+                color="green.300"
+                bg="transparent"
+                _hover={{bg:"transparent"}}
+                mt="5%"
+                
+              >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
 
@@ -68,12 +87,18 @@ import { getUserByMail } from "../../redux/actions/user";
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar size={"lg"} src={usuario ? usuario.picture : userSin} />
+                  <Avatar
+                    size={"lg"}
+                    src={usuario ? usuario.picture : userSin}
+                  />
                 </MenuButton>
                 <MenuList alignItems={"center"} position="relative" zIndex={3}>
                   <br />
                   <Center>
-                    <Avatar size={"2xl"} src={usuario ? usuario.picture : userSin} />
+                    <Avatar
+                      size={"2xl"}
+                      src={usuario ? usuario.picture : userSin}
+                    />
                   </Center>
                   <br />
                   <Center>
@@ -82,7 +107,7 @@ import { getUserByMail } from "../../redux/actions/user";
                   <br />
                   <MenuDivider />
                   <Link to="/profile">
-                  <MenuItem>My Profile Panel</MenuItem>
+                    <MenuItem>My Profile Panel</MenuItem>
                   </Link>
                   <Link to="/favorites">
                     <MenuItem>My Favorites</MenuItem>

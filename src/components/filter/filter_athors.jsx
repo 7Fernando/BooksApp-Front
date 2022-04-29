@@ -1,4 +1,4 @@
-import { Input } from "@chakra-ui/react";
+import { Box, Input } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import s from "./Filter_athors.module.css";
 import { getBooks } from "../../redux/actions/books";
@@ -23,20 +23,22 @@ export default function Filter_athors() {
   return (
     <div className={s.conteiner}>
       <label className={s.label}>
-        Filter by author
+        <Box mb="3">Filter by author</Box>
         <Input
           bg={"green.200"}
+          boxShadow="xl"
+          color="gray.600"
           _hover={{
             background: "green.300",
+            opacity: 1,
           }}
-         
           list="author"
           name="author"
-          placeholder ="Author"
-          _placeholder={{ opacity: 1, color: 'black' }}
+          placeholder="Author"
+          _placeholder={{ opacity: 1, color: "gray.600" }}
           onChange={(e) => handleFilterAhutors(e)}
         />
-        <datalist id="author" className={s.dataList}>
+        <datalist id="author">
           {allAthors &&
             allAthors.map((author) => {
               return (
