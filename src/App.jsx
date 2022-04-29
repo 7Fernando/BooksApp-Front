@@ -1,6 +1,7 @@
-import React from "react";
+import { useEffect } from "react";
 import Contact from "./pages/Contact/Contact";
 import Landing from "./pages/Landing/Landing";
+import { useAuth0 } from "@auth0/auth0-react";
 import Validation from "./components/validation";
 import { Routes, Route } from "react-router-dom";
 import Favorite from "./components/Favorites/Favorite";
@@ -8,7 +9,9 @@ import EpubReader from "./components/epubReader/epubReader";
 import BookDetails from "./components/bookDetails/BookDetails";
 import CheckoutContainer from "./components/checkout/checkoutContainer";
 
+
 const App = () => {
+  
   return (
     <div className="App">
       <Routes>
