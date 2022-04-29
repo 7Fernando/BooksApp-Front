@@ -35,9 +35,10 @@ export default function NavBar() {
       window.localStorage.setItem("token", r)
     );
   };
+  const userMail = window.localStorage.getItem("user");
   useEffect(() => {
-    dispatch(getUserByMail(user.email));
-    console.log("hola prueba")
+    dispatch(getUserByMail(userMail));
+    
   }, []);
 
   return (
