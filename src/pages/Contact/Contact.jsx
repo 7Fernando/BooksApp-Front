@@ -63,6 +63,7 @@ const Contact = () => {
     <>
       <NavBar />
       <Flex
+      height={'100vh'}
         bg={useColorModeValue("gray.100", "gray.900")}
         align="center"
         justify="center"
