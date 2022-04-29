@@ -1,62 +1,61 @@
-import React, { useEffect } from "react";
-import { Box, Stack, Image, Button, Center, Spinner} from "@chakra-ui/react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Text } from "@chakra-ui/react";
-import { getBooks } from "../../redux/actions/books";
-import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
-import { Link } from "react-router-dom"
+import { getBooks } from "../../redux/actions/books";
 import { useSelector, useDispatch } from "react-redux";
-
-import {addFavorites , getAllFavorites} from '../../redux/actions/favorites'
-
-
-
+import { addFavorites } from "../../redux/actions/favorites";
+import { AiFillHeart } from 'react-icons/ai';
+import { BsFillBookmarkHeartFill } from 'react-icons/bs';
+import {
+  ChevronUpIcon,
+  ArrowDownIcon,
+  StarIcon,
+  Search2Icon,
+} from "@chakra-ui/icons";
+import {
+  Box,
+  Stack,
+  Image,
+  Button,
+  Center,
+  Spinner,
+  IconButton,
+} from "@chakra-ui/react";
 
 const BooksCard = () => {
   const dispatch = useDispatch();
-
-  const { user, getAccessTokenSilently, isLoading } = useAuth0();
-
+  const mailUser = window.localStorage.getItem("user");
   const books = useSelector((state) => state.books.allBooks);
+  const { user, getAccessTokenSilently, isLoading } = useAuth0();
   const searchBooks = useSelector((state) => state.books.searchBook);
-  const mailUser =  window.localStorage.getItem('user');
-
 
   const newUser = {
     mail: user?.email,
     name: user?.nickname,
-    picture: user?.picture 
-  }
+    picture: user?.picture,
+  };
 
   useEffect(() => {
+    const f = async () => {
+      const token = await getAccessTokenSilently();
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", newUser.mail);
+      const email2 = localStorage.getItem("user");
+      dispatch(getBooks(token, email2));
+    };
+    f();
 
-    const f  = async () =>{
-      
-      const token = await getAccessTokenSilently()
-      localStorage.setItem('token', token)
-      localStorage.setItem("user",newUser.mail)
-      const email2 = localStorage.getItem('user')
-      dispatch(getBooks(token,email2))
-
-    }
-    f()
-  
     if (isLoading === false) {
       dispatch(postUser(newUser));
     }
-    
   }, [isLoading]);
 
-  
-
   const addFavorite = (bookId) => {
-
-   dispatch(addFavorites({userId:mailUser,bookId: bookId }))
-   alert('Book added successfully')
-      
+    dispatch(addFavorites({ userId: mailUser, bookId: bookId }));
+    alert("Book added successfully");
   };
-
 
   if (books.length === 0 || undefined) {
     return (
@@ -72,7 +71,6 @@ const BooksCard = () => {
     );
   }
 
-
   return (
     <>
       <Center py={12} flexWrap={"wrap"}>
@@ -80,12 +78,10 @@ const BooksCard = () => {
           <Text fontSize="5xl" fontWeight="bold">
             No books found :(
           </Text>
-        ) : ( 
-      
+        ) : (
           books?.length &&
           books?.map((book) => (
             <Box
-
               key={book.id}
               role={"group"}
               pb={6}
@@ -103,7 +99,6 @@ const BooksCard = () => {
               _hover={{
                 transform: "translateY(-1%)",
               }}
-
             >
               <Link to={`/details/${book.id}`}>
                 <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
@@ -114,7 +109,6 @@ const BooksCard = () => {
               </Link>
               <Center>
                 <Stack direction="row" spacing={2} m={5}>
-
                   <Link to={`/read/${book.id}`}>
                     <Button
                       colorScheme="red"
@@ -128,8 +122,8 @@ const BooksCard = () => {
                       Read Online
                     </Button>
                   </Link>
-                  <a href={book.epub} download={book.title}>
 
+                  <a href={book.epub} download={book.title}>
                     <Button
                       rightIcon={<ArrowDownIcon size="sm" />}
                       colorScheme="red"
@@ -144,21 +138,17 @@ const BooksCard = () => {
                     </Button>
                   </a>
 
-                  <Button
-                      rightIcon={<ArrowDownIcon size="sm" />}
-                      colorScheme="red"
-                      color={"green.400"}
-                      _hover={{
-                        color: "green.200",
-                      }}
-                      variant="outline"
-                      size="sm"
-                      onClick={()=> addFavorite(book.id)}
-
-                    >
-                      ADD
-                    </Button>
-
+                  <IconButton
+                    bg="gray.800"
+                    color="green.500"
+                    borderRadius="50"
+                    _hover={{
+                      color: "green.200",
+                    }}
+                    size="sm"
+                    onClick={() => addFavorite(book.id)}
+                    icon={<BsFillBookmarkHeartFill size="sm" />}
+                  />
                 </Stack>
               </Center>
             </Box>

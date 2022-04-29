@@ -9,8 +9,6 @@ import {
   FormControl,
   FormHelperText,
   Spinner,
-  Center,
-  Heading,
 } from "@chakra-ui/react";
 import axios from "axios";
 import {
@@ -22,9 +20,9 @@ import {
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useParams } from "react-router-dom";
 import { postUser } from "../../redux/actions/user";
 import { getBooks } from "../../redux/actions/books";
-import { Link, useParams, useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
   const { id } = useParams();
@@ -82,14 +80,12 @@ const CheckoutForm = () => {
         email: email,
       },
     });
-    //console.log(115, result.paymentMethod.id);
+
     if (result.error) {
-      console.log(112, result.error.message);
       setErrorMessage(result.error.message);
-      console.log(115, errorMessage);
     } else {
-      //console.log(result);
       setLoading(true);
+
       const res = await axios.post(
         "http://localhost:3001/api/sub",
         {
@@ -99,12 +95,21 @@ const CheckoutForm = () => {
         },
         autorizacion
       );
-      console.log(150, res);
+      
       const res2 = await axios.put(
         "http://localhost:3001/api/users/updateSub",
         {
           idSub: res?.data?.hola?.id,
           userMail: emailLc,
+        },
+        autorizacion
+      );
+
+      const update = await axios.put(
+        "http://localhost:3001/api/sub",
+        {
+          email: emailLc,
+          idPlan: id,
         },
         autorizacion
       );
