@@ -1,6 +1,8 @@
 import axios from "axios";
 const url = import.meta.env.VITE_BASE_URL;
+
 import { autorizacion } from "../../helpers/token";
+
 const user = localStorage.getItem("user");
 const token = localStorage.getItem("token");
 
@@ -13,6 +15,9 @@ export const typesBooks = {
   SORT_SCORE: "SORT_SCORE",
   CLEAR_BOOK_DETAILS: "CLEAR_BOOK_DETAILS",
 };
+
+
+
 
 const authorizationAdmin = {
   headers: { authorization: `Bearer ${token}`, user: user },
