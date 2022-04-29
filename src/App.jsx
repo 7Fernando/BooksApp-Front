@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-import React, { useEffect } from "react";
-import Home from "./pages/Home/index";
-
-=======
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
->>>>>>> a7763c22b064fd9a7e9986d36346f811f4a6d6fb
 import Landing from "./pages/Landing/Landing";
 import Validation from "./components/validation";
 import { Routes, Route } from "react-router-dom";
@@ -14,13 +8,6 @@ import UserPanel from "./components/userPanel/UserPanel";
 import EpubReader from "./components/epubReader/epubReader";
 import BookDetails from "./components/bookDetails/BookDetails";
 import CheckoutContainer from "./components/checkout/checkoutContainer";
-<<<<<<< HEAD
-import About from "./pages/About/About";
-
-import UserPanel from "./components/userPanel/UserPanel";
-import Contact from "./pages/Contact/Contact";
-=======
->>>>>>> a7763c22b064fd9a7e9986d36346f811f4a6d6fb
 
 const App = () => {
   return (
@@ -35,11 +22,6 @@ const App = () => {
         <Route path="/read/:id" element={<EpubReader />} />
         <Route path="/details/:id" element={<BookDetails />} />
         <Route path="/checkout/:id" element={<CheckoutContainer />} />
-<<<<<<< HEAD
-        <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<UserPanel />} />
-=======
->>>>>>> a7763c22b064fd9a7e9986d36346f811f4a6d6fb
       </Routes>
     </div>
   );
