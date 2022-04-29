@@ -2,6 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  margin: 10px;
 }
 .label {
   color: #0f9559;
@@ -9,4 +10,3 @@
   flex-direction: column;
   font-weight: 700;
 }
-

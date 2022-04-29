@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
+
 import { Box, Stack, Image, Button, Center, Spinner } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { getBooks } from "../../redux/actions/books";
-import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
+import { ChevronUpIcon, ArrowDownIcon ,StarIcon} from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
+import { addFavorites } from "../../redux/actions/favorites";
+
+
 
 import { addFavorites, getAllFavorites } from "../../redux/actions/favorites";
 
@@ -95,6 +99,7 @@ const BooksCard = () => {
                 <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
                   <Center>
                     <Image height={300} src={book.cover} />
+                    
                   </Center>
                 </Box>
               </Link>
@@ -113,6 +118,7 @@ const BooksCard = () => {
                       Read Online
                     </Button>
                   </Link>
+             
                   <a href={book.epub} download={book.title}>
                     <Button
                       rightIcon={<ArrowDownIcon size="sm" />}
@@ -129,18 +135,19 @@ const BooksCard = () => {
                   </a>
 
                   <Button
-                    rightIcon={<ArrowDownIcon size="sm" />}
-                    colorScheme="red"
-                    color={"green.400"}
-                    _hover={{
-                      color: "green.200",
-                    }}
-                    variant="outline"
-                    size="sm"
-                    onClick={() => addFavorite(book.id)}
-                  >
-                    ADD
-                  </Button>
+                      rightIcon={<StarIcon size="sm" />}
+                      colorScheme="red"
+                      color={"green.400"}
+                      _hover={{
+                        color: "green.200",
+                      }}
+                      variant="outline"
+                      size="sm"
+                      onClick={()=> addFavorite(book.id)}
+
+                    >
+                  
+                    </Button>
                 </Stack>
               </Center>
             </Box>

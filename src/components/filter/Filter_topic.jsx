@@ -34,6 +34,7 @@ export default function Filter_topic() {
           list="topic"
           name="topic"
           placeholder='Topic'
+          _placeholder={{ opacity: 1, color: 'black' }}
           onChange={(e) => handleFilterTopic(e)}
         />
         <datalist id="topic" className={s.dataList}>
