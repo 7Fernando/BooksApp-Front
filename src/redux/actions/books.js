@@ -1,7 +1,10 @@
 import axios from "axios";
 const url = import.meta.env.VITE_BASE_URL;
-const token = window.localStorage.getItem("token");
+
+import { autorizacion } from "../../helpers/token";
+
 const user = localStorage.getItem("user");
+const token = localStorage.getItem("token");
 
 export const typesBooks = {
   GET_ALL_BOOKS: "GET_ALL_BOOKS",
@@ -14,13 +17,6 @@ export const typesBooks = {
 };
 
 
-const local = window.localStorage.getItem('token')
-
-
-
- 
-  const autorizacion =  {headers: { authorization: `Bearer ${local}`}}
-  
 
 
 const authorizationAdmin = {
@@ -29,15 +25,10 @@ const authorizationAdmin = {
 
 export const getBooks = (token, email) => {
   try {
-
     return async (dispatch) => {
-
-      const { data } = await axios.get(
-        `${url}/books`,
-        ({
-          headers: { authorization: `Bearer ${token}`, userMail: email },
-        })
-      );
+      const { data } = await axios.get(`${url}/books`, {
+        headers: { authorization: `Bearer ${token}`, userMail: email },
+      });
 
       return dispatch({
         type: typesBooks.GET_ALL_BOOKS,
@@ -54,7 +45,7 @@ export const searchBooks = (search) => {
     try {
       const { data } = await axios.get(
         `${url}/books?name=${search}`,
-        autorizacion
+        autorizacion()
       );
       return dispatch({
         type: typesBooks.SEARCH_BOOKS,
@@ -72,7 +63,7 @@ export const searchBooks = (search) => {
 export const getBookDetails = (id) => {
   try {
     return async (dispatch) => {
-      const { data } = await axios.get(`${url}/books/${id}`, autorizacion);
+      const { data } = await axios.get(`${url}/books/${id}`, autorizacion());
       return dispatch({
         type: typesBooks.GET_BOOK_DETAILS,
         payload: data,
