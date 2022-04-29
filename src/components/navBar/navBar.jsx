@@ -4,6 +4,7 @@ import {
   Avatar,
   Button,
   Menu,
+  Text,
   MenuButton,
   MenuList,
   MenuItem,
@@ -17,10 +18,14 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import userSin from "../../assets/images/userSin.png";
+import { getBooks } from "../../redux/actions/books";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserByMail } from "../../redux/actions/user";
-export default function NavBar() {
+
+
+  
+  export default function NavBar() {
   const dispatch = useDispatch();
   const usuario = useSelector((state) => state.user.user);
   const { logout, user, getAccessTokenSilently } = useAuth0();
@@ -37,22 +42,40 @@ export default function NavBar() {
   const userMail = window.localStorage.getItem("user");
   useEffect(() => {
     dispatch(getUserByMail(userMail));
-    
   }, []);
 
   return (
     <>
-      <Box bg="black" px={3} height="150px">
-        <Flex h={40} alignItems={"center"} justifyContent={"space-between"}>
+
+      <Box bg="black" px={10} height="95px">
+        <Flex h={"95px"} alignItems={"center"} justifyContent={"space-between"}>
           <Link to="/home">
-            <Box color="green.300" size={"lg"} fontSize="30px">
+            <Text
+              color="green.300"
+              size={"lg"}
+              fontSize="30px"
+              fontWeight={"bold"}
+            >
+
               BOOKFLIX
-            </Box>
+            </Text>
           </Link>
-        
+
+
+          <Search/>
+
+
           <Flex alignItems={"center"}>
-            <Stack direction={"row"} spacing={20}>
-              <Button onClick={toggleColorMode} size={"lg"} color="green.400">
+            <Stack direction={"row"} spacing={2} >
+              <Button
+                onClick={toggleColorMode}
+                size={"lg"}
+                color="green.300"
+                bg="transparent"
+                _hover={{bg:"transparent"}}
+                mt="5%"
+                
+              >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
 
@@ -64,12 +87,18 @@ export default function NavBar() {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar size={"lg"} src={usuario ? usuario.picture : userSin} />
+                  <Avatar
+                    size={"lg"}
+                    src={usuario ? usuario.picture : userSin}
+                  />
                 </MenuButton>
                 <MenuList alignItems={"center"} position="relative" zIndex={3}>
                   <br />
                   <Center>
-                    <Avatar size={"2xl"} src={usuario ? usuario.picture : userSin} />
+                    <Avatar
+                      size={"2xl"}
+                      src={usuario ? usuario.picture : userSin}
+                    />
                   </Center>
                   <br />
                   <Center>
@@ -78,7 +107,7 @@ export default function NavBar() {
                   <br />
                   <MenuDivider />
                   <Link to="/profile">
-                  <MenuItem>My Profile Panel</MenuItem>
+                    <MenuItem>My Profile Panel</MenuItem>
                   </Link>
                   <Link to="/favorites">
                     <MenuItem>My Favorites</MenuItem>
