@@ -14,7 +14,6 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import Search from "../searchbar/search";
 import { useAuth0 } from "@auth0/auth0-react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import userSin from "../../assets/images/userSin.png";
@@ -50,7 +49,7 @@ export default function NavBar() {
               BOOKFLIX
             </Box>
           </Link>
-          <Search />
+        
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={20}>
               <Button onClick={toggleColorMode} size={"lg"} color="green.300">

@@ -16,7 +16,6 @@ import About from './pages/About/About'
 import UserPanel from "./components/userPanel/UserPanel";
 import Contact from './pages/Contact/Contact'
 
-import { useAuth0 } from "@auth0/auth0-react";
 
 
 
