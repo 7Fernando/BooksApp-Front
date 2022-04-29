@@ -27,6 +27,7 @@ import englandFlag from "../../assets/images/england.svg";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
 import { getBookDetails, clearState } from "../../redux/actions/books";
 import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import Carousel from "../carousel";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,6 @@ const BookDetails = () => {
   }, []);
 
   let bookDetails = useSelector((state) => state.books.bookDetails);
-  console.log(bookDetails);
 
   if (Object.keys(bookDetails).length === 0) {
     return (
@@ -235,7 +235,7 @@ const BookDetails = () => {
           </TableContainer>
         </Center>
       </Center>
-      <Carousel bookDetails={bookDetails} />
+      <Carousel bookDetails={bookDetails} title={"Recomendados"} />
       <Footer />
     </>
   );

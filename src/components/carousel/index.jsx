@@ -18,6 +18,7 @@ import Slider from "react-slick";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { set } from "lodash";
 
 // Settings for the slider
 var settings = {
@@ -56,19 +57,23 @@ var settings = {
   ],
 };
 
-export default function Carousel({ bookDetails }) {
+export default function Carousel({ bookDetails, title }) {
   // As we have used custom buttons, we need a reference variable to
   // change the state
-
-  useEffect(() => {
-    console.log(bookDetails);
-  }, [bookDetails]);
-
+  const allTopics = useSelector((state) => state.topic.allTopics);
   const [slider, setSlider] = useState(null);
   let books = useSelector((state) => state.books.bkBooks);
   const searching = useSelector((state) => state.books.allBooks);
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
+
+  if (bookDetails?.topic) {
+    allTopics.forEach((topic) => {
+      if (topic?.name === bookDetails?.topic[0]?.name) {
+        books = topic.book;
+      }
+    });
+  }
 
   books.sort(function (a, b) {
     if (a.views < b.views) {
@@ -79,6 +84,7 @@ export default function Carousel({ bookDetails }) {
     }
     return 0;
   });
+
   return (
     <>
       {searching.length < 63 ? null : (
@@ -95,9 +101,8 @@ export default function Carousel({ bookDetails }) {
             color={"green.400"}
             fontSize="2xl"
           >
-            Popular in BookFlix:
+            {title ? `${title}` : "Popular"} in BookFlix:
           </Text>
-
           {/* Slider */}
           <Slider {...settings} ref={(slider) => setSlider(slider)}>
             {books.slice(0, 8).map((e) => (
