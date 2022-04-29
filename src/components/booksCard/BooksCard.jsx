@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Text } from "@chakra-ui/react";
+import { AiFillHeart } from 'react-icons/ai';
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
 import { getBooks } from "../../redux/actions/books";
 import { useSelector, useDispatch } from "react-redux";
-import { addFavorites } from "../../redux/actions/favorites";
-import { AiFillHeart } from 'react-icons/ai';
 import { BsFillBookmarkHeartFill } from 'react-icons/bs';
+import { addFavorites } from "../../redux/actions/favorites";
 import {
   ChevronUpIcon,
   ArrowDownIcon,
@@ -24,12 +24,14 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 
+
 const BooksCard = () => {
   const dispatch = useDispatch();
   const mailUser = window.localStorage.getItem("user");
   const books = useSelector((state) => state.books.allBooks);
   const { user, getAccessTokenSilently, isLoading } = useAuth0();
   const searchBooks = useSelector((state) => state.books.searchBook);
+
 
   const newUser = {
     mail: user?.email,
@@ -38,6 +40,7 @@ const BooksCard = () => {
   };
 
   useEffect(() => {
+
     const f = async () => {
       const token = await getAccessTokenSilently();
       localStorage.setItem("token", token);
@@ -138,6 +141,7 @@ const BooksCard = () => {
                     </Button>
                   </a>
 
+
                   <IconButton
                     bg="gray.800"
                     color="green.500"
@@ -149,6 +153,7 @@ const BooksCard = () => {
                     onClick={() => addFavorite(book.id)}
                     icon={<BsFillBookmarkHeartFill size="sm" />}
                   />
+
                 </Stack>
               </Center>
             </Box>

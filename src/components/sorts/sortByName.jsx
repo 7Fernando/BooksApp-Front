@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { Box, Select } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getBooks,
-  sortBooksByName,
-  sortBooksByScore,
-} from "../../redux/actions/books";
+import { getBooks, sortBooksByName, sortBooksByScore } from "../../redux/actions/books";
+import s from '../filter/Filter_athors.module.css'
+
+
 
 const SortByName = () => {
   const dispatch = useDispatch();
@@ -20,6 +19,7 @@ const SortByName = () => {
   }
 
   return (
+
     <Box  width={"216px"}  boxShadow="xl">
       <Box mb="3">Sort by name</Box>
       <Select
@@ -35,6 +35,7 @@ const SortByName = () => {
         <option value="Desc">Z - A</option>
       </Select>
     </Box>
+
   );
 };
 export default SortByName;

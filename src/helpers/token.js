@@ -8,3 +8,9 @@ export const authorizationAdmin = () => {
   let user = localStorage.getItem("user");
   return { headers: { authorization: `Bearer ${t}`, user: user } };
 };
+
+export const authorizationPay = () => {
+  let t = localStorage.getItem("token");
+  let user = localStorage.getItem("user");
+  return { headers: { authorization: `Bearer ${t}`, userMail: user } };
+};

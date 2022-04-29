@@ -14,9 +14,9 @@ export default function Filter_athors() {
   }, []);
 
   const handleFilterAhutors = (e) => {
-    if (e.target.value !== " ") {
-      dispatch(getBooks());
-    }
+    // if (e.target.value !== " ") {
+    //   dispatch(getBooks());
+    // }
     dispatch(getAuthorsBook(e.target.value));
   };
 

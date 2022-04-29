@@ -15,14 +15,17 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import Search from "../searchbar/search";
 import { useAuth0 } from "@auth0/auth0-react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import userSin from "../../assets/images/userSin.png";
+import { getBooks } from "../../redux/actions/books";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserByMail } from "../../redux/actions/user";
-export default function NavBar() {
+
+
+  
+  export default function NavBar() {
   const dispatch = useDispatch();
   const usuario = useSelector((state) => state.user.user);
   const { logout, user, getAccessTokenSilently } = useAuth0();
@@ -43,6 +46,7 @@ export default function NavBar() {
 
   return (
     <>
+
       <Box bg="black" px={10} height="95px">
         <Flex h={"95px"} alignItems={"center"} justifyContent={"space-between"}>
           <Link to="/home">
@@ -52,11 +56,14 @@ export default function NavBar() {
               fontSize="30px"
               fontWeight={"bold"}
             >
+
               BOOKFLIX
             </Text>
           </Link>
 
+
           <Search/>
+
 
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={2} >

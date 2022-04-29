@@ -14,10 +14,12 @@ export default function Filter_language() {
   }, []);
 
   const handleFilterLanguage = (e) => {
-    console.log(e.target.value);
+
+   
     if (e.target.value !== " ") {
       dispatch(getBooks());
     }
+
     dispatch(getLanguageBook(e.target.value));
   };
 
