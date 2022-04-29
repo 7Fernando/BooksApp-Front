@@ -1,10 +1,7 @@
 import axios from "axios";
-
+import { autorizacion} from "../../helpers/token"
 const url = import.meta.env.VITE_BASE_URL;
-const token = localStorage.getItem("token");
-const autorizacion = {
-  headers: { authorization: `Bearer ${token}` },
-};
+
 
 export const typesTopics = {
   GET_ALL_TOPIC:"GET_ALL_TOPIC",
@@ -14,7 +11,7 @@ export const typesTopics = {
 export const getTopic = () => {
   try {
     return async (dispatch) => {
-      const { data } = await axios.get(`${url}/topic`,autorizacion);
+      const { data } = await axios.get(`${url}/topic`,autorizacion());
       return dispatch({
         type: typesTopics.GET_ALL_TOPIC,
         payload: data,
@@ -27,7 +24,7 @@ export const getTopic = () => {
 export const getTopicBook = (name) => {
     try {
       return async (dispatch) => {
-        const { data } = await axios.get(`${url}/topic/S?name=${name}`, autorizacion);
+        const { data } = await axios.get(`${url}/topic/S?name=${name}`, autorizacion());
         console.log(data.book);
         return dispatch({
           type: typesTopics.GET_TOPIC_BOOK,

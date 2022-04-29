@@ -4,10 +4,13 @@ import {
   Alert,
   AlertIcon,
   Button,
+  Flex,
   FormLabel,
   FormControl,
   FormHelperText,
   Spinner,
+  Center,
+  Heading,
 } from "@chakra-ui/react";
 import axios from "axios";
 import {
@@ -16,16 +19,14 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { useState , useEffect} from "react";
-import { useParams } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
 import { getBooks } from "../../redux/actions/books";
-
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
-
   const { id } = useParams();
   const stripe = useStripe();
   const elements = useElements();
@@ -36,39 +37,35 @@ const CheckoutForm = () => {
   const emailLc = localStorage.getItem("user");
   const [loading, setLoading] = useState(false);
   const [display, setDisplay] = useState("none");
+  const [redirect, setRedirect] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { user, getAccessTokenSilently, isLoading } = useAuth0();
 
   const newUser = {
     mail: user?.email,
     name: user?.nickname,
-    picture: user?.picture 
-  }
-  
+    picture: user?.picture,
+  };
+
   useEffect(() => {
-    const f  = async () =>{
-      window.localStorage.setItem("user",newUser.mail)
-      const token = await getAccessTokenSilently()
-      window.localStorage.setItem('token', token)
-      const email2 = localStorage.getItem('user')
-      dispatch(getBooks(token,email2))
-    }
-    f()
-    
+    const f = async () => {
+      window.localStorage.setItem("user", newUser.mail);
+      const token = await getAccessTokenSilently();
+      window.localStorage.setItem("token", token);
+      const email2 = localStorage.getItem("user");
+      dispatch(getBooks(token, email2));
+    };
+    f();
+
     if (isLoading === false) {
       dispatch(postUser(newUser));
     }
   }, [isLoading]);
-  
-  
+
   const token = localStorage.getItem("token");
 
-
-
-
-
   const autorizacion = {
-    headers: { authorization: `Bearer ${token}`,userMail: emailLc, },
+    headers: { authorization: `Bearer ${token}`, userMail: emailLc },
   };
   const handleSubmitSub = async (event) => {
     if (!stripe || !elements) {
@@ -86,10 +83,12 @@ const CheckoutForm = () => {
     });
     //console.log(115, result.paymentMethod.id);
     if (result.error) {
+      console.log(112, result.error.message);
       setErrorMessage(result.error.message);
-      console.error(result.error.message);
+      console.log(115, errorMessage);
     } else {
       //console.log(result);
+      setLoading(true);
       const res = await axios.post(
         "http://localhost:3001/api/sub",
         {
@@ -99,10 +98,8 @@ const CheckoutForm = () => {
         },
         autorizacion
       );
-      console.log(150,res)
-      const res2 = 
-      
-      await axios.put(
+      console.log(150, res);
+      const res2 = await axios.put(
         "http://localhost:3001/api/users/updateSub",
         {
           idSub: res?.data?.hola?.id,
@@ -111,7 +108,6 @@ const CheckoutForm = () => {
         autorizacion
       );
 
-     
       // eslint-disable-next-line camelcase
       setMessage(res.data?.hola?.latest_invoice?.payment_intent?.status);
       // const { client_secret, status } = res.data;
@@ -119,6 +115,7 @@ const CheckoutForm = () => {
       setLoading(false);
       elements.getElement(CardElement).clear();
       setEmail("");
+      setRedirect(true)
       // if (status === "requires_action") {
       //   stripe.confirmCardPayment(client_secret).then(function (result) {
       //     if (result.error) {
@@ -163,6 +160,7 @@ const CheckoutForm = () => {
               border="none"
               value={emailLc}
               onChange={(e) => setEmail(e.target.value)}
+              disabled
             />
             <FormHelperText>We'll never share your email.</FormHelperText>
           </FormControl>
@@ -179,8 +177,8 @@ const CheckoutForm = () => {
             onClick={() => {
               handleSubmitSub();
               setDisplay("Flex");
-              setLoading(true);
             }}
+            display={redirect ? "none" : "block"}
           >
             {loading ? (
               <Spinner
@@ -195,18 +193,43 @@ const CheckoutForm = () => {
             )}
           </Button>
         </Box>
-        <Box display={message !== "" ? display : "none"}>
+        <Link to="/home">
+            <Button
+              variant="solid"
+              mt="5"
+              bg="green.400"
+              color="white"
+              w="full"
+              _hover={{ bg: "green.300", border: "2px", borderColor: "green" }}
+              letterSpacing="2px"
+              display={redirect ? "block" : "none"}
+            >
+             GO TO HOME & START TO ENJOY
+            </Button>
+          </Link>
+        <Box
+          display={message !== "" || errorMessage !== "" ? display : "none"}
+          mt="-0.5"
+          zIndex={"hide"}
+        >
           {message === "succeeded" ? (
-            <Alert status="success">
+            <Alert status="success" mt="0" borderRadius={"5"}>
               <AlertIcon />
               Successful payment!
             </Alert>
           ) : (
-            <Alert status="error" p="7">
+            <Alert status="error" p="2" justifyContent={"center"}>
               <AlertIcon />
-              There was an error processing your request: "{errorMessage}"
+              <Flex flexDir={"column"} ml="3">
+                <Box> There was an error processing your request:</Box>
+
+                <Box mt="3"> "{errorMessage}"</Box>
+              </Flex>
             </Alert>
           )}
+        </Box>
+        <Box>
+         
         </Box>
       </Box>
     </>
