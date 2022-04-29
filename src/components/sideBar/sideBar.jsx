@@ -11,14 +11,14 @@ import Search from "../searchbar/search";
 const SideBar = () => {
   return (
     <>
-      <Flex flexDir={"column"}>
-        <Box m="4">
+      <Flex flexDir={"column"} m='10'>
+        <Box m="5">
           <Search />
         </Box>
-        <Box m="4">
+        <Box m="5">
           <Filter_topic />
         </Box>
-        <Box m="4">
+        <Box m="5">
           <Filter_language />
         </Box>
         <Box m="4">

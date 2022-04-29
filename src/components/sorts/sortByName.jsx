@@ -25,12 +25,13 @@ const SortByName = () => {
             background: "green.300",
           }}
           color='black'
+          
           >
           <option value="selected" hidden >Alphabetic</option>
           <option value="Asc">A - Z</option>
           <option value="Desc">Z - A</option>
         </Select>
-      
+        
     </div>
   );
 };
