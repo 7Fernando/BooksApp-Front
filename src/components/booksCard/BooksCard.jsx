@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
+
 import { Box, Stack, Image, Button, Center, Spinner} from "@chakra-ui/react";
+
 import { Text } from "@chakra-ui/react";
 import { getBooks } from "../../redux/actions/books";
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
-import { Link } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux";
 
-import {addFavorites , getAllFavorites} from '../../redux/actions/favorites'
+
+import { Link, useNavigate } from "react-router-dom"
+
+
+
+import { useSelector, useDispatch } from "react-redux";
+import { addFavorites } from "../../redux/actions/favorites";
+
+
 
 
 
@@ -128,6 +136,7 @@ const BooksCard = () => {
                       Read Online
                     </Button>
                   </Link>
+             
                   <a href={book.epub} download={book.title}>
 
                     <Button

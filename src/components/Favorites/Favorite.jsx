@@ -1,16 +1,26 @@
+
 import React from 'react';
 import { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar"
 import Footer from '../footer/Footer';
+
 import { getAllFavorites, removeFavorites} from "../../redux/actions/favorites";
 import { Box, Heading,  Button,Center,Flex,Image,Stack,Text,useColorModeValue,Wrap, WrapItem} from '@chakra-ui/react';
+
+import { getUser } from '../../redux/actions/user';
+
 import { WarningTwoIcon, DeleteIcon} from '@chakra-ui/icons';
 
 
 export default function Favorite() {
+  // get user id from local storage
+ 
+
   const dispatch = useDispatch();
+
   const all = useSelector((state) => state.favorites.allfavorites);
   const [prueba, setPrueba] = useState(0);
   const usuario = window.localStorage.getItem('user')
@@ -29,6 +39,7 @@ export default function Favorite() {
     setPrueba(prueba + 1)
   };
  
+
   return (
     
         <>
@@ -72,7 +83,10 @@ export default function Favorite() {
                   padding={2}
                   justifyContent={'space-between'}
                   alignItems={'center'}>
+     
+
           <Link to={`/details/${book["book"].id} `} >          
+
           <Button
             flex={1}
             fontSize={'lg'}
@@ -111,7 +125,9 @@ export default function Favorite() {
           </Wrap>
               )) : 
          
+
            ( <Box textAlign="center" py={10} px={6}  height='650px'>
+
                  <WarningTwoIcon boxSize={'50px'} color={'orange.300'} />
                     <Heading as="h2" size="xl" mt={6} mb={2}>
                      No books at Favorite!!
