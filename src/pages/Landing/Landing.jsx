@@ -44,7 +44,7 @@ export default function Landing() {
 				  bg: 'green.900',
 				}} 
 				onClick={()=>loginWithRedirect({ returnTo: location.assign("http://localhost:3000/home") })}
-				>Sing In</Button>
+				>Sign In</Button>
 			</Stack>
 		  </Stack>
 		</Flex>
