@@ -16,7 +16,7 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
 import Slider from "react-slick";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // Settings for the slider
@@ -55,25 +55,30 @@ var settings = {
     },
   ],
 };
-export default function Carousel() {
+
+export default function Carousel({ bookDetails }) {
   // As we have used custom buttons, we need a reference variable to
   // change the state
 
+  useEffect(() => {
+    console.log(bookDetails);
+  }, [bookDetails]);
+
   const [slider, setSlider] = useState(null);
-  const books = useSelector((state) => state.books.bkBooks);
+  let books = useSelector((state) => state.books.bkBooks);
   const searching = useSelector((state) => state.books.allBooks);
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
 
-    books.sort(function (a, b) {
-      if (a.views < b.views) {
-        return 1;
-      }
-      if (a.views > b.views) {
-        return -1;
-      }
-      return 0;
-    });
+  books.sort(function (a, b) {
+    if (a.views < b.views) {
+      return 1;
+    }
+    if (a.views > b.views) {
+      return -1;
+    }
+    return 0;
+  });
   return (
     <>
       {searching.length < 63 ? null : (

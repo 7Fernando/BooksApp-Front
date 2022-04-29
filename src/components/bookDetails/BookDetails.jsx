@@ -17,7 +17,7 @@ import {
   Tfoot,
   Wrap,
   WrapItem,
-  Button
+  Button,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import NavBar from "../navBar/navBar";
@@ -31,22 +31,24 @@ import { useDispatch, useSelector } from "react-redux";
 import englandFlag from "../../assets/images/england.svg";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
 import { getBookDetails, clearState } from "../../redux/actions/books";
-import { IconButton } from '@chakra-ui/react'
-import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
+import { IconButton } from "@chakra-ui/react";
+import FavoriteBorderSharpIcon from "@mui/icons-material/FavoriteBorderSharp";
+import Carousel from "../Carousel";
 
 const BookDetails = () => {
-  let bookDetails = useSelector((state) => state.books.bookDetails);
   const dispatch = useDispatch();
   const { id } = useParams();
 
-
   useEffect(() => {
-    return ()=>dispatch(clearState());
-  },[]);
+    return () => dispatch(clearState());
+  }, []);
 
   useEffect(() => {
     dispatch(getBookDetails(id));
   }, []);
+
+  let bookDetails = useSelector((state) => state.books.bookDetails);
+  console.log(bookDetails);
 
   if (Object.keys(bookDetails).length === 0) {
     return (
@@ -64,14 +66,12 @@ const BookDetails = () => {
   return (
     <>
       <NavBar />
-     
+
       <Center flexDir={"column"} flexWrap={"wrap"}>
         <Center py={6}>
-          <Image src={bookDetails?.cover}  mb={2}>
-          </Image>
+          <Image src={bookDetails?.cover} mb={2}></Image>
         </Center>
-        
-       
+
         <Center boxShadow="2xl" p="6" rounded="md" bg="white">
           <TableContainer>
             <Table
@@ -217,10 +217,9 @@ const BookDetails = () => {
               </Tbody>
             </Table>
           </TableContainer>
-       
         </Center>
-        
       </Center>
+      <Carousel bookDetails={bookDetails} />
       <Footer />
     </>
   );
