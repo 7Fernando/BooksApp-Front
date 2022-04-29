@@ -67,6 +67,7 @@ const CheckoutForm = () => {
   const autorizacion = {
     headers: { authorization: `Bearer ${token}`, userMail: emailLc },
   };
+
   const handleSubmitSub = async (event) => {
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
@@ -108,31 +109,14 @@ const CheckoutForm = () => {
         autorizacion
       );
 
-      // eslint-disable-next-line camelcase
       setMessage(res.data?.hola?.latest_invoice?.payment_intent?.status);
-      // const { client_secret, status } = res.data;
       setErrorMessage(res.data);
       setLoading(false);
       elements.getElement(CardElement).clear();
       setEmail("");
-      setRedirect(true)
-      // if (status === "requires_action") {
-      //   stripe.confirmCardPayment(client_secret).then(function (result) {
-      //     if (result.error) {
-      //       console.log("There was an issue!");
-      //       console.log(result.error);
-      //       // Display error message in your UI.
-      //       // The card was declined (i.e. insufficient funds, card has expired, etc)
-      //     } else {
-      //       console.log("You got the money!");
-      //       // Show a success message to your customer
-      //     }
-      //   });
-      // } else {
-      //   console.log("You got the money!");
-      //   // No additional information was needed
-      //   // Show a success message to your customer
-      // }
+      if (res.data?.hola) {
+        setRedirect(true);
+      }
     }
   };
 
@@ -194,19 +178,19 @@ const CheckoutForm = () => {
           </Button>
         </Box>
         <Link to="/home">
-            <Button
-              variant="solid"
-              mt="5"
-              bg="green.400"
-              color="white"
-              w="full"
-              _hover={{ bg: "green.300", border: "2px", borderColor: "green" }}
-              letterSpacing="2px"
-              display={redirect ? "block" : "none"}
-            >
-             GO TO HOME & START TO ENJOY
-            </Button>
-          </Link>
+          <Button
+            variant="solid"
+            mt="5"
+            bg="green.400"
+            color="white"
+            w="full"
+            _hover={{ bg: "green.300", border: "2px", borderColor: "green" }}
+            letterSpacing="2px"
+            display={redirect ? "block" : "none"}
+          >
+            GO TO HOME & START TO ENJOY
+          </Button>
+        </Link>
         <Box
           display={message !== "" || errorMessage !== "" ? display : "none"}
           mt="-0.5"
@@ -228,9 +212,7 @@ const CheckoutForm = () => {
             </Alert>
           )}
         </Box>
-        <Box>
-         
-        </Box>
+        <Box></Box>
       </Box>
     </>
   );
