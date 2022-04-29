@@ -27,21 +27,21 @@ import englandFlag from "../../assets/images/england.svg";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
 import { getBookDetails, clearState } from "../../redux/actions/books";
 import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
-
+import Carousel from "../carousel";
 
 const BookDetails = () => {
-  let bookDetails = useSelector((state) => state.books.bookDetails);
   const dispatch = useDispatch();
   const { id } = useParams();
 
-
   useEffect(() => {
-    return ()=>dispatch(clearState());
-  },[]);
- 
+    return () => dispatch(clearState());
+  }, []);
+
   useEffect(() => {
     dispatch(getBookDetails(id));
   }, []);
+
+  let bookDetails = useSelector((state) => state.books.bookDetails);
 
   if (Object.keys(bookDetails).length === 0) {
     return (
@@ -59,53 +59,45 @@ const BookDetails = () => {
   return (
     <>
       <NavBar />
-     
+
       <Center flexDir={"column"} flexWrap={"wrap"}>
         <Center py={6}>
-          <Image src={bookDetails?.cover}  mb={2}/>
-        
-        
+          <Image src={bookDetails?.cover} mb={2} />
         </Center>
         <Center mb="5">
-        <Link to={`/read/${bookDetails?.id}`} >
-                    <Button
-                    mr="5"
-                      colorScheme="red"
-                      bg={"green.500"}
-                      size="sm"
-                      leftIcon={<ChevronUpIcon size="sm" />}
-                      _hover={{
-                        background: "green.400",
-                      }}
-                    >
-                      Read Online
-                    </Button>
-                  </Link>
-        <a href={bookDetails?.epub} download={bookDetails?.title}>
-                    <Button
-                      rightIcon={<ArrowDownIcon size="sm" />}
-                      colorScheme="red"
-                      color={"green.400"}
-                      _hover={{
-                        color: "green.200",
-                      }}
-                      variant="outline"
-                      size="sm"
-                    >
-                      Download
-                    </Button>
-                  </a>
-                
-
+          <Link to={`/read/${bookDetails?.id}`}>
+            <Button
+              mr="5"
+              colorScheme="red"
+              bg={"green.500"}
+              size="sm"
+              leftIcon={<ChevronUpIcon size="sm" />}
+              _hover={{
+                background: "green.400",
+              }}
+            >
+              Read Online
+            </Button>
+          </Link>
+          <a href={bookDetails?.epub} download={bookDetails?.title}>
+            <Button
+              rightIcon={<ArrowDownIcon size="sm" />}
+              colorScheme="red"
+              color={"green.400"}
+              _hover={{
+                color: "green.200",
+              }}
+              variant="outline"
+              size="sm"
+            >
+              Download
+            </Button>
+          </a>
         </Center>
-        
-       
+
         <Center boxShadow="2xl" p="6" rounded="md" bg="white">
           <TableContainer>
-            <Table
-              variant="striped"
-              colorScheme="green"
-            >
+            <Table variant="striped" colorScheme="green">
               <Thead>
                 <Tr ml={"5"}>
                   <Th>Author </Th>
@@ -241,10 +233,9 @@ const BookDetails = () => {
               </Tbody>
             </Table>
           </TableContainer>
-       
         </Center>
-        
       </Center>
+      <Carousel bookDetails={bookDetails} title={"Recomendados"} />
       <Footer />
     </>
   );

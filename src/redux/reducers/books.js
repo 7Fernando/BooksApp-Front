@@ -3,11 +3,10 @@ import { typesBooks } from "../actions/books";
 export const initialState = {
   allBooks: [],
 
-  searchBook:[],
+  searchBook: [],
 
   bkBooks: [],
   bookDetails: {},
-
 };
 
 const cases = {};
@@ -27,23 +26,22 @@ cases[typesBooks.GET_AUTHORS_BOOK] = (initialState, payload) => ({
 cases[typesBooks.GET_BOOK_DETAILS] = (initialState, payload) => ({
   ...initialState,
   bookDetails: { ...payload },
-
 });
 
 cases[typesBooks.SORT_BOOKS] = (initialState, payload) => {
   console.log(payload);
 
-  const sortedBooks = 
-        payload === "Asc"
+  const sortedBooks =
+    payload === "Asc"
       ? initialState.allBooks.sort((a, b) => a.title.localeCompare(b.title))
       : payload === "Desc"
       ? initialState.allBooks.sort((a, b) => b.title.localeCompare(a.title))
-      : allBooks
-      
-      return {
-  ...initialState,
-  allBooks: [...sortedBooks],
-      }
+      : initialState.allBooks;
+
+  return {
+    ...initialState,
+    allBooks: [...sortedBooks],
+  };
 };
 
 cases[typesBooks.SORT_SCORE] = (initialState, payload) => {
@@ -82,20 +80,15 @@ cases[typesBooks.SORT_SCORE] = (initialState, payload) => {
   };
 };
 
-cases[typesBooks.SEARCH_BOOKS] = (initialState, payload) => (
-  {
-    ...initialState,
-    searchBook: [...payload],
-    allBooks: [...payload],
-  }
-);
-cases[typesBooks.CLEAR_BOOK_DETAILS] = (initialState, payload) => (
-  {
-    ...initialState,
-    bookDetails:{},
-  }
-);
-
+cases[typesBooks.SEARCH_BOOKS] = (initialState, payload) => ({
+  ...initialState,
+  searchBook: [...payload],
+  allBooks: [...payload],
+});
+cases[typesBooks.CLEAR_BOOK_DETAILS] = (initialState, payload) => ({
+  ...initialState,
+  bookDetails: {},
+});
 
 export default function booksReducer(state = initialState, { type, payload }) {
   return cases[type] ? cases[type](state, payload) : state;
