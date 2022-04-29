@@ -17,10 +17,14 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import userSin from "../../assets/images/userSin.png";
+import { getBooks } from "../../redux/actions/books";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserByMail } from "../../redux/actions/user";
-export default function NavBar() {
+
+
+  
+  export default function NavBar() {
   const dispatch = useDispatch();
   const usuario = useSelector((state) => state.user.user);
   const { logout, user, getAccessTokenSilently } = useAuth0();
@@ -44,8 +48,8 @@ export default function NavBar() {
     <>
       <Box bg="black" px={3} height="150px">
         <Flex h={40} alignItems={"center"} justifyContent={"space-between"}>
-          <Link to="/home">
-            <Box color="green.300" size={"lg"} fontSize="30px">
+          <Link to="/home" >
+            <Box color="green.300" size={"lg"} fontSize="30px" onClick={(e)=>dispatch(getBooks())}>
               BOOKFLIX
             </Box>
           </Link>
