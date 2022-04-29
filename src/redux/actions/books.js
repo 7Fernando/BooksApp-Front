@@ -1,6 +1,6 @@
 import axios from "axios";
 const url = import.meta.env.VITE_BASE_URL;
-const token = localStorage.getItem("token");
+const token = window.localStorage.getItem("token");
 const user = localStorage.getItem("user");
 
 export const typesBooks = {
@@ -14,7 +14,7 @@ export const typesBooks = {
 };
 
 
-const local = localStorage.getItem('token')
+const local = window.localStorage.getItem('token')
 
 
 
@@ -27,10 +27,9 @@ const authorizationAdmin = {
   headers: { authorization: `Bearer ${token}`, user: user },
 };
 
-
 export const getBooks = (token, email) => {
   try {
-    
+
     return async (dispatch) => {
 
       const { data } = await axios.get(
