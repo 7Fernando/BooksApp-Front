@@ -56,11 +56,10 @@ export default function SocialProfileSimple() {
 
   function validate() {
     let errors = {};
-    if (!name) errors.name = "El nombre es requerido";
-    if (name.length < 3) {
-      errors.name = "El nombre debe tener al menos 3 caracteres";
+    let uname = /^(?!.* (?: |$))[A-Z][a-z ]+$/i
+    if (!uname.test(name)) {
+      errors.name = "Nombre no valido, tener en cuenta espacios en blanco y signos";
     }
-  
     if (/\d/.test(name)) {
       errors.name = "El nombre no puede incluir numeros";
     }
@@ -69,7 +68,7 @@ export default function SocialProfileSimple() {
     }
     if (!img) errors.img = "La imagen es requerida";
     
-    let url= /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/g;
+    let url= /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/gi;
    
     if (!url.test(img)) {
       errors.img = "La imagen debe ser una url valida (jpg,png,jpeg,gif)";
