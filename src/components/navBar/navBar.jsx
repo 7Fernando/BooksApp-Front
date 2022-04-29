@@ -18,8 +18,13 @@ import Search from "../searchbar/search";
 import { useAuth0 } from "@auth0/auth0-react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import userSin from "../../assets/images/userSin.png";
+import { getBooks } from "../../redux/actions/books";
+import { useDispatch } from "react-redux";
+
+
 
 export default function NavBar() {
+  const dispatch = useDispatch();
   const { logout, user, getAccessTokenSilently } = useAuth0();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,8 +41,8 @@ export default function NavBar() {
     <>
       <Box bg="black" px={3} height="150px">
         <Flex h={40} alignItems={"center"} justifyContent={"space-between"}>
-          <Link to="/home">
-            <Box color="green.300" size={"lg"} fontSize="30px">
+          <Link to="/home" >
+            <Box color="green.300" size={"lg"} fontSize="30px" onClick={(e)=>dispatch(getBooks())}>
               BOOKFLIX
             </Box>
           </Link>
