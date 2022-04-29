@@ -29,9 +29,11 @@ export default function Filter_athors() {
           _hover={{
             background: "green.300",
           }}
+         
           list="author"
           name="author"
-          placeholder="Author"
+          placeholder ="Author"
+          _placeholder={{ opacity: 1, color: 'black' }}
           onChange={(e) => handleFilterAhutors(e)}
         />
         <datalist id="author" className={s.dataList}>

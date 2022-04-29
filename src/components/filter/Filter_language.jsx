@@ -42,6 +42,7 @@ export default function Filter_language() {
           id="lenguage"
           name="language"
           placeholder='Language'
+          _placeholder={{ opacity: 1, color: 'black' }}
           onChange={(e) =>  handleFilterLanguage(e)}
         /> 
           <datalist id="language" className={s.dataList}>

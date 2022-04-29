@@ -19,12 +19,14 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
 import { getBooks } from "../../redux/actions/books";
 import { Link, useParams, useNavigate } from "react-router-dom";
+
 
 const CheckoutForm = () => {
   const { id } = useParams();
@@ -88,7 +90,9 @@ const CheckoutForm = () => {
       console.log(115, errorMessage);
     } else {
       //console.log(result);
+
       setLoading(true);
+
       const res = await axios.post(
         "http://localhost:3001/api/sub",
         {
@@ -107,10 +111,16 @@ const CheckoutForm = () => {
         },
         autorizacion
       );
+     
+      const update = await axios.put("http://localhost:3001/api/sub", {
+       email: emailLc,
+       idPlan: id,
+     }, autorizacion);
 
       // eslint-disable-next-line camelcase
       setMessage(res.data?.hola?.latest_invoice?.payment_intent?.status);
       // const { client_secret, status } = res.data;
+     
       setErrorMessage(res.data);
       setLoading(false);
       elements.getElement(CardElement).clear();
@@ -134,8 +144,10 @@ const CheckoutForm = () => {
       //   // Show a success message to your customer
       // }
     }
+    
+  
+    
   };
-
   return (
     <>
       <Box

@@ -19,12 +19,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import userSin from "../../assets/images/userSin.png";
 import { getBooks } from "../../redux/actions/books";
-import { useDispatch } from "react-redux";
 
 
 
+
+
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserByMail } from "../../redux/actions/user";
 export default function NavBar() {
   const dispatch = useDispatch();
+  const usuario = useSelector((state) => state.user.user);
   const { logout, user, getAccessTokenSilently } = useAuth0();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,6 +41,11 @@ export default function NavBar() {
       window.localStorage.setItem("token", r)
     );
   };
+  const userMail = window.localStorage.getItem("user");
+  useEffect(() => {
+    dispatch(getUserByMail(userMail));
+    
+  }, []);
 
   return (
     <>
@@ -61,20 +71,22 @@ export default function NavBar() {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar size={"lg"} src={user ? user.picture : userSin} />
+                  <Avatar size={"lg"} src={usuario ? usuario.picture : userSin} />
                 </MenuButton>
                 <MenuList alignItems={"center"} position="relative" zIndex={3}>
                   <br />
                   <Center>
-                    <Avatar size={"2xl"} src={user ? user.picture : userSin} />
+                    <Avatar size={"2xl"} src={usuario ? usuario.picture : userSin} />
                   </Center>
                   <br />
                   <Center>
-                    <p>Welcome : {user ? user.nickname : " "}</p>
+                    <p>Welcome : {usuario ? usuario.name : " "}</p>
                   </Center>
                   <br />
                   <MenuDivider />
+                  <Link to="/profile">
                   <MenuItem>My Profile Panel</MenuItem>
+                  </Link>
                   <Link to="/favorites">
                     <MenuItem>My Favorites</MenuItem>
                   </Link>

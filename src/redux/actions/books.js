@@ -14,6 +14,9 @@ export const typesBooks = {
   CLEAR_BOOK_DETAILS: "CLEAR_BOOK_DETAILS",
 };
 
+
+
+
 const authorizationAdmin = {
   headers: { authorization: `Bearer ${token}`, user: user },
 };
