@@ -12,9 +12,7 @@ const SideBar = () => {
     <>
       <Flex flexDir={"column"}>
         <Box m="5">
-          <Link to="/plans">
-            <Button variant={"outline"}>Checkout</Button>
-          </Link>
+
         </Box>
         <Box m="5">
           <Filter_topic />

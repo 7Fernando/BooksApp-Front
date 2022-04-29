@@ -39,25 +39,21 @@ const BooksCard = () => {
 
   useEffect(() => {
 
-    
-
-    
     const f  = async () =>{
-      window.localStorage.setItem("user",newUser.mail)
       
-
       const token = await getAccessTokenSilently()
-      window.localStorage.setItem('token', token)
+      localStorage.setItem('token', token)
+      localStorage.setItem("user",newUser.mail)
       const email2 = localStorage.getItem('user')
       dispatch(getBooks(token,email2))
+
     }
     f()
-    
-   
-    
+  
     if (isLoading === false) {
       dispatch(postUser(newUser));
     }
+    
   }, [isLoading]);
 
   
