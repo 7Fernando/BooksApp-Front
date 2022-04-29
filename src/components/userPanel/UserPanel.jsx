@@ -63,8 +63,8 @@ export default function SocialProfileSimple() {
     if (/\d/.test(name)) {
       errors.name = "El nombre no puede incluir numeros";
     }
-    if (name.split(" ").length > 3) {
-      errors.name = "El nombre no puede tener mas de 1 espacio en blanco";
+    if(name.length > 30) {
+      errors.name = "El nombre debe contener menos de 30 caracteres"
     }
     if (!img) errors.img = "La imagen es requerida";
     

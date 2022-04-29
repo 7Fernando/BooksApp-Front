@@ -85,17 +85,17 @@ const CheckoutForm = () => {
       setErrorMessage(result.error.message);
     } else {
       setLoading(true);
-
+     
       const res = await axios.post(
         "http://localhost:3001/api/sub",
         {
           payment_method: result.paymentMethod.id,
-          email: email,
+          email: emailLc,
           idPlan: id,
         },
         autorizacion
       );
-      
+       console.log(res)
       const res2 = await axios.put(
         "http://localhost:3001/api/users/updateSub",
         {

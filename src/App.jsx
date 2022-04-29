@@ -9,10 +9,9 @@ import UserPanel from "./components/userPanel/UserPanel";
 import EpubReader from "./components/epubReader/epubReader";
 import BookDetails from "./components/bookDetails/BookDetails";
 import CheckoutContainer from "./components/checkout/checkoutContainer";
-
 import About from './pages/About/About'
-import UserPanel from "./components/userPanel/UserPanel";
 import Contact from './pages/Contact/Contact'
+
 
 
 
