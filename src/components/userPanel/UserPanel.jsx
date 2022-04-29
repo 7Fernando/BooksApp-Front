@@ -64,13 +64,13 @@ export default function SocialProfileSimple() {
     if (/\d/.test(name)) {
       errors.name = "El nombre no puede incluir numeros";
     }
-    if (name.split(" ").length > 2) {
+    if (name.split(" ").length > 3) {
       errors.name = "El nombre no puede tener mas de 1 espacio en blanco";
     }
     if (!img) errors.img = "La imagen es requerida";
     
     let url= /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/g;
-    
+   
     if (!url.test(img)) {
       errors.img = "La imagen debe ser una url valida (jpg,png,jpeg,gif)";
     }

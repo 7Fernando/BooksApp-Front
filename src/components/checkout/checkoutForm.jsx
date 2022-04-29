@@ -112,7 +112,6 @@ const CheckoutForm = () => {
         autorizacion
       );
 
-
       const update = await axios.put("http://localhost:3001/api/sub", {
        email: emailLc,
        idPlan: id,
