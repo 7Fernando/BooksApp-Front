@@ -1,5 +1,5 @@
 import {
-  Flex,
+  Button,
   Spinner,
   Avatar,
   Tag,
@@ -8,21 +8,16 @@ import {
   Image,
   TableContainer,
   Table,
-  TableCaption,
   Thead,
   Tr,
   Th,
   Td,
   Tbody,
-  Tfoot,
-  Wrap,
-  WrapItem,
-  Button,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
-import { ViewIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import like from "../../assets/images/like.png";
 import spainFlag from "../../assets/images/spain.svg";
@@ -31,9 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import englandFlag from "../../assets/images/england.svg";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
 import { getBookDetails, clearState } from "../../redux/actions/books";
-import { IconButton } from "@chakra-ui/react";
-import FavoriteBorderSharpIcon from "@mui/icons-material/FavoriteBorderSharp";
-import Carousel from "../Carousel";
+import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -69,19 +62,42 @@ const BookDetails = () => {
 
       <Center flexDir={"column"} flexWrap={"wrap"}>
         <Center py={6}>
-          <Image src={bookDetails?.cover} mb={2}></Image>
+          <Image src={bookDetails?.cover} mb={2} />
+        </Center>
+        <Center mb="5">
+          <Link to={`/read/${bookDetails?.id}`}>
+            <Button
+              mr="5"
+              colorScheme="red"
+              bg={"green.500"}
+              size="sm"
+              leftIcon={<ChevronUpIcon size="sm" />}
+              _hover={{
+                background: "green.400",
+              }}
+            >
+              Read Online
+            </Button>
+          </Link>
+          <a href={bookDetails?.epub} download={bookDetails?.title}>
+            <Button
+              rightIcon={<ArrowDownIcon size="sm" />}
+              colorScheme="red"
+              color={"green.400"}
+              _hover={{
+                color: "green.200",
+              }}
+              variant="outline"
+              size="sm"
+            >
+              Download
+            </Button>
+          </a>
         </Center>
 
         <Center boxShadow="2xl" p="6" rounded="md" bg="white">
           <TableContainer>
-            <Table
-              variant="striped"
-              colorScheme="green"
-              // width={5}
-              // border={"solid"}
-              // borderColor={"red"}
-              // borderRadius="200"
-            >
+            <Table variant="striped" colorScheme="green">
               <Thead>
                 <Tr ml={"5"}>
                   <Th>Author </Th>
