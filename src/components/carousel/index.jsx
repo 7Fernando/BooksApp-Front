@@ -95,13 +95,13 @@ export default function Carousel({ bookDetails, title }) {
           overflow={"hidden"}
         >
           <Text
-            m={5}
+            m={10}
             colorScheme={"gray.800"}
             fontWeight={"semibold"}
             color={"green.400"}
             fontSize="2xl"
           >
-            {title ? `${title}` : "Popular"} in BookFlix:
+            {title ? `${title}` : "Popular in BookFlix:"} 
           </Text>
           {/* Slider */}
           <Slider {...settings} ref={(slider) => setSlider(slider)}>
@@ -165,6 +165,12 @@ export default function Carousel({ bookDetails, title }) {
                         Download
                       </Button>
                     </a>
+
+
+               
+
+
+
                   </Stack>
                 </Center>
               </Box>
