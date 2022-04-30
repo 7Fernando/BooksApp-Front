@@ -1,5 +1,6 @@
-import About from "./pages/About/About";
-import Contact from "./pages/Contact/Contact";
+
+import React, { useEffect } from "react";
+
 import Landing from "./pages/Landing/Landing";
 import Validation from "./components/validation";
 import { Routes, Route } from "react-router-dom";
@@ -8,6 +9,12 @@ import UserPanel from "./components/userPanel/UserPanel";
 import EpubReader from "./components/epubReader/epubReader";
 import BookDetails from "./components/bookDetails/BookDetails";
 import CheckoutContainer from "./components/checkout/checkoutContainer";
+import About from './pages/About/About'
+import Contact from './pages/Contact/Contact'
+
+
+
+
 
 const App = () => {
   return (

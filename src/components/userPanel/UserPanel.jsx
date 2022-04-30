@@ -19,8 +19,8 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import {MdCheckCircle,} from "react-icons/md";
-
+import { MdCheckCircle} from "react-icons/md";
+import {ExternalLinkIcon} from "@chakra-ui/icons";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserByMail, modifyUser } from "../../redux/actions/user";
@@ -31,7 +31,6 @@ import { getAllFavorites, removeFavorites } from "../../redux/actions/favorites"
 
 export default function SocialProfileSimple() {
   const dispatch = useDispatch();
-  const usuario = window.localStorage.getItem("user");
   const user = useSelector((state) => state.user.user);
   const favorites = useSelector((state) => state.favorites.allfavorites);
   const [img, setImg] = useState("");
@@ -42,35 +41,39 @@ export default function SocialProfileSimple() {
     name: "",
     img: "",
   });
-
+  
+  const usuario = window.localStorage.getItem("user");
   useEffect(() => {
     dispatch(getAllFavorites(usuario));
     dispatch(getUserByMail(usuario));
-  
-  }, [prueba]);
+  }, [prueba, isShow]);
 
   function editProfile(e) {
     e.preventDefault();
+    setImg(user.picture);
+    setName(user.name);
     setIsShow(true);
   }
 
+  const startDate = new Date(user.subInfo && user.subInfo[0].currentStart * 1000);
+  const lastDate = new Date(user.subInfo && user.subInfo[0].currentEnd * 1000);
+  const total = (user.subInfo && user.subInfo[0].total) / 100;
   function validate() {
     let errors = {};
-    if (!name) errors.name = "El nombre es requerido";
-    if (name.length < 3) {
-      errors.name = "El nombre debe tener al menos 3 caracteres";
+    let uname = /^(?!.* (?: |$))[A-Z][a-z ]+$/i
+    if (!uname.test(name)) {
+      errors.name = "Nombre no valido, tener en cuenta espacios en blanco y signos";
     }
-  
     if (/\d/.test(name)) {
       errors.name = "El nombre no puede incluir numeros";
     }
-    if (name.split(" ").length > 2) {
-      errors.name = "El nombre no puede tener mas de 1 espacio en blanco";
+    if(name.length > 30) {
+      errors.name = "El nombre debe contener menos de 30 caracteres"
     }
     if (!img) errors.img = "La imagen es requerida";
     
-    let url= /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/g;
-    
+    let url= /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/gi;
+   
     if (!url.test(img)) {
       errors.img = "La imagen debe ser una url valida (jpg,png,jpeg,gif)";
     }
@@ -84,9 +87,6 @@ export default function SocialProfileSimple() {
     if (validate()) {
       dispatch(modifyUser({id: user.id, name: name, picture: img}));
       setIsShow(false);
-      setImg("");
-      setName("");
-      
     } 
   }
 
@@ -199,29 +199,56 @@ export default function SocialProfileSimple() {
             <Text fontWeight={600} color={"gray.500"} mb={4}>
               {user.mail}
             </Text>
+            <List spacing={1}>
+
             <Text
               textAlign={"center"}
               fontSize={"lg"}
               color={useColorModeValue("gray.700", "gray.400")}
               px={3}
-            >
+              >
               Suscription: {user.plan}
             </Text>
+            <Text
+              textAlign={"center"}
+              fontSize={"lg"}
+              color={useColorModeValue("gray.700", "gray.400")}
+              px={3}
+              >
+              Period Start: {startDate.toLocaleString()}
+            </Text>
+            <Text
+              textAlign={"center"}
+              fontSize={"lg"}
+              color={useColorModeValue("gray.700", "gray.400")}
+              px={3}
+              >
+              Period End: {lastDate.toLocaleString()}
+            </Text>
+            <Text
+              textAlign={"center"}
+              fontSize={"lg"}
+              color={useColorModeValue("gray.700", "gray.400")}
+              px={3}
+              >
+              Total Paid: ${total}
+            </Text>
+            <Text
+              textAlign={"center"}
+              fontSize={"lg"}
+              color={useColorModeValue("gray.700", "gray.400")}
+              px={3}
+              >
+              <a href={user.subInfo && user.subInfo[0].ticket} target="_blank">
+                Ticket
+              <ExternalLinkIcon  marginLeft={1} marginBottom={1}/>
+              </a>
+            </Text>
             
+            
+            </List>
 
             <Stack mt={8} direction={"row"} spacing={4}>
-              <Link to={'/plans'}>
-              <Button
-                flex={1}
-                fontSize={"sm"}
-                rounded={"full"}
-                _focus={{
-                  bg: "gray.200",
-                }}
-                >
-                Update Subscription
-              </Button>
-                </Link>
               <Button
                 flex={1}
                 fontSize={"sm"}
