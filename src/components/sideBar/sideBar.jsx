@@ -1,4 +1,3 @@
-import Search from "../searchbar/search";
 import SortByName from "../sorts/sortByName";
 import SortByScore from "../sorts/sortByScore";
 import Filter_topic from "../filter/Filter_topic";
