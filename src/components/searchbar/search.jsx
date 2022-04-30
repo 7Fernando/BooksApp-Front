@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Search2Icon } from "@chakra-ui/icons";
 import { searchBooks } from "../../redux/actions/books";
 import { Flex, IconButton, Button, Input, InputGroup } from "@chakra-ui/react";
-import s from "../filter/filter_athors.module.css"
+
 
 
 const Search = () => {

@@ -46,7 +46,7 @@ export default function Favorite() {
           <NavBar />
           <>
           {all.length ? all.map((book) => (
-            <Wrap height='650px' justify='center' >
+            <Wrap height='100vh' justify='center' >
             <WrapItem >
             <Center py={20} key={book["book"].id}  >
             <Stack
@@ -122,7 +122,10 @@ export default function Favorite() {
             </Stack>
           </Center>
           </WrapItem>
+         
           </Wrap>
+              
+                
               )) : 
          
 

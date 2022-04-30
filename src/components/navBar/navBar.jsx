@@ -22,8 +22,8 @@ import { getBooks } from "../../redux/actions/books";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserByMail } from "../../redux/actions/user";
+import Search from "../searchbar/search";
 
-import Search from '../searchbar/search'
   
   export default function NavBar() {
   const dispatch = useDispatch();
