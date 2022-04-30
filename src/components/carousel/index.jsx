@@ -138,7 +138,7 @@ export default function Carousel({ bookDetails, title }) {
                 </Link>
                 <Center>
                   <Stack direction="row" spacing={1} marginTop={5}>
-                    <Link to="/read">
+                    <Link to={`/read/${e.id}`}>
                       <Button
                         colorScheme="red"
                         bg={"green.500"}
