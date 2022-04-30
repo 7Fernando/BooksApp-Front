@@ -105,7 +105,7 @@ export default function SocialProfileSimple() {
   return (
     <>
       <NavBar />
-      <Flex  alignItems={"center"} justifyContent={"space-evenly"}>
+      <Flex  alignItems={"center"} justifyContent={"space-evenly"}  height='80vh'>
         <Box
           maxW={"350px"}
           w={"full"}
@@ -114,6 +114,8 @@ export default function SocialProfileSimple() {
           rounded={"lg"}
           p={6}
           textAlign={"center"}
+          height='30vh'
+         
         >
           <Heading fontSize={"2xl"} fontFamily={"body"} margin={3}>
             My Favorites:
