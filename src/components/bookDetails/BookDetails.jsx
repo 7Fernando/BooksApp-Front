@@ -45,6 +45,7 @@ const BookDetails = () => {
   const [prueba, setPrueba] = useState(0);
   const mailUser = window.localStorage.getItem("user");
   let bookDetails = useSelector((state) => state.books.bookDetails);
+const [habilitar, setHabilitar] = useState(true)
 
 
   useEffect(() => {
@@ -61,6 +62,7 @@ const BookDetails = () => {
  const likes =(id) =>{
    dispatch(sendLike(id))
    setPrueba(prueba +1)
+
  }
 
  const notlike = (id) => {
@@ -199,6 +201,7 @@ const BookDetails = () => {
                       <TagLabel ><Button
                       bg={"green.470"}
                        onClick={()=>likes({id: bookDetails.id})}
+                       
                       > {bookDetails?.like}</Button> </TagLabel>
                     </Tag>
                   </Td>
