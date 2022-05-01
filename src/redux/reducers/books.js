@@ -90,6 +90,17 @@ cases[typesBooks.CLEAR_BOOK_DETAILS] = (initialState, payload) => ({
   bookDetails: {},
 });
 
+
+cases[typesBooks.PUT_LIKE] = (initialState, payload) => ({
+  ...initialState,
+
+});
+cases[typesBooks.PUT_DISLIKE] = (initialState, payload) => ({
+  ...initialState,
+
+});
+
+
 export default function booksReducer(state = initialState, { type, payload }) {
   return cases[type] ? cases[type](state, payload) : state;
 }

@@ -14,7 +14,7 @@ import {
   Td,
   Tbody,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
 import { Link } from "react-router-dom";
@@ -25,23 +25,42 @@ import dislike from "../../assets/images/dislike2.png";
 import { useDispatch, useSelector } from "react-redux";
 import englandFlag from "../../assets/images/england.svg";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
-import { getBookDetails, clearState } from "../../redux/actions/books";
+import { getBookDetails, clearState , sendLike, sendDislike} from "../../redux/actions/books";
 import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import Carousel from "../carousel";
+
+
+
+
+
+
 
 const BookDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-
+  const [prueba, setPrueba] = useState(0);
   useEffect(() => {
     return () => dispatch(clearState());
   }, []);
 
   useEffect(() => {
     dispatch(getBookDetails(id));
-  }, []);
+  }, [prueba]);
 
-  let bookDetails = useSelector((state) => state.books.bookDetails);
+ let bookDetails = useSelector((state) => state.books.bookDetails);
+ 
+
+ const likes =(id) =>{
+   dispatch(sendLike(id))
+   setPrueba(prueba +1)
+ }
+
+
+ const notlike = (id) => {
+  dispatch(sendDislike(id));
+  setPrueba(prueba + 1)
+};
+
 
   if (Object.keys(bookDetails).length === 0) {
     return (
@@ -170,7 +189,10 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel>{bookDetails?.like} </TagLabel>
+                      <TagLabel ><Button
+                      bg={"green.470"}
+                       onClick={()=>likes({id: bookDetails.id})}
+                      > {bookDetails?.like}</Button> </TagLabel>
                     </Tag>
                   </Td>
                   <Td>
@@ -187,8 +209,12 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel>{bookDetails?.dislike}</TagLabel>
+                      
+                      <TagLabel ><Button bg={"green.470"}
+                      onClick={()=>notlike({id: bookDetails.id})}> {bookDetails?.dislike}</Button></TagLabel>
                     </Tag>
+
+                    
                   </Td>
                 </Tr>
                 {/* <Tr>
