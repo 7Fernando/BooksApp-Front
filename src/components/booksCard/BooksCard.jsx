@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Text } from "@chakra-ui/react";
-import { AiFillHeart } from 'react-icons/ai';
+import { Text, useToast } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
 import { getBooks } from "../../redux/actions/books";
@@ -11,8 +10,6 @@ import { addFavorites } from "../../redux/actions/favorites";
 import {
   ChevronUpIcon,
   ArrowDownIcon,
-  StarIcon,
-  Search2Icon,
 } from "@chakra-ui/icons";
 import {
   Box,
@@ -26,13 +23,14 @@ import {
 
 
 const BooksCard = () => {
+
+  const toast = useToast();
   const dispatch = useDispatch();
   const mailUser = window.localStorage.getItem("user");
   const books = useSelector((state) => state.books.allBooks);
   const { user, getAccessTokenSilently, isLoading } = useAuth0();
   const searchBooks = useSelector((state) => state.books.searchBook);
-
-
+ 
   const newUser = {
     mail: user?.email,
     name: user?.nickname,
@@ -55,9 +53,25 @@ const BooksCard = () => {
     }
   }, [isLoading]);
 
-  const addFavorite = (bookId) => {
-    dispatch(addFavorites({ userId: mailUser, bookId: bookId }));
-    alert("Book added successfully");
+  const addFavorite = async function (bookId) {
+    let string = await dispatch(addFavorites({ userId: mailUser, bookId: bookId }))
+    if (string.payload === "favorite already exists") {
+      toast({
+        title: "Already in favorite",
+        description: "You can find your favorites in your profile",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Added to favorites",
+        description: "You can find it in your favorites",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      })
+    }
   };
 
   if (books.length === 0 || undefined) {

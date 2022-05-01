@@ -1,5 +1,7 @@
 import {
   Button,
+  Box,
+  IconButton,
   Spinner,
   Avatar,
   Tag,
@@ -13,8 +15,10 @@ import {
   Th,
   Td,
   Tbody,
+  useToast
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Carousel from "../carousel";
 import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
 import { Link } from "react-router-dom";
@@ -23,26 +27,68 @@ import like from "../../assets/images/like.png";
 import spainFlag from "../../assets/images/spain.svg";
 import dislike from "../../assets/images/dislike2.png";
 import { useDispatch, useSelector } from "react-redux";
+import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import englandFlag from "../../assets/images/england.svg";
+import { addFavorites } from "../../redux/actions/favorites";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
-import { getBookDetails, clearState } from "../../redux/actions/books";
+import { getBookDetails, clearState , sendLike, sendDislike} from "../../redux/actions/books";
 import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 
+
 const BookDetails = () => {
-  let bookDetails = useSelector((state) => state.books.bookDetails);
-  const dispatch = useDispatch();
+
+  const toast = useToast();
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const [prueba, setPrueba] = useState(0);
+  const mailUser = window.localStorage.getItem("user");
+  let bookDetails = useSelector((state) => state.books.bookDetails);
 
 
   useEffect(() => {
-    return ()=>dispatch(clearState());
-  },[]);
- 
-  useEffect(() => {
-    dispatch(getBookDetails(id));
+    return () => dispatch(clearState());
   }, []);
 
+  useEffect(() => {
+    dispatch(getBookDetails(id));
+  }, [prueba]);
+
+ let bookDetails = useSelector((state) => state.books.bookDetails);
+ 
+
+ const likes =(id) =>{
+   dispatch(sendLike(id))
+   setPrueba(prueba +1)
+ }
+
+
+ const notlike = (id) => {
+  dispatch(sendDislike(id));
+  setPrueba(prueba + 1)
+};
+
+
+  const addFavorite = async function (bookId) {
+    let string = await dispatch(addFavorites({ userId: mailUser, bookId: bookId }));
+    if (string.payload === "favorite already exists") {
+      toast({
+        title: "Already in favorite",
+        description: "You can find your favorites in your profile",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Added to favorites",
+        description: "You can find it in your favorites",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
   if (Object.keys(bookDetails).length === 0) {
     return (
       <Center py={12}>
@@ -59,53 +105,58 @@ const BookDetails = () => {
   return (
     <>
       <NavBar />
-     
+
       <Center flexDir={"column"} flexWrap={"wrap"}>
         <Center py={6}>
-          <Image src={bookDetails?.cover}  mb={2}/>
-        
-        
+          <Image src={bookDetails?.cover} mb={2} />
         </Center>
         <Center mb="5">
-        <Link to={`/read/${bookDetails?.id}`} >
-                    <Button
-                    mr="5"
-                      colorScheme="red"
-                      bg={"green.500"}
-                      size="sm"
-                      leftIcon={<ChevronUpIcon size="sm" />}
-                      _hover={{
-                        background: "green.400",
-                      }}
-                    >
-                      Read Online
-                    </Button>
-                  </Link>
-        <a href={bookDetails?.epub} download={bookDetails?.title}>
-                    <Button
-                      rightIcon={<ArrowDownIcon size="sm" />}
-                      colorScheme="red"
-                      color={"green.400"}
-                      _hover={{
-                        color: "green.200",
-                      }}
-                      variant="outline"
-                      size="sm"
-                    >
-                      Download
-                    </Button>
-                  </a>
-                
+          <Link to={`/read/${bookDetails?.id}`}>
+            <Button
+              mr="5"
+              colorScheme="red"
+              bg={"green.500"}
+              size="sm"
+              leftIcon={<ChevronUpIcon size="sm" />}
+              _hover={{
+                background: "green.400",
+              }}
+            >
+              Read Online
+            </Button>
+          </Link>
+          <a href={bookDetails?.epub} download={bookDetails?.title}>
+            <Button
+             mr="5"
+              rightIcon={<ArrowDownIcon size="sm" />}
+              colorScheme="red"
+              color={"green.400"}
+              _hover={{
+                color: "green.200",
+              }}
+              variant="outline"
+              size="sm"
+            >
+              Download
+            </Button>
+          </a>
 
+          <IconButton
+            bg="transparent"
+            color="green.500"
+            borderRadius="50"
+            _hover={{
+              color: "green.200",
+            }}
+            size="sm"
+            onClick={() => addFavorite(bookDetails?.id)}
+            icon={<BsFillBookmarkHeartFill size="sm" />}
+          />
         </Center>
-        
-       
+
         <Center boxShadow="2xl" p="6" rounded="md" bg="white">
           <TableContainer>
-            <Table
-              variant="striped"
-              colorScheme="green"
-            >
+            <Table variant="striped" colorScheme="green">
               <Thead>
                 <Tr ml={"5"}>
                   <Th>Author </Th>
@@ -178,7 +229,10 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel>{bookDetails?.like} </TagLabel>
+                      <TagLabel ><Button
+                      bg={"green.470"}
+                       onClick={()=>likes({id: bookDetails.id})}
+                      > {bookDetails?.like}</Button> </TagLabel>
                     </Tag>
                   </Td>
                   <Td>
@@ -195,15 +249,14 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel>{bookDetails?.dislike}</TagLabel>
+                      
+                      <TagLabel ><Button bg={"green.470"}
+                      onClick={()=>notlike({id: bookDetails.id})}> {bookDetails?.dislike}</Button></TagLabel>
                     </Tag>
+
+                    
                   </Td>
                 </Tr>
-                {/* <Tr>
-                <Td>feet</Td>
-                <Td>centimetres (cm)</Td>
-                <Td>30.48</Td>
-              </Tr> */}
               </Tbody>
             </Table>
           </TableContainer>
@@ -218,7 +271,7 @@ const BookDetails = () => {
               // borderColor={"red"}
               // borderRadius="2"
             >
-              <Thead>
+              <Thead >
                 <Tr>
                   <Th>Topics</Th>
                 </Tr>
@@ -241,11 +294,12 @@ const BookDetails = () => {
               </Tbody>
             </Table>
           </TableContainer>
-       
         </Center>
-        
       </Center>
+      <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
+      <Box mt="10">
       <Footer />
+      </Box>
     </>
   );
 };
