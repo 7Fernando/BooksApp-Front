@@ -45,10 +45,6 @@ export default function Favorite() {
   };
 
   return (
-<<<<<<< HEAD
-=======
-
->>>>>>> ea4c37bc6fa14e7cffc928dc8f8428070624ebfb
     <>
       <NavBar />
       <Center flexWrap={"wrap"} mb="35" minH="calc(100vh - 95px)">
@@ -56,10 +52,6 @@ export default function Favorite() {
           all.map((book) => (
             <Box justify="center" mr="5">
               <Center pt={10} key={book["book"].id}>
-<<<<<<< HEAD
-=======
-
->>>>>>> ea4c37bc6fa14e7cffc928dc8f8428070624ebfb
                 <Stack
                   borderWidth="1px"
                   borderRadius="lg"
