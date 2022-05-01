@@ -122,6 +122,8 @@ export default function SocialProfileSimple() {
           rounded={"lg"}
           p={6}
           textAlign={"center"}
+          height='30vh'
+         
         >
           <Heading fontSize={"2xl"} fontFamily={"body"} margin={3} mb="5">
             My Favorites:

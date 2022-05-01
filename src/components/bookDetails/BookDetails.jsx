@@ -17,7 +17,7 @@ import {
   Tbody,
   useToast
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Carousel from "../carousel";
 import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
@@ -31,16 +31,20 @@ import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import englandFlag from "../../assets/images/england.svg";
 import { addFavorites } from "../../redux/actions/favorites";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
-import { getBookDetails, clearState } from "../../redux/actions/books";
+import { getBookDetails, clearState , sendLike, sendDislike} from "../../redux/actions/books";
 import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+
+
 
 const BookDetails = () => {
 
   const toast = useToast();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [prueba, setPrueba] = useState(0);
   const mailUser = window.localStorage.getItem("user");
   let bookDetails = useSelector((state) => state.books.bookDetails);
+
 
   useEffect(() => {
     return () => dispatch(clearState());
@@ -48,7 +52,22 @@ const BookDetails = () => {
 
   useEffect(() => {
     dispatch(getBookDetails(id));
-  }, []);
+  }, [prueba]);
+
+ let bookDetails = useSelector((state) => state.books.bookDetails);
+ 
+
+ const likes =(id) =>{
+   dispatch(sendLike(id))
+   setPrueba(prueba +1)
+ }
+
+
+ const notlike = (id) => {
+  dispatch(sendDislike(id));
+  setPrueba(prueba + 1)
+};
+
 
   const addFavorite = async function (bookId) {
     let string = await dispatch(addFavorites({ userId: mailUser, bookId: bookId }));
@@ -70,7 +89,6 @@ const BookDetails = () => {
       });
     }
   };
-
   if (Object.keys(bookDetails).length === 0) {
     return (
       <Center py={12}>
@@ -211,7 +229,10 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel>{bookDetails?.like} </TagLabel>
+                      <TagLabel ><Button
+                      bg={"green.470"}
+                       onClick={()=>likes({id: bookDetails.id})}
+                      > {bookDetails?.like}</Button> </TagLabel>
                     </Tag>
                   </Td>
                   <Td>
@@ -228,8 +249,12 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel>{bookDetails?.dislike}</TagLabel>
+                      
+                      <TagLabel ><Button bg={"green.470"}
+                      onClick={()=>notlike({id: bookDetails.id})}> {bookDetails?.dislike}</Button></TagLabel>
                     </Tag>
+
+                    
                   </Td>
                 </Tr>
               </Tbody>
