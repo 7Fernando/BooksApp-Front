@@ -23,7 +23,10 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserByMail } from "../../redux/actions/user";
 import Search from "../searchbar/search";
+<<<<<<< HEAD
+=======
 
+>>>>>>> 058a1df7256be7c6028b3b25c8682ee2347f0f9f
   
   export default function NavBar() {
   const dispatch = useDispatch();
