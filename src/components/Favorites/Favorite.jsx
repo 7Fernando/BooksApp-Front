@@ -1,11 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../footer/Footer";
-
 import {
   getAllFavorites,
   removeFavorites,
@@ -47,43 +45,6 @@ export default function Favorite() {
   };
 
   return (
-<<<<<<< HEAD
-    
-        <>
-          <NavBar />
-          <>
-          {all.length ? all.map((book) => (
-            <Wrap height='50vh' justify='center' >
-            <WrapItem >
-            <Center py={20} key={book["book"].id}  >
-            <Stack
-              borderWidth="1px"
-              borderRadius="lg"
-              w={{ sm: '100%', md: '600px' }}
-              height={{ sm: '476px', md: '19rem' }}
-              direction={{ base: 'column', md: 'row' }}
-              bg={useColorModeValue('green.400', 'green.400')}
-              boxShadow={'2xl'}
-              padding={4}>
-              <Flex flex={1} bg="blue.200">
-                <Image
-                  objectFit="cover"
-                  boxSize="100%"
-                  src={book["book"].cover} alt='cover' />
-              </Flex>
-              <Stack
-                flex={1}
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-                p={1}
-                pt={2}>
-                <Heading fontSize={'1x2'} fontFamily={'body'}>
-                {book["book"].title}
-                </Heading>
-                
-                
-=======
     <>
       <NavBar />
       <Center flexWrap={"wrap"} mb="35" minH="calc(100vh - 95px)">
@@ -91,7 +52,6 @@ export default function Favorite() {
           all.map((book) => (
             <Box justify="center" mr="5">
               <Center pt={10} key={book["book"].id}>
->>>>>>> 44668f1cb596007db7a1abfae476677a61915143
                 <Stack
                   borderWidth="1px"
                   borderRadius="lg"

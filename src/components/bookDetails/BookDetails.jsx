@@ -15,14 +15,8 @@ import {
   Th,
   Td,
   Tbody,
-  useToast
 } from "@chakra-ui/react";
-<<<<<<< HEAD
-import { useEffect, useState } from "react";
-=======
-import { useEffect } from "react";
-import Carousel from "../carousel";
->>>>>>> 44668f1cb596007db7a1abfae476677a61915143
+import { useState, useEffect } from "react";
 import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
 import { Link } from "react-router-dom";
@@ -37,6 +31,7 @@ import { addFavorites } from "../../redux/actions/favorites";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
 import { getBookDetails, clearState , sendLike, sendDislike} from "../../redux/actions/books";
 import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import Carousel from "../carousel";
 
 
 
@@ -45,17 +40,13 @@ import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 
 const BookDetails = () => {
-
-  const toast = useToast();
-  const { id } = useParams();
-<<<<<<< HEAD
-  const [prueba, setPrueba] = useState(0);
-=======
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const [prueba, setPrueba] = useState(0);
   const mailUser = window.localStorage.getItem("user");
   let bookDetails = useSelector((state) => state.books.bookDetails);
 
->>>>>>> 44668f1cb596007db7a1abfae476677a61915143
+
   useEffect(() => {
     return () => dispatch(clearState());
   }, []);
@@ -64,7 +55,7 @@ const BookDetails = () => {
     dispatch(getBookDetails(id));
   }, [prueba]);
 
- let bookDetails = useSelector((state) => state.books.bookDetails);
+
  
 
  const likes =(id) =>{
@@ -72,35 +63,11 @@ const BookDetails = () => {
    setPrueba(prueba +1)
  }
 
-
  const notlike = (id) => {
   dispatch(sendDislike(id));
   setPrueba(prueba + 1)
 };
 
-<<<<<<< HEAD
-=======
-  const addFavorite = async function (bookId) {
-    let string = await dispatch(addFavorites({ userId: mailUser, bookId: bookId }));
-    if (string.payload === "favorite already exists") {
-      toast({
-        title: "Already in favorite",
-        description: "You can find your favorites in your profile",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-      });
-    } else {
-      toast({
-        title: "Added to favorites",
-        description: "You can find it in your favorites",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-  };
->>>>>>> 44668f1cb596007db7a1abfae476677a61915143
 
   if (Object.keys(bookDetails).length === 0) {
     return (
@@ -140,7 +107,6 @@ const BookDetails = () => {
           </Link>
           <a href={bookDetails?.epub} download={bookDetails?.title}>
             <Button
-             mr="5"
               rightIcon={<ArrowDownIcon size="sm" />}
               colorScheme="red"
               color={"green.400"}
@@ -153,18 +119,6 @@ const BookDetails = () => {
               Download
             </Button>
           </a>
-
-          <IconButton
-            bg="transparent"
-            color="green.500"
-            borderRadius="50"
-            _hover={{
-              color: "green.200",
-            }}
-            size="sm"
-            onClick={() => addFavorite(bookDetails?.id)}
-            icon={<BsFillBookmarkHeartFill size="sm" />}
-          />
         </Center>
 
         <Center boxShadow="2xl" p="6" rounded="md" bg="white">
@@ -270,6 +224,11 @@ const BookDetails = () => {
                     
                   </Td>
                 </Tr>
+                {/* <Tr>
+                <Td>feet</Td>
+                <Td>centimetres (cm)</Td>
+                <Td>30.48</Td>
+              </Tr> */}
               </Tbody>
             </Table>
           </TableContainer>
@@ -284,7 +243,7 @@ const BookDetails = () => {
               // borderColor={"red"}
               // borderRadius="2"
             >
-              <Thead >
+              <Thead>
                 <Tr>
                   <Th>Topics</Th>
                 </Tr>
@@ -309,10 +268,8 @@ const BookDetails = () => {
           </TableContainer>
         </Center>
       </Center>
-      <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
-      <Box mt="10">
+      <Carousel bookDetails={bookDetails} title={"Recomendados"} />
       <Footer />
-      </Box>
     </>
   );
 };
