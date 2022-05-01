@@ -43,7 +43,6 @@ const BookDetails = () => {
   const dispatch = useDispatch();
   const [prueba, setPrueba] = useState(0);
   const mailUser = window.localStorage.getItem("user");
-  let bookDetails = useSelector((state) => state.books.bookDetails);
 
 
   useEffect(() => {

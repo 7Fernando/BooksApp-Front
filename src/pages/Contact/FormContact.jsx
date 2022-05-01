@@ -51,14 +51,14 @@ export default function FormContact() {
       )
       .then((res) => {
         toast({
-          title: `message sending`,
+          title: `message sent`,
           status: "success",
           isClosable: true,
         });
       })
       .catch((erros) => {
         toast({
-          title: `message not sending`,
+          title: `message not sent`,
           status: "error",
           isClosable: true,
         });
