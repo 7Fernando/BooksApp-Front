@@ -52,6 +52,7 @@ import {
   export default function Footer() {
     return (
       <Box
+ 
         position={'relative'}
         bg={useColorModeValue('gray.900', 'gray.900')}
          borderColor={useColorModeValue('green.200', 'black.700')}

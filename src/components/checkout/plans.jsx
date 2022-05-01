@@ -12,12 +12,11 @@ import {
   ListItem,
   ListIcon,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import { FaCheckCircle } from "react-icons/fa";
-import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { FaCheckCircle } from "react-icons/fa";
+import { SiHomeassistant } from "react-icons/si";
 
 const PriceWrapper = ({ children }) => {
   return (
@@ -35,23 +34,27 @@ const PriceWrapper = ({ children }) => {
 };
 
 const Plans = () => {
-  const { logout} = useAuth0()
+  const { logout } = useAuth0();
   return (
     <>
-      {/* <NavBar /> */}
       <Box py={12}>
         <Center mb="5">
-        {/* <Link to="/"> */}
-          <Button onClick={logout} >Home sweet home</Button>
-        {/* </Link> */}
+          <Button
+            mt="6"
+            colorScheme={"green"}
+            variant="solid"
+            leftIcon={<SiHomeassistant />}
+            onClick={logout}
+          >
+            I already have an account!
+          </Button>
         </Center>
         <VStack spacing={2} textAlign="center">
           <Heading as="h1" fontSize="4xl">
             Plans that fit your need
           </Heading>
           <Text fontSize="lg" color={"gray.500"}>
-            Start with 14-day free trial. No credit card needed. Cancel at
-            anytime.
+            Start today to enjoy the wonderful world of bookflix!
           </Text>
         </VStack>
         <Stack
@@ -64,14 +67,14 @@ const Plans = () => {
           <PriceWrapper>
             <Box py={4} px={12}>
               <Text fontWeight="500" fontSize="2xl">
-                Hobby
+                Growth
               </Text>
               <HStack justifyContent="center">
                 <Text fontSize="3xl" fontWeight="600">
                   $
                 </Text>
                 <Text fontSize="5xl" fontWeight="900">
-                  5
+                  15
                 </Text>
                 <Text fontSize="3xl" color="gray.500">
                   /month
@@ -92,9 +95,10 @@ const Plans = () => {
                   <ListIcon as={FaCheckCircle} color="green.500" />
                   Read online
                 </ListItem>
+               
               </List>
               <Box w="80%" pt={7}>
-                <Link to="/checkout/1">
+                <Link to="/checkout/2">
                   <Button w="full" colorScheme="green" variant="outline">
                     Start trial
                   </Button>
@@ -126,14 +130,14 @@ const Plans = () => {
               </Box>
               <Box py={4} px={12}>
                 <Text fontWeight="500" fontSize="2xl">
-                  Growth
+                  Lover
                 </Text>
                 <HStack justifyContent="center">
                   <Text fontSize="3xl" fontWeight="600">
                     $
                   </Text>
                   <Text fontSize="5xl" fontWeight="900">
-                    15
+                    25
                   </Text>
                   <Text fontSize="3xl" color="gray.500">
                     /month
@@ -156,11 +160,11 @@ const Plans = () => {
                   </ListItem>
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
-                    30 downloads
+                    Free downloads
                   </ListItem>
                 </List>
                 <Box w="80%" pt={7}>
-                  <Link to="/checkout/2">
+                  <Link to="/checkout/3">
                     <Button w="full" colorScheme="green">
                       Start trial
                     </Button>
@@ -169,55 +173,7 @@ const Plans = () => {
               </VStack>
             </Box>
           </PriceWrapper>
-          <PriceWrapper>
-            <Box py={4} px={12}>
-              <Text fontWeight="500" fontSize="2xl">
-                Lover
-              </Text>
-              <HStack justifyContent="center">
-                <Text fontSize="3xl" fontWeight="600">
-                  $
-                </Text>
-                <Text fontSize="5xl" fontWeight="900">
-                  25
-                </Text>
-                <Text fontSize="3xl" color="gray.500">
-                  /month
-                </Text>
-              </HStack>
-            </Box>
-            <VStack
-              bg={useColorModeValue("gray.50", "gray.700")}
-              py={4}
-              borderBottomRadius={"xl"}
-            >
-              <List spacing={3} textAlign="start" px={12}>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="green.500" />
-                  Access to all books
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="green.500" />
-                  Read online
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="green.500" />
-                  Free download
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="green.500" />
-                  Meetings with Stephen King
-                </ListItem>
-              </List>
-              <Box w="80%" pt={7}>
-                <Link to="/checkout/3">
-                  <Button w="full" colorScheme="green" variant="outline">
-                    Start trial
-                  </Button>
-                </Link>
-              </Box>
-            </VStack>
-          </PriceWrapper>
+        
         </Stack>
       </Box>
       <Footer />

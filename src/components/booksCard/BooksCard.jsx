@@ -23,15 +23,14 @@ import {
 
 
 const BooksCard = () => {
+
+  const toast = useToast();
   const dispatch = useDispatch();
   const mailUser = window.localStorage.getItem("user");
   const books = useSelector((state) => state.books.allBooks);
   const { user, getAccessTokenSilently, isLoading } = useAuth0();
   const searchBooks = useSelector((state) => state.books.searchBook);
-  const toast = useToast();
-
-
-
+ 
   const newUser = {
     mail: user?.email,
     name: user?.nickname,
