@@ -16,7 +16,12 @@ import {
   Td,
   Tbody,
 } from "@chakra-ui/react";
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
+=======
+import { useEffect, useState } from "react";
+import Carousel from "../carousel";
+>>>>>>> ea4c37bc6fa14e7cffc928dc8f8428070624ebfb
 import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
 import { Link } from "react-router-dom";
@@ -35,19 +40,26 @@ import Carousel from "../carousel";
 
 
 
-
-
-
-
 const BookDetails = () => {
+<<<<<<< HEAD
   const dispatch = useDispatch();
   const { id } = useParams();
+=======
+
+  const toast = useToast();
+  const { id } = useParams();
+  const dispatch = useDispatch();
+>>>>>>> ea4c37bc6fa14e7cffc928dc8f8428070624ebfb
   const [prueba, setPrueba] = useState(0);
   const mailUser = window.localStorage.getItem("user");
   let bookDetails = useSelector((state) => state.books.bookDetails);
 const [habilitar, setHabilitar] = useState(true)
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea4c37bc6fa14e7cffc928dc8f8428070624ebfb
   useEffect(() => {
     return () => dispatch(clearState());
   }, []);
@@ -71,6 +83,29 @@ const [habilitar, setHabilitar] = useState(true)
 };
 
 
+<<<<<<< HEAD
+=======
+  const addFavorite = async function (bookId) {
+    let string = await dispatch(addFavorites({ userId: mailUser, bookId: bookId }));
+    if (string.payload === "favorite already exists") {
+      toast({
+        title: "Already in favorite",
+        description: "You can find your favorites in your profile",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Added to favorites",
+        description: "You can find it in your favorites",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+>>>>>>> ea4c37bc6fa14e7cffc928dc8f8428070624ebfb
   if (Object.keys(bookDetails).length === 0) {
     return (
       <Center py={12}>

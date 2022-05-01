@@ -104,7 +104,7 @@ const Contact = () => {
               <p className={styles.block}>
                 <label>Message</label>
                 <textarea {...register("message",{ required: true })} />
-                {errors.message?.type === 'required' && "(*) mail is required"}
+                {errors.message?.type === 'required' && "(*) message is required"}
               </p>
               <p className={styles.block}>
                 <button type="submit" value="Send">
