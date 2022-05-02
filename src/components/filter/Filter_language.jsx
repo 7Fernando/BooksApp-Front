@@ -16,7 +16,7 @@ export default function Filter_language() {
   const handleFilterLanguage = (e) => {
 
    
-    if (e.target.value !== " ") {
+    if (!e.target.value) {
       dispatch(getBooks());
     }
 

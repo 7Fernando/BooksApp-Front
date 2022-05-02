@@ -133,13 +133,14 @@ export default function FormContact() {
                           </Button>
                         </VStack>
                       </Box>
+
                       <HStack
                         mt={{ lg: 10, md: 10 }}
                         spacing={5}
                         px={5}
-                        alignItems="center"
+                        justifyContent="center"
                       >
-                        <Box>
+                        <Box align="center">
                           <a href="https://github.com/7Fernando">
                             <IconButton
                               aria-label="github"
@@ -152,7 +153,7 @@ export default function FormContact() {
                             <p>7Fernando</p>
                           </a>
                         </Box>
-                        <Box>
+                        <Box align="center">
                           <a href="https://github.com/luchyGigena">
                             <IconButton
                               aria-label="github"
@@ -165,7 +166,7 @@ export default function FormContact() {
                             <p>luchyGigena</p>
                           </a>
                         </Box>
-                        <Box>
+                        <Box align="center">
                           <a href="https://github.com/MateoDom">
                             <IconButton
                               aria-label="github"
@@ -179,13 +180,14 @@ export default function FormContact() {
                           </a>
                         </Box>
                       </HStack>
+
                       <HStack
                         mt={{ lg: 10, md: 10 }}
                         spacing={5}
                         px={5}
                         alignItems="center"
                       >
-                        <Box>
+                        <Box align="center">
                           <a href="https://github.com/jose1up">
                             <IconButton
                               aria-label="github"
@@ -198,7 +200,7 @@ export default function FormContact() {
                             <p>jose1up</p>
                           </a>
                         </Box>
-                        <Box>
+                        <Box align="center">
                           <a href="https://github.com/heredialucas">
                             <IconButton
                               aria-label="github"
@@ -211,7 +213,7 @@ export default function FormContact() {
                             <p>heredialucas</p>
                           </a>
                         </Box>
-                        <Box>
+                        <Box align="center">
                           <a href="https://github.com/Jo5ean">
                             <IconButton
                               aria-label="github"
@@ -224,7 +226,7 @@ export default function FormContact() {
                             <p>Jo5ean</p>
                           </a>
                         </Box>
-                        <Box>
+                        <Box align="center">
                           <a href="https://github.com/turrisi">
                             <IconButton
                               aria-label="github"
@@ -235,6 +237,19 @@ export default function FormContact() {
                               icon={<BsGithub size="28px" />}
                             />
                             <p>turrisi</p>
+                          </a>
+                        </Box>
+                        <Box align="center">
+                          <a href="https://github.com/MatiasFilliez">
+                            <IconButton
+                              aria-label="github"
+                              variant="ghost"
+                              size="lg"
+                              isRound={true}
+                              _hover={{ bg: "#0D74FF" }}
+                              icon={<BsGithub size="28px" />}
+                            />
+                            <p>MatiasFilliez</p>
                           </a>
                         </Box>
                       </HStack>
