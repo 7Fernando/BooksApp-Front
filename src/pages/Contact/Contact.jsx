@@ -77,10 +77,10 @@ const Contact = () => {
         bg={useColorModeValue("gray.100", "gray.900")}
         align="center"
         justify="center"
-        css={{
-          backgroundImage: useColorModeValue(CONFETTI_LIGHT, CONFETTI_DARK),
-          backgroundAttachment: "fixed",
-        }}
+        // css={{
+        //   backgroundImage: useColorModeValue(CONFETTI_LIGHT, CONFETTI_DARK),
+        //   backgroundAttachment: "fixed",
+        // }}
         id="contact"
       >
         <div className={styles.container}>
