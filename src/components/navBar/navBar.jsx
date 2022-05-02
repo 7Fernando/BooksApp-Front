@@ -23,7 +23,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserByMail } from "../../redux/actions/user";
 import Search from "../searchbar/search";
-
   
   export default function NavBar() {
   const dispatch = useDispatch();
@@ -89,7 +88,7 @@ import Search from "../searchbar/search";
                 >
                   <Avatar
                     size={"lg"}
-                    src={usuario ? usuario.picture : userSin}
+                    src={usuario ? usuario?.picture : userSin}
                   />
                 </MenuButton>
                 <MenuList alignItems={"center"} position="relative" zIndex={3}>
@@ -97,7 +96,7 @@ import Search from "../searchbar/search";
                   <Center>
                     <Avatar
                       size={"2xl"}
-                      src={usuario ? usuario.picture : userSin}
+                      src={usuario ? usuario?.picture : userSin}
                     />
                   </Center>
                   <br />
