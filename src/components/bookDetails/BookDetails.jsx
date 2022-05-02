@@ -118,6 +118,9 @@ const BookDetails = () => {
   }
   return (
     <>
+    <div>
+
+    
       <NavBar />
 
       <Center flexDir={"column"} flexWrap={"wrap"}>
@@ -279,7 +282,7 @@ const BookDetails = () => {
                           {bookDetails?.dislike}
                         </Button>
                       </TagLabel>
-                    </Tag>
+                  
                   </Td>
                 </Tr>
                 {/* <Tr>
@@ -332,7 +335,8 @@ const BookDetails = () => {
       <Box mt="10">
         <Footer />
       </Box>
-    </>
+    </div>    
+</>
   );
 };
 export default BookDetails;
