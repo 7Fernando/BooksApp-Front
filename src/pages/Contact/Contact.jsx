@@ -16,6 +16,7 @@ import {
   useClipboard,
   useColorModeValue,
   VStack,
+  useToast
 } from "@chakra-ui/react";
 import React, { useRef } from "react";
 import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from "react-icons/bs";
@@ -43,9 +44,10 @@ const CONFETTI_DARK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 
 const Contact = () => {
   const form = useRef();
+  const toast = useToast();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data, e) => {
-    console.log(data);
+   // console.log(data);
       e.preventDefault(e);
     emailjs
       .sendForm(
@@ -55,7 +57,15 @@ const Contact = () => {
         "SHKb26CwJjN227AuP"
       )
       .then((res) => {
-        alert("Mje enviado correctamente"), console.log(res);
+      console.log(res);
+        toast({
+         title: "Message sent correctly",
+        description: "We Will be Contacting You Soon",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+          });
+        
       });
   };
 
@@ -67,10 +77,10 @@ const Contact = () => {
         bg={useColorModeValue("gray.100", "gray.900")}
         align="center"
         justify="center"
-        css={{
-          backgroundImage: useColorModeValue(CONFETTI_LIGHT, CONFETTI_DARK),
-          backgroundAttachment: "fixed",
-        }}
+        // css={{
+        //   backgroundImage: useColorModeValue(CONFETTI_LIGHT, CONFETTI_DARK),
+        //   backgroundAttachment: "fixed",
+        // }}
         id="contact"
       >
         <div className={styles.container}>
@@ -94,7 +104,7 @@ const Contact = () => {
               <p className={styles.block}>
                 <label>Message</label>
                 <textarea {...register("message",{ required: true })} />
-                {errors.message?.type === 'required' && "(*) mail is required"}
+                {errors.message?.type === 'required' && "(*) message is required"}
               </p>
               <p className={styles.block}>
                 <button type="submit" value="Send">

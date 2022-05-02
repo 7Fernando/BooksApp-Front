@@ -15,9 +15,9 @@ import {
   Th,
   Td,
   Tbody,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Carousel from "../carousel";
 import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
@@ -31,14 +31,19 @@ import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import englandFlag from "../../assets/images/england.svg";
 import { addFavorites } from "../../redux/actions/favorites";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
-import { getBookDetails, clearState } from "../../redux/actions/books";
+import {
+  getBookDetails,
+  clearState,
+  sendLike,
+  sendDislike,
+} from "../../redux/actions/books";
 import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 const BookDetails = () => {
-
   const toast = useToast();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [prueba, setPrueba] = useState(0);
   const mailUser = window.localStorage.getItem("user");
   let bookDetails = useSelector((state) => state.books.bookDetails);
 
@@ -48,10 +53,22 @@ const BookDetails = () => {
 
   useEffect(() => {
     dispatch(getBookDetails(id));
-  }, []);
+  }, [prueba]);
+
+  const likes = (id) => {
+    dispatch(sendLike(id));
+    setPrueba(prueba + 1);
+  };
+
+  const notlike = (id) => {
+    dispatch(sendDislike(id));
+    setPrueba(prueba + 1);
+  };
 
   const addFavorite = async function (bookId) {
-    let string = await dispatch(addFavorites({ userId: mailUser, bookId: bookId }));
+    let string = await dispatch(
+      addFavorites({ userId: mailUser, bookId: bookId })
+    );
     if (string.payload === "favorite already exists") {
       toast({
         title: "Already in favorite",
@@ -70,7 +87,6 @@ const BookDetails = () => {
       });
     }
   };
-
   if (Object.keys(bookDetails).length === 0) {
     return (
       <Center py={12}>
@@ -109,7 +125,7 @@ const BookDetails = () => {
           </Link>
           <a href={bookDetails?.epub} download={bookDetails?.title}>
             <Button
-             mr="5"
+              mr="5"
               rightIcon={<ArrowDownIcon size="sm" />}
               colorScheme="red"
               color={"green.400"}
@@ -132,7 +148,7 @@ const BookDetails = () => {
             }}
             size="sm"
             onClick={() => addFavorite(bookDetails?.id)}
-            icon={<BsFillBookmarkHeartFill size="sm" />}
+            icon={<BsFillBookmarkHeartFill size="30px"/>}
           />
         </Center>
 
@@ -211,7 +227,15 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel>{bookDetails?.like} </TagLabel>
+                      <TagLabel>
+                        <Button
+                          bg={"green.470"}
+                          onClick={() => likes({ id: bookDetails.id })}
+                        >
+                          {" "}
+                          {bookDetails?.like}
+                        </Button>{" "}
+                      </TagLabel>
                     </Tag>
                   </Td>
                   <Td>
@@ -228,7 +252,16 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel>{bookDetails?.dislike}</TagLabel>
+
+                      <TagLabel>
+                        <Button
+                          bg={"green.470"}
+                          onClick={() => notlike({ id: bookDetails.id })}
+                        >
+                          {" "}
+                          {bookDetails?.dislike}
+                        </Button>
+                      </TagLabel>
                     </Tag>
                   </Td>
                 </Tr>
@@ -246,7 +279,7 @@ const BookDetails = () => {
               // borderColor={"red"}
               // borderRadius="2"
             >
-              <Thead >
+              <Thead>
                 <Tr>
                   <Th>Topics</Th>
                 </Tr>
@@ -255,14 +288,16 @@ const BookDetails = () => {
                 <Tr>
                   <Td flexDir={"column"}>
                     {bookDetails.topic.map((e) => (
-                      <Tag
-                        size="lg"
-                        colorScheme="red"
-                        borderRadius="full"
-                        m={2}
-                      >
-                        <TagLabel colorScheme="yellow">{e.name + " "}</TagLabel>
-                      </Tag>
+                      <Box key={e.id}>
+                        <Tag
+                          size="lg"
+                          colorScheme="red"
+                          borderRadius="full"
+                          m={2}
+                        >
+                          <TagLabel>{e.name + " "}</TagLabel>
+                        </Tag>
+                      </Box>
                     ))}
                   </Td>
                 </Tr>
@@ -273,7 +308,7 @@ const BookDetails = () => {
       </Center>
       <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
       <Box mt="10">
-      <Footer />
+        <Footer />
       </Box>
     </>
   );

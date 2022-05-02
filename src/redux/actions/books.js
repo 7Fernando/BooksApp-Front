@@ -14,6 +14,8 @@ export const typesBooks = {
   SORT_BOOKS: "SORT_BOOKS",
   SORT_SCORE: "SORT_SCORE",
   CLEAR_BOOK_DETAILS: "CLEAR_BOOK_DETAILS",
+  PUT_LIKE: 'PUT_LIKE',
+  PUT_DISLIKE:'PUT_DISLIKE'
 };
 
 
@@ -103,3 +105,35 @@ export const clearState = () => {
     console.error(error);
   }
 };
+
+
+export const sendLike =(id) =>{
+  return async (dispatch)=>{ 
+    try {
+    const res = await axios.put(`${url}/books/incrementlike`,id,  authorizationPay());
+   return dispatch({
+      type: typesBooks.PUT_LIKE,
+      payload:res.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+};
+
+export const sendDislike =(id) =>{
+  return async (dispatch)=>{ 
+    try {
+    const res = await axios.put(`${url}/books/decrementlike`,id,  authorizationPay());
+    
+    return dispatch({
+      type: typesBooks.PUT_DISLIKE,
+      payload:res.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+};
+
+

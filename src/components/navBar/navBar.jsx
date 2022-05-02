@@ -89,7 +89,7 @@ import Search from "../searchbar/search";
                 >
                   <Avatar
                     size={"lg"}
-                    src={usuario ? usuario.picture : userSin}
+                    src={usuario ? usuario?.picture : userSin}
                   />
                 </MenuButton>
                 <MenuList alignItems={"center"} position="relative" zIndex={3}>
@@ -97,7 +97,7 @@ import Search from "../searchbar/search";
                   <Center>
                     <Avatar
                       size={"2xl"}
-                      src={usuario ? usuario.picture : userSin}
+                      src={usuario ? usuario?.picture : userSin}
                     />
                   </Center>
                   <br />

@@ -1,7 +1,3 @@
-import React from "react";
-import NavBar from "../navBar/navBar";
-import Footer from "../footer/Footer";
-import { Link } from "react-router-dom";
 import {
   Heading,
   Avatar,
@@ -18,29 +14,37 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
-import { MdCheckCircle } from "react-icons/md";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserByMail, modifyUser } from "../../redux/actions/user";
-import { useEffect } from "react";
-import { useState } from "react";
 import {
   getAllFavorites,
   removeFavorites,
 } from "../../redux/actions/favorites";
+import NavBar from "../navBar/navBar";
+import Footer from "../footer/Footer";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import UpdateSub from "../checkout/updateSub";
+import { MdCheckCircle } from "react-icons/md";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { getUserByMail, modifyUser } from "../../redux/actions/user";
+import CancelSub from "../checkout/cancelSub";
+
 
 export default function SocialProfileSimple() {
+  const toast = useToast();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const favorites = useSelector((state) => state.favorites.allfavorites);
+
   const [img, setImg] = useState("");
   const [name, setName] = useState("");
   const [res, setRes] = useState(false);
-  const [isShow, setIsShow] = useState(false);
   const [prueba, setPrueba] = useState(0);
+  const [isShow, setIsShow] = useState(false);
+
+  const user = useSelector((state) => state.user.user);
+  const favorites = useSelector((state) => state.favorites.allfavorites);
   const [errors, setErrors] = useState({
     name: "",
     img: "",
@@ -113,7 +117,7 @@ export default function SocialProfileSimple() {
   return (
     <>
       <NavBar />
-      <Flex justifyContent={"space-evenly"}>
+      <Flex justifyContent={"space-evenly"} mb="50">
         <Box
           maxW={"350px"}
           w={"full"}
@@ -131,6 +135,7 @@ export default function SocialProfileSimple() {
               {favorites.map((b) => {
                 return (
                   <ListItem
+                    key={b.id}
                     width={"300px"}
                     mb="5"
                     h="50px"
@@ -297,7 +302,10 @@ export default function SocialProfileSimple() {
             </Stack>
 
             <Box>
-              <UpdateSub userPlan={user.plan} res={res} setRes={setRes} />
+              <UpdateSub userPlan={user.plan} toast={toast} setRes={setRes} />
+            </Box>
+            <Box>
+            <CancelSub  toast={toast} setRes={setRes}></CancelSub>
             </Box>
           </Box>
         </Box>
