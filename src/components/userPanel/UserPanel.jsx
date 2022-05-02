@@ -260,7 +260,7 @@ export default function SocialProfileSimple() {
                 px={3}
               >
                 <a
-                  href={user.subInfo && user.subInfo[0].ticket}
+                  href={user.subInfo && user.subInfo[user.subInfo.length - 1].ticket}
                   target="_blank"
                 >
                   Last payment ticket
