@@ -68,7 +68,7 @@ const BooksCard = () => {
         title: "Added to favorites",
         description: "You can find it in your favorites",
         status: "success",
-        duration: 5000,
+        duration: 10000,
         isClosable: true,
       })
     }
@@ -131,7 +131,7 @@ const BooksCard = () => {
                       colorScheme="red"
                       bg={"green.500"}
                       size="sm"
-                      leftIcon={<ChevronUpIcon size="sm" />}
+                      leftIcon={<ChevronUpIcon  />}
                       _hover={{
                         background: "green.400",
                       }}
@@ -142,7 +142,7 @@ const BooksCard = () => {
 
                   <a href={book.epub} download={book.title}>
                     <Button
-                      rightIcon={<ArrowDownIcon size="sm" />}
+                      rightIcon={<ArrowDownIcon  />}
                       colorScheme="red"
                       color={"green.400"}
                       _hover={{
@@ -165,7 +165,7 @@ const BooksCard = () => {
                     }}
                     size="sm"
                     onClick={() => addFavorite(book.id)}
-                    icon={<BsFillBookmarkHeartFill size="sm" />}
+                    icon={<BsFillBookmarkHeartFill size="30px" />}
                   />
 
                 </Stack>
