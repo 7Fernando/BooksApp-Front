@@ -137,10 +137,10 @@ const CheckoutForm = () => {
         rounded="md"
         bg="white"
       >
-        <Box mb="5" boxShadow="base" p="4" borderRadius="5">
+        <Box mb="5" boxShadow="base" p="4" borderRadius="5"  display={redirect ? "none" : "block"}>
           <CardElement></CardElement>
         </Box>
-        <Box color="gray.500">
+        <Box color="gray.500"  display={redirect ? "none" : "block"}>
           <FormControl>
             <FormLabel htmlFor="email">Email address</FormLabel>
             <Input
