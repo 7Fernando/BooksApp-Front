@@ -54,7 +54,6 @@ const BookDetails = () => {
     dispatch(getBookDetails(id));
   }, [prueba]);
 
- let bookDetails = useSelector((state) => state.books.bookDetails);
  
 
  const likes =(id) =>{
