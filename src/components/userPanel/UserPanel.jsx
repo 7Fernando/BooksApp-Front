@@ -389,7 +389,6 @@ export default function SocialProfileSimple() {
             </FormControl>
           </Box>
         </Box>
-        )
       </Flex>
       <Footer />
     </>
