@@ -29,10 +29,9 @@ export default function Favorite() {
   // get user id from local storage
 
   const dispatch = useDispatch();
-
-  const all = useSelector((state) => state.favorites.allfavorites);
   const [prueba, setPrueba] = useState(0);
   const usuario = window.localStorage.getItem("user");
+  const all = useSelector((state) => state.favorites.allfavorites);
 
   useEffect(() => {
     // window.localStorage.getItem('user')
@@ -50,17 +49,17 @@ export default function Favorite() {
       <Center flexWrap={"wrap"} mb="35" minH="calc(100vh - 95px)">
         {all.length ? (
           all.map((book) => (
-            <Box justify="center" mr="5">
-              <Center pt={10} key={book["book"].id}>
+            <Box justify="center" mr="5" key={book["book"].id}>
+              <Center pt={10}>
                 <Stack
                   borderWidth="1px"
                   borderRadius="lg"
                   w={{ sm: "100%", md: "400px" }}
                   height={{ sm: "476px", md: "270px" }}
                   direction={{ base: "column", md: "row" }}
-                  bg={useColorModeValue("green.400", "green.400")}
+                  bg="green.400"
                   boxShadow={"2xl"}
-                 p="1"
+                  p="1"
                 >
                   <Flex m="3">
                     <Image

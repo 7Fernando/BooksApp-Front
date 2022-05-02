@@ -15,6 +15,7 @@ import {
   Th,
   Td,
   Tbody,
+  useToast,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import NavBar from "../navBar/navBar";
@@ -29,7 +30,12 @@ import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import englandFlag from "../../assets/images/england.svg";
 import { addFavorites } from "../../redux/actions/favorites";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
-import { getBookDetails, clearState , sendLike, sendDislike} from "../../redux/actions/books";
+import {
+  getBookDetails,
+  clearState,
+  sendLike,
+  sendDislike,
+} from "../../redux/actions/books";
 import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import Carousel from "../carousel";
 
@@ -37,10 +43,8 @@ import Carousel from "../carousel";
 
 
 
-
-
 const BookDetails = () => {
-
+  const toast = useToast();
   const dispatch = useDispatch();
   const { id } = useParams();
  
@@ -49,7 +53,6 @@ const BookDetails = () => {
   let bookDetails = useSelector((state) => state.books.bookDetails);
   const [disable, setDisable] = useState(false)
 
-
   useEffect(() => {
     return () => dispatch(clearState());
   }, []);
@@ -57,6 +60,7 @@ const BookDetails = () => {
   useEffect(() => {
     dispatch(getBookDetails(id));
   }, [prueba]);
+
 
 
  
@@ -75,6 +79,29 @@ const BookDetails = () => {
   setDisable(true)
 };
 
+
+  const addFavorite = async function (bookId) {
+    let string = await dispatch(
+      addFavorites({ userId: mailUser, bookId: bookId })
+    );
+    if (string.payload === "favorite already exists") {
+      toast({
+        title: "Already in favorite",
+        description: "You can find your favorites in your profile",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Added to favorites",
+        description: "You can find it in your favorites",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
 
   if (Object.keys(bookDetails).length === 0) {
     return (
@@ -114,6 +141,7 @@ const BookDetails = () => {
           </Link>
           <a href={bookDetails?.epub} download={bookDetails?.title}>
             <Button
+              mr="5"
               rightIcon={<ArrowDownIcon size="sm" />}
               colorScheme="red"
               color={"green.400"}
@@ -126,6 +154,17 @@ const BookDetails = () => {
               Download
             </Button>
           </a>
+          <IconButton
+            bg="transparent"
+            color="green.500"
+            borderRadius="50"
+            _hover={{
+              color: "green.200",
+            }}
+            size="sm"
+            onClick={() => addFavorite(bookDetails?.id)}
+            icon={<BsFillBookmarkHeartFill size="30px"/>}
+          />
         </Center>
 
         <Center boxShadow="2xl" p="6" rounded="md" bg="white">
@@ -210,6 +249,7 @@ const BookDetails = () => {
                        disabled={disable} 
                        
                       > {bookDetails?.like}</Button> </TagLabel>
+
                     </Tag>
                   </Td>
                   <Td>
@@ -225,14 +265,21 @@ const BookDetails = () => {
                         bg={"green.470"}
                         ml={-1}
                         mr={2}
-                      ></Avatar>
-                      
+                      ></Avatar>                    
                       <TagLabel ><Button bg={"green.470"}
                       disabled={disable} 
                       onClick={()=>notlike({id: bookDetails.id})}> {bookDetails?.dislike}</Button></TagLabel>
                     </Tag>
-
-                    
+                      <TagLabel>
+                        <Button
+                          bg={"green.470"}
+                          onClick={() => notlike({ id: bookDetails.id })}
+                        >
+                          {" "}
+                          {bookDetails?.dislike}
+                        </Button>
+                      </TagLabel>
+                    </Tag>
                   </Td>
                 </Tr>
                 {/* <Tr>
@@ -263,14 +310,16 @@ const BookDetails = () => {
                 <Tr>
                   <Td flexDir={"column"}>
                     {bookDetails.topic.map((e) => (
-                      <Tag
-                        size="lg"
-                        colorScheme="red"
-                        borderRadius="full"
-                        m={2}
-                      >
-                        <TagLabel colorScheme="yellow">{e.name + " "}</TagLabel>
-                      </Tag>
+                      <Box key={e.id}>
+                        <Tag
+                          size="lg"
+                          colorScheme="red"
+                          borderRadius="full"
+                          m={2}
+                        >
+                          <TagLabel>{e.name + " "}</TagLabel>
+                        </Tag>
+                      </Box>
                     ))}
                   </Td>
                 </Tr>
@@ -279,8 +328,10 @@ const BookDetails = () => {
           </TableContainer>
         </Center>
       </Center>
-      <Carousel bookDetails={bookDetails} title={"Recomendados"} />
-      <Footer />
+      <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
+      <Box mt="10">
+        <Footer />
+      </Box>
     </>
   );
 };
