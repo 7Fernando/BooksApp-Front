@@ -107,6 +107,9 @@ const BookDetails = () => {
   }
   return (
     <>
+    <div>
+
+    
       <NavBar />
       <Center flexDir={"column"} flexWrap={"wrap"}>
         <Image src={bookDetails?.cover} mb={2} />
@@ -243,6 +246,7 @@ const BookDetails = () => {
                     <TagLabel>
                       <Button
                         bg={"green.470"}
+
                         disabled={disable}
                         onClick={() => notlike({ id: bookDetails.id })}
                       >
@@ -263,6 +267,7 @@ const BookDetails = () => {
                 </Td>
               </Tr>
               {/* <Tr>
+
                 <Td>feet</Td>
                 <Td>centimetres (cm)</Td>
                 <Td>30.48</Td>
@@ -311,7 +316,8 @@ const BookDetails = () => {
       <Box mt="10">
         <Footer />
       </Box>
-    </>
+    </div>    
+</>
   );
 };
 export default BookDetails;

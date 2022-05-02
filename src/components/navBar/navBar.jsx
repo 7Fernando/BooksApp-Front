@@ -24,7 +24,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserByMail } from "../../redux/actions/user";
 import Search from "../searchbar/search";
   
-  export default function NavBar() {
+  export default function NavBar({search}) {
   const dispatch = useDispatch();
   const usuario = useSelector((state) => state.user.user);
   const { logout, user, getAccessTokenSilently } = useAuth0();
@@ -61,7 +61,7 @@ import Search from "../searchbar/search";
           </Link>
 
 
-          <Search/>
+        { search === true ? <Search/>: null}
 
 
           <Flex alignItems={"center"}>
