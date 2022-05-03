@@ -1,12 +1,12 @@
 import {
   Button,
   Box,
+  Center,
   IconButton,
   Spinner,
   Avatar,
   Tag,
   TagLabel,
-  Center,
   Image,
   TableContainer,
   Table,
@@ -36,22 +36,19 @@ import {
   sendLike,
   sendDislike,
 } from "../../redux/actions/books";
-import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import Carousel from "../carousel";
-
-
-
-
+import { SiHomeassistant } from "react-icons/si";
+import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 const BookDetails = () => {
   const toast = useToast();
   const dispatch = useDispatch();
   const { id } = useParams();
- 
+
   const [prueba, setPrueba] = useState(0);
   const mailUser = window.localStorage.getItem("user");
   let bookDetails = useSelector((state) => state.books.bookDetails);
-  const [disable, setDisable] = useState(false)
+  const [disable, setDisable] = useState(false);
 
   useEffect(() => {
     return () => dispatch(clearState());
@@ -61,24 +58,17 @@ const BookDetails = () => {
     dispatch(getBookDetails(id));
   }, [prueba]);
 
+  const likes = (id) => {
+    dispatch(sendLike(id));
+    setPrueba(prueba + 1);
+    setDisable(true);
+  };
 
-
- 
-
- const likes =(id) =>{
-
-   dispatch(sendLike(id))
-   setPrueba(prueba +1)
-   setDisable(true)
-
- }
-
- const notlike = (id) => {
-  dispatch(sendDislike(id));
-  setPrueba(prueba + 1)
-  setDisable(true)
-};
-
+  const notlike = (id) => {
+    dispatch(sendDislike(id));
+    setPrueba(prueba + 1);
+    setDisable(true);
+  };
 
   const addFavorite = async function (bookId) {
     let string = await dispatch(
@@ -118,11 +108,25 @@ const BookDetails = () => {
   }
   return (
     <>
-      <NavBar />
-
-      <Center flexDir={"column"} flexWrap={"wrap"}>
-        <Center py={6}>
-          <Image src={bookDetails?.cover} mb={2} />
+      <div>
+        <NavBar />
+        <Center mt="25">
+          {" "}
+          <Link to="/home">
+            <Button
+              mr="5"
+              colorScheme={"green"}
+              variant="solid"
+              size="sm"
+              leftIcon={<SiHomeassistant />}
+              w="100px"
+            >
+              Home
+            </Button>
+          </Link>
+        </Center>
+        <Center flexDir={"column"} flexWrap={"wrap"} mt="25">
+          <Image src={bookDetails?.cover} mb={25} />
         </Center>
         <Center mb="5">
           <Link to={`/read/${bookDetails?.id}`}>
@@ -163,7 +167,7 @@ const BookDetails = () => {
             }}
             size="sm"
             onClick={() => addFavorite(bookDetails?.id)}
-            icon={<BsFillBookmarkHeartFill size="30px"/>}
+            icon={<BsFillBookmarkHeartFill size="30px" />}
           />
         </Center>
 
@@ -242,14 +246,16 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel ><Button
-                      bg={"green.470"}
-                      
-                       onClick={()=>likes({id: bookDetails.id})}
-                       disabled={disable} 
-                       
-                      > {bookDetails?.like}</Button> </TagLabel>
-
+                      <TagLabel>
+                        <Button
+                          bg={"green.470"}
+                          onClick={() => likes({ id: bookDetails.id })}
+                          disabled={disable}
+                        >
+                          {" "}
+                          {bookDetails?.like}
+                        </Button>{" "}
+                      </TagLabel>
                     </Tag>
                   </Td>
                   <Td>
@@ -265,14 +271,11 @@ const BookDetails = () => {
                         bg={"green.470"}
                         ml={-1}
                         mr={2}
-                      ></Avatar>                    
-                      <TagLabel ><Button bg={"green.470"}
-                      disabled={disable} 
-                      onClick={()=>notlike({id: bookDetails.id})}> {bookDetails?.dislike}</Button></TagLabel>
-                    </Tag>
+                      ></Avatar>
                       <TagLabel>
                         <Button
                           bg={"green.470"}
+                          disabled={disable}
                           onClick={() => notlike({ id: bookDetails.id })}
                         >
                           {" "}
@@ -280,6 +283,15 @@ const BookDetails = () => {
                         </Button>
                       </TagLabel>
                     </Tag>
+                    <TagLabel>
+                      <Button
+                        bg={"green.470"}
+                        onClick={() => notlike({ id: bookDetails.id })}
+                      >
+                        {" "}
+                        {bookDetails?.dislike}
+                      </Button>
+                    </TagLabel>
                   </Td>
                 </Tr>
                 {/* <Tr>
@@ -327,11 +339,11 @@ const BookDetails = () => {
             </Table>
           </TableContainer>
         </Center>
-      </Center>
-      <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
-      <Box mt="10">
-        <Footer />
-      </Box>
+        <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
+        <Box mt="10">
+          <Footer />
+        </Box>
+      </div>
     </>
   );
 };
