@@ -1,8 +1,10 @@
 import {Link} from 'react-router-dom';
 import landing from "../../assets/images/landing.jpg"
 import {Button,Flex,Heading,Image,Stack,Text,useBreakpointValue} from '@chakra-ui/react';
-  
+import { useAuth0 } from "@auth0/auth0-react";
+
 export default function Landing() {
+	const { loginWithRedirect } = useAuth0();
 	return (
 	  <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
 		<Flex p={8} flex={1} align={'center'} justify={'center'}>
@@ -32,7 +34,6 @@ export default function Landing() {
 			The platform with more than 60 books available Online. Subscribe to our platform and start enjoying!
 			</Text>
 			<Stack >
-			<Link to='/home'>	
 			  <Button
 			  	size={'lg'}
 				px={6}  
@@ -41,8 +42,9 @@ export default function Landing() {
 				color={'white'}
 				_hover={{
 				  bg: 'green.900',
-				}}>Sing In</Button>
-				</Link>
+				}} 
+				onClick={()=>loginWithRedirect({ returnTo: location.assign("http://localhost:3000/home") })}
+				>Sign In</Button>
 			</Stack>
 		  </Stack>
 		</Flex>

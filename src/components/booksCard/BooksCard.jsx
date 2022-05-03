@@ -1,43 +1,78 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Text, useToast } from "@chakra-ui/react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { postUser } from "../../redux/actions/user";
+import { getBooks } from "../../redux/actions/books";
 import { useSelector, useDispatch } from "react-redux";
-import { Text } from "@chakra-ui/react";
-import Filter_athors from "../../components/filter/filter_athors";
+import { BsFillBookmarkHeartFill } from 'react-icons/bs';
+import { addFavorites } from "../../redux/actions/favorites";
 import {
-  getBooks,
-  sortBooksByName,
-  sortBooksByScore,
-} from "../../redux/actions/books";
+  ChevronUpIcon,
+  ArrowDownIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
-  Center,
   Stack,
   Image,
   Button,
+  Center,
   Spinner,
-  Select,
+  IconButton,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import Filter_topic from "../../components/filter/Filter_topic";
-import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
-import Search from "../../components/searchbar/search";
+import sadBook from '../../assets/images/sadBook.png'  
 
 const BooksCard = () => {
-  const books = useSelector((state) => state.books.allBooks);
-  const searchBooks = useSelector((state) => state.books.searchBook);
+
+  const toast = useToast();
   const dispatch = useDispatch();
+  const mailUser = window.localStorage.getItem("user");
+  const books = useSelector((state) => state.books.allBooks);
+  const { user, getAccessTokenSilently, isLoading } = useAuth0();
+  const searchBooks = useSelector((state) => state.books.searchBook);
+ 
+  const newUser = {
+    mail: user?.email,
+    name: user?.nickname,
+    picture: user?.picture,
+  };
 
   useEffect(() => {
-    dispatch(getBooks());
-  }, []);
 
-  function handleSortByName(e) {
-    e.preventDefault();
-    dispatch(sortBooksByName(e.target.value));
-  }
-  function handleSortByScore(e) {
-    e.preventDefault();
-    dispatch(sortBooksByScore(e.target.value));
-  }
+    const f = async () => {
+      const token = await getAccessTokenSilently();
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", newUser.mail);
+      const email2 = localStorage.getItem("user");
+      dispatch(getBooks(token, email2));
+    };
+    f();
+
+    if (isLoading === false) {
+      dispatch(postUser(newUser));
+    }
+  }, [isLoading]);
+
+  const addFavorite = async function (bookId) {
+    let string = await dispatch(addFavorites({ userId: mailUser, bookId: bookId }))
+    if (string.payload === "favorite already exists") {
+      toast({
+        title: "Already in favorite",
+        description: "You can find your favorites in your profile",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Added to favorites",
+        description: "You can find it in your favorites",
+        status: "success",
+        duration: 10000,
+        isClosable: true,
+      })
+    }
+  };
 
   if (books.length === 0 || undefined) {
     return (
@@ -52,51 +87,23 @@ const BooksCard = () => {
       </Center>
     );
   }
+
   return (
     <>
-     
-        <Select
-          onChange={(e) => handleSortByName(e)}
-          bg={"green.200"}
-          size="sm"
-          width={"10rem"}
-          marginLeft="45%"
-        >
-          <option value="selected" hidden>
-            Alphabetic
-          </option>
-          <option value="Asc">A - Z</option>
-          <option value="Desc">Z - A</option>
-        </Select>
-        <Select
-          onChange={(e) => handleSortByScore(e)}
-          bg={"green.200"}
-          size="sm"
-          width={"10rem"}
-          marginLeft="45%"
-        >
-          <option value="selected" hidden>
-            Popularity
-          </option>
-          <option value="Asc">Most popular</option>
-          <option value="Desc">Less popular</option>
-        </Select>
-    
-
-      <Search />
-      <Filter_athors />
-      <Filter_topic />
-
       <Center py={12} flexWrap={"wrap"}>
         {searchBooks?.[0] === "No books found" ? (
+          <Box  justifyContent={"center"}>
           <Text fontSize="5xl" fontWeight="bold">
-           No books found :(
+            No books found 
           </Text>
+          <Image src={sadBook} alt="book Not Found" boxSize='200px'
+    objectFit='cover' ml="25%" mt="10"/>
+          </Box>
         ) : (
           books?.length &&
-          books?.map((e) => (
+          books?.map((book) => (
             <Box
-              key={e.id}
+              key={book.id}
               role={"group"}
               pb={6}
               pt={6}
@@ -114,39 +121,57 @@ const BooksCard = () => {
                 transform: "translateY(-1%)",
               }}
             >
-              <Link to={`/details/${e.id}`}>
+              <Link to={`/details/${book.id}`}>
                 <Box rounded={"lg"} mt={-12} pos={"relative"} height={"310px"}>
                   <Center>
-                    <Image height={300} src={e.cover} />
+                    <Image height={300} src={book.cover} />
                   </Center>
                 </Box>
               </Link>
               <Center>
                 <Stack direction="row" spacing={2} m={5}>
-                  <Button
-                    colorScheme="red"
-                    bg={"green.500"}
-                    size="sm"
-                    leftIcon={<ChevronUpIcon size="sm" />}
-                    _hover={{
-                      background: "green.400",
-                    }}
-                  >
-                    Read Online
-                  </Button>
+                  <Link to={`/read/${book.id}`}>
+                    <Button
+                      colorScheme="red"
+                      bg={"green.500"}
+                      size="sm"
+                      leftIcon={<ChevronUpIcon  />}
+                      _hover={{
+                        background: "green.400",
+                      }}
+                    >
+                      Read Online
+                    </Button>
+                  </Link>
 
-                  <Button
-                    rightIcon={<ArrowDownIcon size="sm" />}
-                    colorScheme="red"
-                    color={"green.400"}
+                  <a href={book.epub} download={book.title}>
+                    <Button
+                      rightIcon={<ArrowDownIcon  />}
+                      colorScheme="red"
+                      color={"green.400"}
+                      _hover={{
+                        color: "green.200",
+                      }}
+                      variant="outline"
+                      size="sm"
+                    >
+                      Download
+                    </Button>
+                  </a>
+
+
+                  <IconButton
+                    bg="gray.800"
+                    color="green.500"
+                    borderRadius="50"
                     _hover={{
                       color: "green.200",
                     }}
-                    variant="outline"
                     size="sm"
-                  >
-                    Download
-                  </Button>
+                    onClick={() => addFavorite(book.id)}
+                    icon={<BsFillBookmarkHeartFill size="30px" />}
+                  />
+
                 </Stack>
               </Center>
             </Box>
