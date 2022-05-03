@@ -20,7 +20,7 @@ import {
   Spinner,
   IconButton,
 } from "@chakra-ui/react";
-
+import sadBook from '../../assets/images/sadBook.png'  
 
 const BooksCard = () => {
 
@@ -92,9 +92,13 @@ const BooksCard = () => {
     <>
       <Center py={12} flexWrap={"wrap"}>
         {searchBooks?.[0] === "No books found" ? (
+          <Box  justifyContent={"center"}>
           <Text fontSize="5xl" fontWeight="bold">
-            No books found :(
+            No books found 
           </Text>
+          <Image src={sadBook} alt="book Not Found" boxSize='200px'
+    objectFit='cover' ml="25%" mt="10"/>
+          </Box>
         ) : (
           books?.length &&
           books?.map((book) => (
