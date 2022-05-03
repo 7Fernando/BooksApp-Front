@@ -11,7 +11,14 @@ import {
 } from '@chakra-ui/react';
 import NavBar from '../../components/navBar/navBar';
 import Footer from '../../components/footer/Footer';
-import userSin from '../../assets/images/userSin.png'
+import userSin from '../../assets/images/userSin.png';
+import lucia from '../../assets/images/lucia.jpg';
+import mateo from '../../assets/images/mateo.png';
+import lucas from '../../assets/images/lucas.jpg';
+import alejandro from '../../assets/images/alejandro.jpg';
+import joseUrbani from '../../assets/images/joseUrbani.jpg';
+import fernando from '../../assets/images/fernando.jpg';
+import joseAlcaraz from '../../assets/images/joseAlcaraz.jpg';
 
 const Testimonial = ({ children }) => {
   return <Box height={'25vh'} spacing='10px' justify='center'>{children}</Box>;
@@ -108,7 +115,7 @@ export default function WithSpeechBubbles() {
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
-              src={userSin}
+              src={mateo}
               name={'Mateo Dominguez'}
               title={'Full Stack Developer'}
             />
@@ -122,7 +129,7 @@ export default function WithSpeechBubbles() {
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
-              src={userSin}
+              src={lucas}
               name={'Lucas Heredia'}
               title={'Full Stack Developer'}
             />
@@ -136,25 +143,12 @@ export default function WithSpeechBubbles() {
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
-              src={userSin}
+              src={joseUrbani}
               name={'Jose Antonio Urbani'}
               title={'Full Stack Developer'}
             />
           </Testimonial>
-          <Testimonial>
-            <TestimonialContent>
-              <TestimonialHeading>Full Stack Developer</TestimonialHeading>
-              <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor
-             
-              </TestimonialText>
-            </TestimonialContent>
-            <TestimonialAvatar
-              src={userSin}
-              name={'Matias Filliez'}
-              title={'Full Stack Developer'}
-            />
-          </Testimonial>
+         
         </Stack>
         <Stack
           direction={{ base: 'column', md: 'row' }}
@@ -168,7 +162,7 @@ export default function WithSpeechBubbles() {
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
-              src={userSin}
+              src={fernando}
               name={'Fernando Cabezas'}
               title={'Full Stack Developer'}
             />
@@ -182,7 +176,7 @@ export default function WithSpeechBubbles() {
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
-             src={userSin}
+             src={joseAlcaraz}
               name={'Jose Miguel Alcaraz'}
               title={'Full Stack Developer'}
             />
@@ -196,7 +190,7 @@ export default function WithSpeechBubbles() {
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
-            src={userSin}
+            src={alejandro}
               name={'Alejandro Turresi'}
               title={'Full Stack Developer'}
             />
@@ -210,7 +204,7 @@ export default function WithSpeechBubbles() {
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
-              src={userSin}
+              src={lucia}
               name={'Lucia Gigena'}
               title={'Full Stack Developer'}
             />
