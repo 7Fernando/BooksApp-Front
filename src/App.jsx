@@ -11,6 +11,7 @@ import BookDetails from "./components/bookDetails/BookDetails";
 import CheckoutContainer from "./components/checkout/checkoutContainer";
 import FormContact from "./pages/Contact/FormContact";
 import About from './pages/About/About'
+import NotFound from "./pages/error/404"
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/read/:id" element={<EpubReader />} />
         <Route path="/details/:id" element={<BookDetails />} />
         <Route path="/checkout/:id" element={<CheckoutContainer />} />
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
     </div>
   );

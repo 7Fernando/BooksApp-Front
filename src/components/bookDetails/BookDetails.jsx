@@ -1,12 +1,12 @@
 import {
   Button,
   Box,
+  Center,
   IconButton,
   Spinner,
   Avatar,
   Tag,
   TagLabel,
-  Center,
   Image,
   TableContainer,
   Table,
@@ -15,10 +15,9 @@ import {
   Th,
   Td,
   Tbody,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import Carousel from "../carousel";
+import { useState, useEffect } from "react";
 import NavBar from "../navBar/navBar";
 import Footer from "../footer/Footer";
 import { Link } from "react-router-dom";
@@ -31,20 +30,25 @@ import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import englandFlag from "../../assets/images/england.svg";
 import { addFavorites } from "../../redux/actions/favorites";
 import iconProfile from "../../assets/images/Circle-icons-profile.svg";
-import { getBookDetails, clearState , sendLike, sendDislike} from "../../redux/actions/books";
+import {
+  getBookDetails,
+  clearState,
+  sendLike,
+  sendDislike,
+} from "../../redux/actions/books";
+import Carousel from "../carousel";
+import { SiHomeassistant } from "react-icons/si";
 import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
-
-
 const BookDetails = () => {
-
   const toast = useToast();
-  const { id } = useParams();
   const dispatch = useDispatch();
+  const { id } = useParams();
+
   const [prueba, setPrueba] = useState(0);
   const mailUser = window.localStorage.getItem("user");
   let bookDetails = useSelector((state) => state.books.bookDetails);
-
+  const [disable, setDisable] = useState(false);
 
   useEffect(() => {
     return () => dispatch(clearState());
@@ -54,22 +58,23 @@ const BookDetails = () => {
     dispatch(getBookDetails(id));
   }, [prueba]);
 
- 
 
- const likes =(id) =>{
-   dispatch(sendLike(id))
-   setPrueba(prueba +1)
- }
+  const likes = (id) => {
+    dispatch(sendLike(id));
+    setPrueba(prueba + 1);
+    setDisable(true);
+  };
 
-
- const notlike = (id) => {
-  dispatch(sendDislike(id));
-  setPrueba(prueba + 1)
-};
-
+  const notlike = (id) => {
+    dispatch(sendDislike(id));
+    setPrueba(prueba + 1);
+    setDisable(true);
+  };
 
   const addFavorite = async function (bookId) {
-    let string = await dispatch(addFavorites({ userId: mailUser, bookId: bookId }));
+    let string = await dispatch(
+      addFavorites({ userId: mailUser, bookId: bookId })
+    );
     if (string.payload === "favorite already exists") {
       toast({
         title: "Already in favorite",
@@ -88,6 +93,7 @@ const BookDetails = () => {
       });
     }
   };
+
   if (Object.keys(bookDetails).length === 0) {
     return (
       <Center py={12}>
@@ -103,11 +109,25 @@ const BookDetails = () => {
   }
   return (
     <>
-      <NavBar />
-
-      <Center flexDir={"column"} flexWrap={"wrap"}>
-        <Center py={6}>
-          <Image src={bookDetails?.cover} mb={2} />
+      <div>
+        <NavBar />
+        <Center mt="25">
+          {" "}
+          <Link to="/home">
+            <Button
+              mr="5"
+              colorScheme={"green"}
+              variant="solid"
+              size="sm"
+              leftIcon={<SiHomeassistant />}
+              w="100px"
+            >
+              Home
+            </Button>
+          </Link>
+        </Center>
+        <Center flexDir={"column"} flexWrap={"wrap"} mt="25">
+          <Image src={bookDetails?.cover} mb={25} />
         </Center>
         <Center mb="5">
           <Link to={`/read/${bookDetails?.id}`}>
@@ -126,7 +146,7 @@ const BookDetails = () => {
           </Link>
           <a href={bookDetails?.epub} download={bookDetails?.title}>
             <Button
-             mr="5"
+              mr="5"
               rightIcon={<ArrowDownIcon size="sm" />}
               colorScheme="red"
               color={"green.400"}
@@ -139,7 +159,6 @@ const BookDetails = () => {
               Download
             </Button>
           </a>
-
           <IconButton
             bg="transparent"
             color="green.500"
@@ -149,7 +168,7 @@ const BookDetails = () => {
             }}
             size="sm"
             onClick={() => addFavorite(bookDetails?.id)}
-            icon={<BsFillBookmarkHeartFill size="sm" />}
+            icon={<BsFillBookmarkHeartFill size="30px" />}
           />
         </Center>
 
@@ -228,10 +247,16 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      <TagLabel ><Button
-                      bg={"green.470"}
-                       onClick={()=>likes({id: bookDetails.id})}
-                      > {bookDetails?.like}</Button> </TagLabel>
+                      <TagLabel>
+                        <Button
+                          bg={"green.470"}
+                          onClick={() => likes({ id: bookDetails.id })}
+                          disabled={disable}
+                        >
+                          {" "}
+                          {bookDetails?.like}
+                        </Button>{" "}
+                      </TagLabel>
                     </Tag>
                   </Td>
                   <Td>
@@ -248,14 +273,34 @@ const BookDetails = () => {
                         ml={-1}
                         mr={2}
                       ></Avatar>
-                      
-                      <TagLabel ><Button bg={"green.470"}
-                      onClick={()=>notlike({id: bookDetails.id})}> {bookDetails?.dislike}</Button></TagLabel>
+                      <TagLabel>
+                        <Button
+                          bg={"green.470"}
+                          disabled={disable}
+                          onClick={() => notlike({ id: bookDetails.id })}
+                        >
+                          {" "}
+                          {bookDetails?.dislike}
+                        </Button>
+                      </TagLabel>
                     </Tag>
-
-                    
+                    <TagLabel>
+                      <Button
+                        bg={"green.470"}
+                        onClick={() => notlike({ id: bookDetails.id })}
+                      >
+                        {" "}
+                        {bookDetails?.dislike}
+                      </Button>
+                    </TagLabel>
                   </Td>
                 </Tr>
+                {/* <Tr>
+
+                <Td>feet</Td>
+                <Td>centimetres (cm)</Td>
+                <Td>30.48</Td>
+              </Tr> */}
               </Tbody>
             </Table>
           </TableContainer>
@@ -270,7 +315,7 @@ const BookDetails = () => {
               // borderColor={"red"}
               // borderRadius="2"
             >
-              <Thead >
+              <Thead>
                 <Tr>
                   <Th>Topics</Th>
                 </Tr>
@@ -279,14 +324,16 @@ const BookDetails = () => {
                 <Tr>
                   <Td flexDir={"column"}>
                     {bookDetails.topic.map((e) => (
-                      <Tag
-                        size="lg"
-                        colorScheme="red"
-                        borderRadius="full"
-                        m={2}
-                      >
-                        <TagLabel colorScheme="yellow">{e.name + " "}</TagLabel>
-                      </Tag>
+                      <Box key={e.id}>
+                        <Tag
+                          size="lg"
+                          colorScheme="red"
+                          borderRadius="full"
+                          m={2}
+                        >
+                          <TagLabel>{e.name + " "}</TagLabel>
+                        </Tag>
+                      </Box>
                     ))}
                   </Td>
                 </Tr>
@@ -294,11 +341,11 @@ const BookDetails = () => {
             </Table>
           </TableContainer>
         </Center>
-      </Center>
-      <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
-      <Box mt="10">
-      <Footer />
-      </Box>
+        <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
+        <Box mt="10">
+          <Footer />
+        </Box>
+      </div>
     </>
   );
 };

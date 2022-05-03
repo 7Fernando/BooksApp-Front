@@ -1,7 +1,3 @@
-import React from "react";
-import NavBar from "../navBar/navBar";
-import Footer from "../footer/Footer";
-import { Link } from "react-router-dom";
 import {
   Heading,
   Avatar,
@@ -18,29 +14,37 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
-import { MdCheckCircle } from "react-icons/md";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserByMail, modifyUser } from "../../redux/actions/user";
-import { useEffect } from "react";
-import { useState } from "react";
 import {
   getAllFavorites,
   removeFavorites,
 } from "../../redux/actions/favorites";
+import NavBar from "../navBar/navBar";
+import Footer from "../footer/Footer";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import UpdateSub from "../checkout/updateSub";
+import { MdCheckCircle } from "react-icons/md";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { getUserByMail, modifyUser } from "../../redux/actions/user";
+import CancelSub from "../checkout/cancelSub";
+
 
 export default function SocialProfileSimple() {
+  const toast = useToast();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const favorites = useSelector((state) => state.favorites.allfavorites);
+
   const [img, setImg] = useState("");
   const [name, setName] = useState("");
   const [res, setRes] = useState(false);
-  const [isShow, setIsShow] = useState(false);
   const [prueba, setPrueba] = useState(0);
+  const [isShow, setIsShow] = useState(false);
+
+  const user = useSelector((state) => state.user.user);
+  const favorites = useSelector((state) => state.favorites.allfavorites);
   const [errors, setErrors] = useState({
     name: "",
     img: "",
@@ -61,30 +65,28 @@ export default function SocialProfileSimple() {
   }
 
   const startDate = new Date(
-    user.subInfo && user.subInfo[0].currentStart * 1000
+    user.subInfo && user.subInfo[ user.subInfo.length-1].currentStart * 1000
   );
-  const lastDate = new Date(user.subInfo && user.subInfo[0].currentEnd * 1000);
+  const lastDate = new Date(user.subInfo && user.subInfo[user.subInfo.length-1].currentEnd * 1000);
   const total =
     (user.subInfo && user.subInfo[user.subInfo.length - 1].total) / 100;
   function validate() {
     let errors = {};
-    let uname = /^(?!.* (?: |$))[A-Z][a-z ]+$/i;
+    let uname = /^[a-zA-Z].*[\s\.]*$/i;
     if (!uname.test(name)) {
       errors.name =
-        "Nombre no valido, tener en cuenta espacios en blanco y signos";
+        "Nombre no valido";
     }
-    if (/\d/.test(name)) {
-      errors.name = "El nombre no puede incluir numeros";
-    }
+   
     if (name.length > 30) {
       errors.name = "El nombre debe contener menos de 30 caracteres";
     }
     if (!img) errors.img = "La imagen es requerida";
 
-    let url = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/gi;
+    let url = /https?:\/\//g;
 
     if (!url.test(img)) {
-      errors.img = "La imagen debe ser una url valida (jpg,png,jpeg,gif)";
+      errors.img = "La imagen debe ser una url valida";
     }
 
     setErrors(errors);
@@ -113,7 +115,7 @@ export default function SocialProfileSimple() {
   return (
     <>
       <NavBar />
-      <Flex justifyContent={"space-evenly"}>
+      <Flex justifyContent={"space-evenly"} mb="50">
         <Box
           maxW={"350px"}
           w={"full"}
@@ -122,8 +124,6 @@ export default function SocialProfileSimple() {
           rounded={"lg"}
           p={6}
           textAlign={"center"}
-          height='30vh'
-         
         >
           <Heading fontSize={"2xl"} fontFamily={"body"} margin={3} mb="5">
             My Favorites:
@@ -133,6 +133,7 @@ export default function SocialProfileSimple() {
               {favorites.map((b) => {
                 return (
                   <ListItem
+                    key={b.id}
                     width={"300px"}
                     mb="5"
                     h="50px"
@@ -259,7 +260,7 @@ export default function SocialProfileSimple() {
                 px={3}
               >
                 <a
-                  href={user.subInfo && user.subInfo[0].ticket}
+                  href={user.subInfo && user.subInfo[user.subInfo.length - 1].ticket}
                   target="_blank"
                 >
                   Last payment ticket
@@ -299,7 +300,10 @@ export default function SocialProfileSimple() {
             </Stack>
 
             <Box>
-              <UpdateSub userPlan={user.plan} res={res} setRes={setRes} />
+              <UpdateSub userPlan={user.plan} toast={toast} setRes={setRes} />
+            </Box>
+            <Box>
+            <CancelSub  toast={toast} setRes={setRes}></CancelSub>
             </Box>
           </Box>
         </Box>
@@ -383,7 +387,6 @@ export default function SocialProfileSimple() {
             </FormControl>
           </Box>
         </Box>
-        )
       </Flex>
       <Footer />
     </>

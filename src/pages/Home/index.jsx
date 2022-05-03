@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
 
-      <NavBar />
+      <NavBar search={true} />
 
        <Flex>
 

@@ -13,8 +13,7 @@ export default function Filter_topic() {
     dispatch(getTopic());
   }, []);
   const handleFilterTopic = (e) => {
-    console.log(e.target.value);
-    if (e.target.value === undefined) {
+    if (!e.target.value) {
       dispatch(getBooks());
     }
     dispatch(getTopicBook(e.target.value));
