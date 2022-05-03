@@ -41,7 +41,7 @@ const CancelSub = ({ toast, setRes }) => {
     if (cancelSub.data.GoodCancel) {
       setRes(false);
       toast({
-        title: `Canceled Subscription succefully`,
+        title: `Canceled Subscription successfully`,
         description: "You can see the changes right now",
         status: "success",
         duration: 10000,

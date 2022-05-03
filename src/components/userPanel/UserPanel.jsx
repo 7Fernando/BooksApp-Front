@@ -65,9 +65,9 @@ export default function SocialProfileSimple() {
   }
 
   const startDate = new Date(
-    user.subInfo && user.subInfo[0].currentStart * 1000
+    user.subInfo && user.subInfo[ user.subInfo.length-1].currentStart * 1000
   );
-  const lastDate = new Date(user.subInfo && user.subInfo[0].currentEnd * 1000);
+  const lastDate = new Date(user.subInfo && user.subInfo[user.subInfo.length-1].currentEnd * 1000);
   const total =
     (user.subInfo && user.subInfo[user.subInfo.length - 1].total) / 100;
   function validate() {

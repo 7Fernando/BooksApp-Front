@@ -1,12 +1,12 @@
 import {
   Button,
   Box,
+  Center,
   IconButton,
   Spinner,
   Avatar,
   Tag,
   TagLabel,
-  Center,
   Image,
   TableContainer,
   Table,
@@ -36,8 +36,9 @@ import {
   sendLike,
   sendDislike,
 } from "../../redux/actions/books";
-import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import Carousel from "../carousel";
+import { SiHomeassistant } from "react-icons/si";
+import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 const BookDetails = () => {
   const toast = useToast();
@@ -107,217 +108,244 @@ const BookDetails = () => {
   }
   return (
     <>
-    <div>
-
-    
-      <NavBar />
-      <Center flexDir={"column"} flexWrap={"wrap"}>
-        <Image src={bookDetails?.cover} mb={2} />
-      </Center>
-      <Center mb="5">
-        <Link to={`/read/${bookDetails?.id}`}>
-          <Button
-            mr="5"
-            colorScheme="red"
-            bg={"green.500"}
-            size="sm"
-            leftIcon={<ChevronUpIcon size="sm" />}
-            _hover={{
-              background: "green.400",
-            }}
-          >
-            Read Online
-          </Button>
-        </Link>
-        <a href={bookDetails?.epub} download={bookDetails?.title}>
-          <Button
-            mr="5"
-            rightIcon={<ArrowDownIcon size="sm" />}
-            colorScheme="red"
-            color={"green.400"}
+      <div>
+        <NavBar />
+        <Center mt="25">
+          {" "}
+          <Link to="/home">
+            <Button
+              mr="5"
+              colorScheme={"green"}
+              variant="solid"
+              size="sm"
+              leftIcon={<SiHomeassistant />}
+              w="100px"
+            >
+              Home
+            </Button>
+          </Link>
+        </Center>
+        <Center flexDir={"column"} flexWrap={"wrap"} mt="25">
+          <Image src={bookDetails?.cover} mb={25} />
+        </Center>
+        <Center mb="5">
+          <Link to={`/read/${bookDetails?.id}`}>
+            <Button
+              mr="5"
+              colorScheme="red"
+              bg={"green.500"}
+              size="sm"
+              leftIcon={<ChevronUpIcon size="sm" />}
+              _hover={{
+                background: "green.400",
+              }}
+            >
+              Read Online
+            </Button>
+          </Link>
+          <a href={bookDetails?.epub} download={bookDetails?.title}>
+            <Button
+              mr="5"
+              rightIcon={<ArrowDownIcon size="sm" />}
+              colorScheme="red"
+              color={"green.400"}
+              _hover={{
+                color: "green.200",
+              }}
+              variant="outline"
+              size="sm"
+            >
+              Download
+            </Button>
+          </a>
+          <IconButton
+            bg="transparent"
+            color="green.500"
+            borderRadius="50"
             _hover={{
               color: "green.200",
             }}
-            variant="outline"
             size="sm"
-          >
-            Download
-          </Button>
-        </a>
-        <IconButton
-          bg="transparent"
-          color="green.500"
-          borderRadius="50"
-          _hover={{
-            color: "green.200",
-          }}
-          size="sm"
-          onClick={() => addFavorite(bookDetails?.id)}
-          icon={<BsFillBookmarkHeartFill size="30px" />}
-        />
-      </Center>
+            onClick={() => addFavorite(bookDetails?.id)}
+            icon={<BsFillBookmarkHeartFill size="30px" />}
+          />
+        </Center>
 
-      <Center boxShadow="2xl" p="6" rounded="md" bg="white">
-        <TableContainer>
-          <Table variant="striped" colorScheme="green">
-            <Thead>
-              <Tr ml={"5"}>
-                <Th>Author </Th>
-                <Th>Title</Th>
-                <Th>Language</Th>
-                <Th>Views</Th>
-                <Th>Likes</Th>
-                <Th>Dislikes</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td>
-                  <Tag size="lg" colorScheme="green" borderRadius="full">
-                    <Avatar
-                      src={iconProfile}
-                      size="xs"
-                      name="Segun Adebayo"
-                      ml={-11}
-                      mr={2}
-                    />
-                    <TagLabel>{bookDetails?.author[0]?.name}</TagLabel>
-                  </Tag>
-                </Td>
-                <Td>
-                  <Tag size="lg" colorScheme="green" borderRadius="full">
-                    <TagLabel>{bookDetails?.title}</TagLabel>
-                  </Tag>
-                </Td>
-                <Td>
-                  <Tag size="lg" colorScheme="green" borderRadius="full" mb={2}>
-                    <Avatar
-                      src={
-                        bookDetails.language[0]?.name === "en"
-                          ? englandFlag
-                          : spainFlag
-                      }
-                      size="xs"
-                      name="Segun Adebayo"
-                      ml={-1}
-                      mr={2}
-                    />
-                    <TagLabel>
-                      {bookDetails?.language[0]?.name.toUpperCase()}
-                    </TagLabel>
-                  </Tag>
-                </Td>
-                <Td>
-                  <Tag size="lg" colorScheme="green" borderRadius="full" mb={2}>
-                    <ViewIcon size="xs" name="Segun Adebayo" ml={-1} mr={2} />
-                    <TagLabel>{bookDetails?.views}</TagLabel>
-                  </Tag>
-                </Td>
-                <Td>
-                  <Tag size="lg" colorScheme="green">
-                    <Avatar
-                      src={like}
-                      size="xs"
-                      bg={"green.470"}
-                      ml={-1}
-                      mr={2}
-                    ></Avatar>
+        <Center boxShadow="2xl" p="6" rounded="md" bg="white">
+          <TableContainer>
+            <Table variant="striped" colorScheme="green">
+              <Thead>
+                <Tr ml={"5"}>
+                  <Th>Author </Th>
+                  <Th>Title</Th>
+                  <Th>Language</Th>
+                  <Th>Views</Th>
+                  <Th>Likes</Th>
+                  <Th>Dislikes</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>
+                    <Tag size="lg" colorScheme="green" borderRadius="full">
+                      <Avatar
+                        src={iconProfile}
+                        size="xs"
+                        name="Segun Adebayo"
+                        ml={-11}
+                        mr={2}
+                      />
+                      <TagLabel>{bookDetails?.author[0]?.name}</TagLabel>
+                    </Tag>
+                  </Td>
+                  <Td>
+                    <Tag size="lg" colorScheme="green" borderRadius="full">
+                      <TagLabel>{bookDetails?.title}</TagLabel>
+                    </Tag>
+                  </Td>
+                  <Td>
+                    <Tag
+                      size="lg"
+                      colorScheme="green"
+                      borderRadius="full"
+                      mb={2}
+                    >
+                      <Avatar
+                        src={
+                          bookDetails.language[0]?.name === "en"
+                            ? englandFlag
+                            : spainFlag
+                        }
+                        size="xs"
+                        name="Segun Adebayo"
+                        ml={-1}
+                        mr={2}
+                      />
+                      <TagLabel>
+                        {bookDetails?.language[0]?.name.toUpperCase()}
+                      </TagLabel>
+                    </Tag>
+                  </Td>
+                  <Td>
+                    <Tag
+                      size="lg"
+                      colorScheme="green"
+                      borderRadius="full"
+                      mb={2}
+                    >
+                      <ViewIcon size="xs" name="Segun Adebayo" ml={-1} mr={2} />
+                      <TagLabel>{bookDetails?.views}</TagLabel>
+                    </Tag>
+                  </Td>
+                  <Td>
+                    <Tag size="lg" colorScheme="green">
+                      <Avatar
+                        src={like}
+                        size="xs"
+                        bg={"green.470"}
+                        ml={-1}
+                        mr={2}
+                      ></Avatar>
+                      <TagLabel>
+                        <Button
+                          bg={"green.470"}
+                          onClick={() => likes({ id: bookDetails.id })}
+                          disabled={disable}
+                        >
+                          {" "}
+                          {bookDetails?.like}
+                        </Button>{" "}
+                      </TagLabel>
+                    </Tag>
+                  </Td>
+                  <Td>
+                    <Tag
+                      size="lg"
+                      colorScheme="green"
+                      borderRadius="full"
+                      mb={2}
+                    >
+                      <Avatar
+                        src={dislike}
+                        size="xs"
+                        bg={"green.470"}
+                        ml={-1}
+                        mr={2}
+                      ></Avatar>
+                      <TagLabel>
+                        <Button
+                          bg={"green.470"}
+                          disabled={disable}
+                          onClick={() => notlike({ id: bookDetails.id })}
+                        >
+                          {" "}
+                          {bookDetails?.dislike}
+                        </Button>
+                      </TagLabel>
+                    </Tag>
                     <TagLabel>
                       <Button
                         bg={"green.470"}
-                        onClick={() => likes({ id: bookDetails.id })}
-                        disabled={disable}
-                      >
-                        {" "}
-                        {bookDetails?.like}
-                      </Button>{" "}
-                    </TagLabel>
-                  </Tag>
-                </Td>
-                <Td>
-                  <Tag size="lg" colorScheme="green" borderRadius="full" mb={2}>
-                    <Avatar
-                      src={dislike}
-                      size="xs"
-                      bg={"green.470"}
-                      ml={-1}
-                      mr={2}
-                    ></Avatar>
-                    <TagLabel>
-                      <Button
-                        bg={"green.470"}
-
-                        disabled={disable}
                         onClick={() => notlike({ id: bookDetails.id })}
                       >
                         {" "}
                         {bookDetails?.dislike}
                       </Button>
                     </TagLabel>
-                  </Tag>
-                  <TagLabel>
-                    <Button
-                      bg={"green.470"}
-                      onClick={() => notlike({ id: bookDetails.id })}
-                    >
-                      {" "}
-                      {bookDetails?.dislike}
-                    </Button>
-                  </TagLabel>
-                </Td>
-              </Tr>
-              {/* <Tr>
+                  </Td>
+                </Tr>
+                {/* <Tr>
 
                 <Td>feet</Td>
                 <Td>centimetres (cm)</Td>
                 <Td>30.48</Td>
               </Tr> */}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Center>
-      <Center boxShadow="2xl" p="6" rounded="md" bg="white" m={"5"}>
-        <TableContainer>
-          <Table
-            variant="striped"
-            colorScheme="green"
-            width={5}
-            // border={"solid"}
-            // borderColor={"red"}
-            // borderRadius="2"
-          >
-            <Thead>
-              <Tr>
-                <Th>Topics</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td flexDir={"column"}>
-                  {bookDetails.topic.map((e) => (
-                    <Box key={e.id}>
-                      <Tag
-                        size="lg"
-                        colorScheme="red"
-                        borderRadius="full"
-                        m={2}
-                      >
-                        <TagLabel>{e.name + " "}</TagLabel>
-                      </Tag>
-                    </Box>
-                  ))}
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Center>
-      <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
-      <Box mt="10">
-        <Footer />
-      </Box>
-    </div>    
-</>
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </Center>
+        <Center boxShadow="2xl" p="6" rounded="md" bg="white" m={"5"}>
+          <TableContainer>
+            <Table
+              variant="striped"
+              colorScheme="green"
+              width={5}
+              // border={"solid"}
+              // borderColor={"red"}
+              // borderRadius="2"
+            >
+              <Thead>
+                <Tr>
+                  <Th>Topics</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td flexDir={"column"}>
+                    {bookDetails.topic.map((e) => (
+                      <Box key={e.id}>
+                        <Tag
+                          size="lg"
+                          colorScheme="red"
+                          borderRadius="full"
+                          m={2}
+                        >
+                          <TagLabel>{e.name + " "}</TagLabel>
+                        </Tag>
+                      </Box>
+                    ))}
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </Center>
+        <Carousel bookDetails={bookDetails} title={"Suggestions for you"} />
+        <Box mt="10">
+          <Footer />
+        </Box>
+      </div>
+    </>
   );
 };
 export default BookDetails;
