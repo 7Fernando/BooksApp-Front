@@ -87,7 +87,7 @@ export default function Carousel({ bookDetails, title }) {
 
   return (
     <>
-      {searching.length < 63 ? null : (
+      {searching.length < 50 ? null : (
         <Box
           position={"relative"}
           height={"450px"}
