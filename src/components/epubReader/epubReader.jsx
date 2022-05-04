@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { ReactReader } from "react-reader";
 import { Box } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getBookDetails } from "../../redux/actions/books";
+// import Home from '../../pages/Home'
 
 
 const EpubReader = () => {
@@ -21,7 +22,7 @@ const EpubReader = () => {
   const url= book.epub?.split(".images")[0]
   return (
     <>
-      <Box height="100vh" >
+      <Box height="95vh" >
 
         <ReactReader
           location={location}
@@ -29,6 +30,7 @@ const EpubReader = () => {
           url= {url}
         />
 
+        <Link to="/home">Back to shelf</Link>
       </Box>
     </>
   );
