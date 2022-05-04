@@ -2,7 +2,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
 import NavBar from "../navBar33/navBar33";
+
 import Footer from "../footer/Footer";
 import {
   getAllFavorites,
@@ -45,7 +47,7 @@ export default function Favorite() {
 
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <Center flexWrap={"wrap"} mb="35" minH="calc(100vh - 95px)">
         {all.length ? (
           all.map((book) => (
