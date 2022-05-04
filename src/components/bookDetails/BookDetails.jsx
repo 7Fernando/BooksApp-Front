@@ -284,7 +284,7 @@ const BookDetails = () => {
                         </Button>
                       </TagLabel>
                     </Tag>
-                    <TagLabel>
+                    {/* <TagLabel>
                       <Button
                         bg={"green.470"}
                         onClick={() => notlike({ id: bookDetails.id })}
@@ -292,7 +292,7 @@ const BookDetails = () => {
                         {" "}
                         {bookDetails?.dislike}
                       </Button>
-                    </TagLabel>
+                    </TagLabel> */}
                   </Td>
                 </Tr>
                 {/* <Tr>
