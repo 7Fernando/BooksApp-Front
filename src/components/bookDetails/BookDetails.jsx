@@ -58,6 +58,7 @@ const BookDetails = () => {
     dispatch(getBookDetails(id));
   }, [prueba]);
 
+
   const likes = (id) => {
     dispatch(sendLike(id));
     setPrueba(prueba + 1);
@@ -283,7 +284,7 @@ const BookDetails = () => {
                         </Button>
                       </TagLabel>
                     </Tag>
-                    <TagLabel>
+                    {/* <TagLabel>
                       <Button
                         bg={"green.470"}
                         onClick={() => notlike({ id: bookDetails.id })}
@@ -291,7 +292,7 @@ const BookDetails = () => {
                         {" "}
                         {bookDetails?.dislike}
                       </Button>
-                    </TagLabel>
+                    </TagLabel> */}
                   </Td>
                 </Tr>
                 {/* <Tr>
