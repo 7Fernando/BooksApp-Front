@@ -20,7 +20,7 @@ const CancelSub = ({ toast, setRes }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
   let navigate = useNavigate();
-  console.log(112, navigate )
+
   const cancelingSub = async () => {
     const email = localStorage.getItem("user");
     const token = localStorage.getItem("token");
@@ -37,7 +37,7 @@ const CancelSub = ({ toast, setRes }) => {
       },
       autorizacion
     );
-    console.log("cancelSub", cancelSub);
+ 
     if (cancelSub.data.GoodCancel) {
       setRes(false);
       toast({

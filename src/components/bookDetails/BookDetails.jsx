@@ -42,13 +42,14 @@ import { ViewIcon, ArrowDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 const BookDetails = () => {
   const toast = useToast();
-  const dispatch = useDispatch();
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const [prueba, setPrueba] = useState(0);
-  const mailUser = window.localStorage.getItem("user");
-  let bookDetails = useSelector((state) => state.books.bookDetails);
   const [disable, setDisable] = useState(false);
+  const mailUser = window.localStorage.getItem("user");
+  const userPlan = useSelector((state) => state.user.user.plan);
+  let bookDetails = useSelector((state) => state.books.bookDetails);
 
   useEffect(() => {
     return () => dispatch(clearState());
@@ -144,10 +145,34 @@ const BookDetails = () => {
               Read Online
             </Button>
           </Link>
-          <a href={bookDetails?.epub} download={bookDetails?.title}>
+          <Box display={userPlan === "LOVER" ? "block" : "none"}>
+            <a href={bookDetails.epub} download={bookDetails.title}>
+              <Button
+                rightIcon={<ArrowDownIcon />}
+                colorScheme="red"
+                color={"green.400"}
+                _hover={{
+                  color: "green.200",
+                }}
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  toast({
+                    title: "Download successfully.",
+                    status: "success",
+                    duration: 8000,
+                    isClosable: true,
+                  })
+                }
+              >
+                Download
+              </Button>
+            </a>
+          </Box>
+
+          <Box display={userPlan !== "LOVER" ? "block" : "none"}>
             <Button
-              mr="5"
-              rightIcon={<ArrowDownIcon size="sm" />}
+              rightIcon={<ArrowDownIcon />}
               colorScheme="red"
               color={"green.400"}
               _hover={{
@@ -155,10 +180,19 @@ const BookDetails = () => {
               }}
               variant="outline"
               size="sm"
+              onClick={() =>
+                toast({
+                  title: `Downloads are allowed only in the LOVER plan.
+                             You can change the plan in the user panel.`,
+                  duration: 8000,
+                  isClosable: true,
+                })
+              }
             >
               Download
             </Button>
-          </a>
+          </Box>
+
           <IconButton
             bg="transparent"
             color="green.500"

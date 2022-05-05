@@ -45,7 +45,7 @@ const UpdateSub = ({ userPlan, toast, setRes }) => {
         },
         autorizacion
       );
-      setRes(false);
+      
       toast({
         title: `Plan changed to ${namePlan}`,
         description: "You can see the changes right now",
@@ -53,6 +53,7 @@ const UpdateSub = ({ userPlan, toast, setRes }) => {
         duration: 10000,
         isClosable: true,
       });
+      setRes(false);
     }
     setRes(false);
   };

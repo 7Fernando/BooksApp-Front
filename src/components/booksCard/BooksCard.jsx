@@ -5,12 +5,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { postUser } from "../../redux/actions/user";
 import { getBooks } from "../../redux/actions/books";
 import { useSelector, useDispatch } from "react-redux";
-import { BsFillBookmarkHeartFill } from 'react-icons/bs';
+import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { addFavorites } from "../../redux/actions/favorites";
-import {
-  ChevronUpIcon,
-  ArrowDownIcon,
-} from "@chakra-ui/icons";
+import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import {
   Box,
   Stack,
@@ -20,17 +17,17 @@ import {
   Spinner,
   IconButton,
 } from "@chakra-ui/react";
-import sadBook from '../../assets/images/sadBook.png'  
+import sadBook from "../../assets/images/sadBook.png";
 
 const BooksCard = () => {
-
   const toast = useToast();
   const dispatch = useDispatch();
+  const userPlan = useSelector((state) => state.user.user.plan);
   const mailUser = window.localStorage.getItem("user");
   const books = useSelector((state) => state.books.allBooks);
   const { user, getAccessTokenSilently, isLoading } = useAuth0();
   const searchBooks = useSelector((state) => state.books.searchBook);
- 
+
   const newUser = {
     mail: user?.email,
     name: user?.nickname,
@@ -38,7 +35,6 @@ const BooksCard = () => {
   };
 
   useEffect(() => {
-
     const f = async () => {
       const token = await getAccessTokenSilently();
       localStorage.setItem("token", token);
@@ -54,7 +50,9 @@ const BooksCard = () => {
   }, [isLoading]);
 
   const addFavorite = async function (bookId) {
-    let string = await dispatch(addFavorites({ userId: mailUser, bookId: bookId }))
+    let string = await dispatch(
+      addFavorites({ userId: mailUser, bookId: bookId })
+    );
     if (string.payload === "favorite already exists") {
       toast({
         title: "Already in favorite",
@@ -70,7 +68,7 @@ const BooksCard = () => {
         status: "success",
         duration: 10000,
         isClosable: true,
-      })
+      });
     }
   };
 
@@ -92,12 +90,18 @@ const BooksCard = () => {
     <>
       <Center py={12} flexWrap={"wrap"}>
         {searchBooks?.[0] === "No books found" ? (
-          <Box  justifyContent={"center"}>
-          <Text fontSize="5xl" fontWeight="bold">
-            No books found 
-          </Text>
-          <Image src={sadBook} alt="book Not Found" boxSize='200px'
-    objectFit='cover' ml="25%" mt="10"/>
+          <Box justifyContent={"center"}>
+            <Text fontSize="5xl" fontWeight="bold">
+              No books found
+            </Text>
+            <Image
+              src={sadBook}
+              alt="book Not Found"
+              boxSize="200px"
+              objectFit="cover"
+              ml="25%"
+              mt="10"
+            />
           </Box>
         ) : (
           books?.length &&
@@ -135,7 +139,7 @@ const BooksCard = () => {
                       colorScheme="red"
                       bg={"green.500"}
                       size="sm"
-                      leftIcon={<ChevronUpIcon  />}
+                      leftIcon={<ChevronUpIcon />}
                       _hover={{
                         background: "green.400",
                       }}
@@ -143,10 +147,33 @@ const BooksCard = () => {
                       Read Online
                     </Button>
                   </Link>
-
-                  <a href={book.epub} download={book.title}>
+                  <Box display={userPlan === "LOVER" ? "block" : "none"}>
+                    <a href={book.epub} download={book.title}>
+                      <Button
+                        rightIcon={<ArrowDownIcon />}
+                        colorScheme="red"
+                        color={"green.400"}
+                        _hover={{
+                          color: "green.200",
+                        }}
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          toast({
+                            title: "Download successfully.",
+                            status: "success",
+                            duration: 8000,
+                            isClosable: true,
+                          })
+                        }
+                      >
+                        Download
+                      </Button>
+                    </a>
+                  </Box>
+                  <Box display={userPlan !== "LOVER" ? "block" : "none"}>
                     <Button
-                      rightIcon={<ArrowDownIcon  />}
+                      rightIcon={<ArrowDownIcon />}
                       colorScheme="red"
                       color={"green.400"}
                       _hover={{
@@ -154,12 +181,18 @@ const BooksCard = () => {
                       }}
                       variant="outline"
                       size="sm"
+                      onClick={() =>
+                        toast({
+                          title: `Downloads are allowed only in the LOVER plan.
+                             You can change the plan in the user panel.`,
+                          duration: 8000,
+                          isClosable: true,
+                        })
+                      }
                     >
                       Download
                     </Button>
-                  </a>
-
-
+                  </Box>
                   <IconButton
                     bg="gray.800"
                     color="green.500"
@@ -171,7 +204,6 @@ const BooksCard = () => {
                     onClick={() => addFavorite(book.id)}
                     icon={<BsFillBookmarkHeartFill size="30px" />}
                   />
-
                 </Stack>
               </Center>
             </Box>
