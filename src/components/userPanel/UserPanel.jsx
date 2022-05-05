@@ -50,7 +50,7 @@ export default function SocialProfileSimple() {
     img: "",
   });
 
-  console.log(165, user);
+
   const usuario = window.localStorage.getItem("user");
   useEffect(() => {
     dispatch(getAllFavorites(usuario));

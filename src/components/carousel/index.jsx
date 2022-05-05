@@ -9,6 +9,7 @@ import {
   Button,
   Text,
   color,
+  useToast,
 } from "@chakra-ui/react";
 import { ChevronUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
 // Here we have used react-icons package for the icons
@@ -60,9 +61,10 @@ var settings = {
 export default function Carousel({ bookDetails, title }) {
   // As we have used custom buttons, we need a reference variable to
   // change the state
-  const allTopics = useSelector((state) => state.topic.allTopics);
   const [slider, setSlider] = useState(null);
   let books = useSelector((state) => state.books.bkBooks);
+  const userPlan = useSelector((state) => state.user.user.plan);
+  const allTopics = useSelector((state) => state.topic.allTopics);
   const searching = useSelector((state) => state.books.allBooks);
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
@@ -101,7 +103,7 @@ export default function Carousel({ bookDetails, title }) {
             color={"green.400"}
             fontSize="2xl"
           >
-            {title ? `${title}` : "Popular in BookFlix:"} 
+            {title ? `${title}` : "Popular in BookFlix:"}
           </Text>
           {/* Slider */}
           <Slider {...settings} ref={(slider) => setSlider(slider)}>
@@ -151,26 +153,31 @@ export default function Carousel({ bookDetails, title }) {
                         Read Online
                       </Button>
                     </Link>
-                    <a href={e.epub} download={e.title}>
-                      <Button
-                        rightIcon={<ArrowDownIcon size="sm" />}
-                        colorScheme="red"
-                        color={"green.400"}
-                        _hover={{
-                          color: "green.200",
-                        }}
-                        variant="outline"
-                        size="sm"
-                      >
-                        Download
-                      </Button>
-                    </a>
-
-
-               
-
-
-
+                    <Box display={userPlan === "LOVER" ? "block" : "none"}>
+                      <a href={e.epub} download={e.title}>
+                        <Button
+                          rightIcon={<ArrowDownIcon />}
+                          colorScheme="red"
+                          color={"green.400"}
+                          _hover={{
+                            color: "green.200",
+                          }}
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            toast({
+                              title: "Download successfully.",
+                              status: "success",
+                              duration: 8000,
+                              isClosable: true,
+                            })
+                          }
+                        >
+                          Download
+                        </Button>
+                      </a>
+                    </Box>
+              
                   </Stack>
                 </Center>
               </Box>

@@ -95,7 +95,7 @@ const CheckoutForm = () => {
         },
         autorizacion
       );
-       console.log(res)
+    
       const res2 = await axios.put(
         "http://localhost:3001/api/users/updateSub",
         {
