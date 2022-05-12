@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRef } from "react";
 import { RepeatIcon } from "@chakra-ui/icons";
-const URL = import.meta.env.VITE_BASE_URL;
+
 import {
   Box,
   Button,
@@ -29,7 +29,7 @@ const CancelSub = ({ toast, setRes }) => {
       headers: { authorization: `Bearer ${token}`, userMail: email },
     };
 
-    const url = `${URL}/author/sub/cancelSub`;
+    const url = `https://bookflix-back.herokuapp.com/api/author/sub/cancelSub`;
     setRes(true);
     const cancelSub = await axios.put(
       url,
