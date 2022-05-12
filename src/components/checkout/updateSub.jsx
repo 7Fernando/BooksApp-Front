@@ -12,6 +12,7 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
 } from "@chakra-ui/react";
+const URL = import.meta.env.VITE_BASE_URL;
 
 const UpdateSub = ({ userPlan, toast, setRes }) => {
   const id = userPlan === "LOVER" ? 2 : 3;
@@ -25,7 +26,7 @@ const UpdateSub = ({ userPlan, toast, setRes }) => {
       headers: { authorization: `Bearer ${token}`, userMail: email },
     };
     
-    const url = "http://localhost:3001/api/sub/changeSubscription";
+    const url =  `${URL}/sub/changeSubscription`;
     setRes(true);
     const changePlan = await axios.put(
       url,
@@ -38,7 +39,7 @@ const UpdateSub = ({ userPlan, toast, setRes }) => {
 
     if (changePlan.data.GoodChange) {
       const update = await axios.put(
-        "http://localhost:3001/api/sub",
+        `${URL}/sub`,
         {
           email: email,
           idPlan: id,
