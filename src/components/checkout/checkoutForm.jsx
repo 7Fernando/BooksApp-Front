@@ -23,6 +23,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useParams } from "react-router-dom";
 import { postUser } from "../../redux/actions/user";
 import { getBooks } from "../../redux/actions/books";
+const URL = import.meta.env.VITE_BASE_URL;
 
 const CheckoutForm = () => {
   const { id } = useParams();
@@ -87,7 +88,7 @@ const CheckoutForm = () => {
       setLoading(true);
      
       const res = await axios.post(
-        "http://localhost:3001/api/sub",
+        `${URL}/sub`,
         {
           payment_method: result.paymentMethod.id,
           email: emailLc,
@@ -97,7 +98,7 @@ const CheckoutForm = () => {
       );
     
       const res2 = await axios.put(
-        "http://localhost:3001/api/users/updateSub",
+        `${URL}/users/updateSub`,
         {
           idSub: res?.data?.hola?.id,
           userMail: emailLc,
@@ -107,7 +108,7 @@ const CheckoutForm = () => {
 
 
       const update = await axios.put(
-        "http://localhost:3001/api/sub",
+        `${URL}/sub`,
         {
           email: emailLc,
           idPlan: id,

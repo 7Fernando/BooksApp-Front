@@ -4,12 +4,13 @@ import Plans from "../checkout/plans";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Center, Spinner } from "@chakra-ui/react";
+const URL = import.meta.env.VITE_BASE_URL;
 
 const Validation = () => {
 
   const [loading, setLoading] = useState(false);
   const [permission, setPermission] = useState("");
-  const url = "http://localhost:3001/api/sub/confirmation";
+  const url = `${URL}/sub/confirmation`;
   const { user, getAccessTokenSilently, isLoading } = useAuth0();
 
   useEffect(() => {
