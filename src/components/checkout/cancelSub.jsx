@@ -29,7 +29,7 @@ const CancelSub = ({ toast, setRes }) => {
       headers: { authorization: `Bearer ${token}`, userMail: email },
     };
 
-    const url = `https://bookflix-back.herokuapp.com/api/author/sub/cancelSub`;
+    const url = `https://bookflix-back.herokuapp.com/api/sub/cancelSub`;
     setRes(true);
     const cancelSub = await axios.put(
       url,
