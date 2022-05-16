@@ -63,7 +63,7 @@ export const modifyUser = (user) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `${url}/users/modify`,
+        `${url}/users/users/modify`,
         user,
         autorizacion()
       );
